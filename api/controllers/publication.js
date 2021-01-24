@@ -86,6 +86,8 @@ function getPublicationsUser(req, res) {
     let page = 1;
     if (req.params.page) {
         page = req.params.page;
+    } else {
+        page = req.params.id;
     }
 
     const itemsPerPage = 5;

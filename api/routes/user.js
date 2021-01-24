@@ -15,7 +15,7 @@ const UserController = require('../controllers/user');
 api.post('/register', UserController.registerUser);
 api.post('/login', UserController.loginUser);
 api.get('/user/:id', md_auth.ensureAuth, UserController.getUser);
-api.get('/users', md_auth.ensureAuth, UserController.getUsers);
+api.get('/users/:page?', md_auth.ensureAuth, UserController.getUsers);
 api.get('/counters/:id?', md_auth.ensureAuth, UserController.getCounters);
 api.put('/update-user/:id', md_auth.ensureAuth, UserController.updateUser);
 api.post('/update-profile/:id', md_auth.ensureAuth,

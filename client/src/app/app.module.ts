@@ -10,6 +10,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 
+// Servicios:
+import { UserService } from './services/user.service';
+import { UserGuard } from './services/user.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +25,11 @@ import { HomeComponent } from './components/home/home.component';
     routing,
     HttpClientModule
   ],
-  providers: [appRoutingProviders],
+  providers: [
+    appRoutingProviders,
+    UserService,
+    UserGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

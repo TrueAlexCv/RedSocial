@@ -8,11 +8,11 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 
 export class HomeComponent implements OnInit {
     public title: string;
-    
+
     constructor() {
         this.title = "Home"
     }
-    
+
     ngOnInit() {
         console.log('home.component ha sido cargado correctamente');
     }

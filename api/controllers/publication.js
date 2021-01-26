@@ -98,7 +98,8 @@ function getPublicationsUser(req, res) {
             .paginate(page, itemsPerPage, (err, publications, total) => {
                 if (err)
                     return res.status(500).send({
-                        message: "[ERROR]: Petición de las publicaciones del usuario"
+                        message: "[ERROR]: Petición de las publicaciones " +
+                                "del usuario"
                     });
                 if (!publications)
                     return res.status(404).send({
@@ -134,11 +135,11 @@ function getTimeline(req, res) {
             return res.status(404).send({
                 message: "[ERROR]: El usuario no sigue a nadie"
             });
-        let follows_clean = [];
+        var follows_clean = [];
         follows.forEach((follow) => {
             follows_clean.push(follow.followed);
+            follows_clean.push(userId);
         });
-        follows_clean.push(userId);
 
         Publication.find({
             user: {"$in": follows_clean}
@@ -146,11 +147,13 @@ function getTimeline(req, res) {
                 .paginate(page, itemsPerPage, (err, publications, total) => {
                     if (err)
                         return res.status(500).send({
-                            message: "[ERROR]: Petición al devolver las publicaciones"
+                            message: "[ERROR]: Petición al devolver las " +
+                                    "publicaciones"
                         });
                     if (!publications)
                         return res.status(404).send({
-                            message: "[ERROR]: Los usuarios no tienen publicaciones"
+                            message: "[ERROR]: Los usuarios no tienen " +
+                                    "publicaciones"
                         });
                     return res.status(200).send({
                         total_items: total,
@@ -220,9 +223,9 @@ function uploadImage(req, res) {
 function getImage(req, res) {
     let image = req.params.image;
     let path_file = './uploads/publications/' + image;
-    
+
     fs.exists(path_file, (exists) => {
-        if(exists) {
+        if (exists) {
             res.sendFile(path.resolve(path_file));
         } else {
             res.status(200).send({

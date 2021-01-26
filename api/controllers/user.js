@@ -234,21 +234,21 @@ async function countersUser(userId) {
         }).exec().then((value) => {
             return value;
         }).catch((err) => {
-            return handleError(err);
+            return;
         });
         var followed = await Follow.countDocuments({
             'followed': userId
         }).exec().then((value) => {
             return value;
         }).catch((err) => {
-            return handleError(err);
+            return;
         });
         var publications = await Publication.countDocuments({
             'user': userId
         }).exec().then((value) => {
             return value;
         }).catch((err) => {
-            return handleError(err);
+            return;
         });
         return {
             following: following,

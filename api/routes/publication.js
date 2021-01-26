@@ -19,7 +19,7 @@ api.get('/publication/:id', md_auth.ensureAuth,
         PublicationController.getPublication);
 api.get('/publications/:user?/:page?', md_auth.ensureAuth,
         PublicationController.getPublicationsUser);
-api.get('/timeline', md_auth.ensureAuth, PublicationController.getTimeline);
+api.get('/timeline/:page?', md_auth.ensureAuth, PublicationController.getTimeline);
 api.post('/publication-image/:id', [md_auth.ensureAuth, md_upload],
         PublicationController.uploadImage);
 api.get('/publication-image/:image',

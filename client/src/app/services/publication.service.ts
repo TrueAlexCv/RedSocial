@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/htpp';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GLOBAL } from './global';
 import { Publication } from '../models/publication';
@@ -15,7 +15,7 @@ export class PublicationService {
         this.url = GLOBAL.url;
     }
     
-    makePublication(token, publication): Observable<any> {
+    makePublication(token: any, publication: any): Observable<any> {
         let params = JSON.stringify(publication);
         let headers = new HttpHeaders().set('Content-Type', 'application/json')
         .set('Authorization', token);
@@ -24,7 +24,7 @@ export class PublicationService {
         {headers:headers});
     }
     
-    deletePublication(token, id): Observable<any> {
+    deletePublication(token: any, id: any): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json')
         .set('Authorization', token);
         
@@ -32,7 +32,7 @@ export class PublicationService {
         {headers:headers});
     }
     
-    getPublication(token, id) {
+    getPublication(token: any, id: any) {
         let headers = new HttpHeaders().set('Content-Type', 'application/json')
         .set('Authorization', token);
         
@@ -40,8 +40,9 @@ export class PublicationService {
         {headers:headers});
     }
     
-    getPublicationsUser(token, userId = null, page = 1): Observable<any> {
-        let headers = new HttpHeaders().set('Content-Type', 'applicaiton/json')
+    getPublicationsUser(token: any, userId: any = null, page = 1)
+        : Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json')
         .set('Authorization', token);
         
         if(userId != null) {
@@ -53,7 +54,7 @@ export class PublicationService {
         }
     }
     
-    getTimeline(token, page = 1): Observable<any> {
+    getTimeline(token: any, page = 1): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json')
         .set('Authorization', token);
         

@@ -1,0 +1,12 @@
+<h1>{{title}}</h1>
+
+<div class="timeline">
+    <div *ngFor="let publication of publications" class="timeline_box">
+        <h3>{{publication.user.nick}} | @{{publication.user.name}}</h3>
+        <span class="date">
+            {{ publication.created_at }}
+        </span>
+        <p>{{publication.text}}</p>
+        <hr/>
+    </div>
+</div>

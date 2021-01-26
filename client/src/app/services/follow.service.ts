@@ -1,4 +1,4 @@
-import { Injectable } frmo '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GLOBAL } from './global';
@@ -15,7 +15,7 @@ export class FollowService {
         this.url = GLOBAL.url;
     }
     
-    followUser(token, follow): Observable<any> {
+    followUser(token: any, follow: any): Observable<any> {
         let params = JSON.stringify(follow);
         let headers = new HttpHeaders().set('Content-Type', 'application/json')
         .set('Authorization', token);
@@ -23,7 +23,7 @@ export class FollowService {
         return this._http.post(this.url + 'follow' , params, {headers:headers});
     }
     
-    unfollowUser(token, id): Observable<any> {
+    unfollowUser(token: any, id: any): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json')
         .set('Authorization', token);
         
@@ -31,7 +31,8 @@ export class FollowService {
         {headers:headers});
     }
     
-    getFollowingUsers(token, userId=null, page=1): Observable<any> {
+    getFollowingUsers(token: any, userId: any = null, page: any = 1)
+        : Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json')
         .set('Authorization', token);
         
@@ -44,7 +45,8 @@ export class FollowService {
         }
     }
     
-    getFollowedUsers(token, userId = null, page = 1): Observable<any> {
+    getFollowedUsers(token: any, userId: any = null, page: any = 1)
+        : Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json')
         .set('Authorization', token);
         
@@ -57,7 +59,7 @@ export class FollowService {
         }
     }
     
-    getOnlyFollowing(token): Observable<any> {
+    getOnlyFollowing(token: any): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/json')
         .set('Authorization', token);
         

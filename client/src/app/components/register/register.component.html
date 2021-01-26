@@ -1,0 +1,52 @@
+<div>
+    {{title}}
+</div>
+
+<div *ngIf="status == 'success'">
+    Usuario registrado
+</div>
+
+<div *ngIf="status == 'error'">
+    Usuario NO registrado
+</div>
+
+<form #register="ngForm" (ngSubmit)="onSubmit(register)" class="formulario">
+    <div>
+        <label>Nombre:</label>
+        <input type='text' name='name' #name="ngModel" [(ngModel)]="user.name" 
+               required maxlength = 50 />
+        <span *ngIf='!name.valid && name.touched'>
+            El nombre no es válido
+        </span>
+    </div>
+    <div>
+        <label>Nick:</label>
+        <input type='text' name='nick' #nick="ngModel" [(ngModel)]="user.nick" 
+               required minlength = 3 maxlength = 15 />
+        <span *ngIf='!nick.valid && nick.touched'>
+            El nick no es válido
+        </span>
+    </div>
+    <div>
+        <label>Email:</label>
+        <input type='email' name='email' #email="ngModel" 
+               [(ngModel)]="user.email" 
+               required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+        <span *ngIf='!email.valid && email.touched'>
+            El email no es válido
+        </span>
+    </div>
+    <div>
+        <label>Contraseña:</label>
+        <input type='password' name='password' #password="ngModel" 
+               [(ngModel)]="user.password" required minlength = 6 />
+        <span *ngIf='!password.valid && password.touched'>
+            La contraseña no es válida
+        </span>
+    </div>
+    <input type='checkbox' name="terms" #terms="ngModel" [(ngModel)]="aceptado" class="terminos" required />
+    <a href='http://localhost:4200/assets/terminos_y_condiciones.html'>
+        Términos y condiciones
+    </a>
+    <input type='submit' value='Registrarse' [disabled]='!register.form.valid'/>
+</form>

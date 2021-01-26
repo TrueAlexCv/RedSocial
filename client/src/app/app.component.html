@@ -1,4 +1,7 @@
 <div class="menu">
     Prueba
+    <div *ngIf="identity">
+        <button (click)="logout()">Logout</button>
+    </div>
 </div>
 <router-outlet></router-outlet>

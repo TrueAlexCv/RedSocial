@@ -24,8 +24,8 @@ export class UserService {
                 {headers: headers});
     }
     
-    loginUser(user: User, gettoken=null): Observable<any> {
-        if(gettoken != null) {
+    loginUser(user: User, gettoken=false): Observable<any> {
+        if(gettoken) {
             user = Object.assign(user, {gettoken});
         }
         
@@ -90,7 +90,7 @@ export class UserService {
         }
     }
     
-    getCounters(userId = null): Observable<any> {
+    getCounters(userId: any): Observable<any> {
         let headers = new HttpHeaders().set('Content-Type', 'application/josn')
         .set('Authorization', this.getToken());
         

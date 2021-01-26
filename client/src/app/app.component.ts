@@ -1,10 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
+import { Router, ActivatedRoute, Params} from '@angular/router';
+import { UserService } from './services/user.service';
+import { User } from './models/user';
+import { GLOBAL } from './services/global';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [UserService]
 })
-export class AppComponent {
-  title = 'client';
+
+export class AppComponent implements OnInit, DoCheck {
+    public title: string;
+    public identity: any;
+    public url: string;
+
+    constructor(
+        private _route: ActivatedRoute,
+        private _router: Router,
+        private _userService: UserService
+        ) {
+        this.title = 'Página principal';
+        this.url = GLOBAL.url;
+    }
+    
+    ngOnInit() {
+        console.log("app.component ha sido cargado correctamente");
+        this.identity = this._userService.getIdentity();
+    }
+    
+    ngDoCheck() {
+        this.identity = this._userService.getIdentity();
+    }
+    
+    logout() {
+        localStorage.clear();
+        this.identity = null;
+        this._router.navigate(['/']);
+    }
 }

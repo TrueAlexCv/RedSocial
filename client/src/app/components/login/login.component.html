@@ -1,0 +1,32 @@
+<h1>{{title}}</h1>
+
+<span *ngIf="status == 'success'">
+    Sesión iniciada
+</span>
+
+<span *ngIf="status == 'error'">
+    Usuario incorrecto
+</span>
+
+<form #login="ngForm" (ngSubmit)="onSubmit(login)" class="formulario">
+    
+    <div>
+        <label>Email:</label>
+        <input type='email' name='email' #email="ngModel" 
+               [(ngModel)]="user.email" 
+               required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+        <span *ngIf='!email.valid && email.touched'>
+            El email no es válido
+        </span>
+    </div>
+    <div>
+        <label>Contraseña:</label>
+        <input type='password' name='password' #password="ngModel" 
+               [(ngModel)]="user.password" required minlength = 2 />
+        <span *ngIf='!password.valid && password.touched'>
+            La contraseña no es válida
+        </span>
+    </div>
+    <input type="submit" value="Iniciar Sesión" [disabled]="!login.form.valid"/>
+    
+</form>

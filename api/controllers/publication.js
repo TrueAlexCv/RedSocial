@@ -135,11 +135,11 @@ function getTimeline(req, res) {
             return res.status(404).send({
                 message: "[ERROR]: El usuario no sigue a nadie"
             });
-        var follows_clean = [];
+        let follows_clean = [];
         follows.forEach((follow) => {
             follows_clean.push(follow.followed);
-            follows_clean.push(userId);
         });
+        follows_clean.push(userId);
 
         Publication.find({
             user: {"$in": follows_clean}

@@ -1,7 +1,13 @@
 <div class="menu">
     Prueba
     <div *ngIf="identity">
-        <button (click)="logout()">Logout</button>
+      <button [routerLink]="['/timeline']">Timeline</button>
+      <button [routerLink]="['/users',1]">Gente</button>
+      <button [routerLink]="['/profile', identity._id]">Perfil</button>
+      <button [routerLink]="['/edit-user']">Editar Usuario</button>
+      <button (click)="logout()">Logout</button>
+      <button *ngIf="!open" (click)="chargeComponent()">Twittear</button>
+      <button *ngIf="open" (click)="ngOnDestroy()">Cerrar Twitteador</button>
     </div>
 </div>
 <router-outlet></router-outlet>

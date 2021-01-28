@@ -1,12 +1,30 @@
 <h1>{{title}}</h1>
 
 <div class="timeline">
-    <div *ngFor="let publication of publications" class="timeline_box">
-        <h3>{{publication.user.nick}} | @{{publication.user.name}}</h3>
-        <span class="date">
-            {{ publication.created_at }}
-        </span>
-        <p>{{publication.text}}</p>
-        <hr/>
+  <div class="timeline_boton">
+    <button (click)="refresh()">Refrescar</button>
+  </div>
+  <div *ngFor="let publication of publications" class="timeline_box">
+    <div class="publicacion_imagen">
+      <img *ngIf="publication.user.image" src="{{url+'getImage/'+publication.user.image}}"/>
+      <img *ngIf="!publication.user.image" src="assets/default/banner_default.jpg"/>
     </div>
+    <div class="publicacion_datos">
+      <h3>{{publication.user.nick}} | @{{publication.user.name}}</h3>
+      <span class="date">
+            {{ (publication.created_at) * 1000 | date: 'medium'}}
+      </span>
+    </div>
+    <p>{{publication.text}}</p>
+    <div *ngIf="publication.file != 'null'" class="publicacion_imagen">
+      <img src="{{url+'publication-image/' + publication.file}}"/>
+    </div>
+    <button *ngIf="this.identity._id == publication.user._id" (click)="deletePublication(publication._id)">
+      Borrar
+    </button>
+    <hr/>
+  </div>
+  <div *ngIf="page < pages">
+    <button (click)="viewMore()">Ver más publicaciones</button>
+  </div>
 </div>

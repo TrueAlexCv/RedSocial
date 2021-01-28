@@ -15,6 +15,11 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { ProfileComponent} from "./components/profile/profile.component";
+import { UsersComponent } from "./components/users/users.component";
+import { makePublicationComponent } from "./components/makePublication/makePublication.component";
+import { EditProfileComponent } from "./components/edit-profile/edit-profile.component";
+import { EditUserComponent } from "./components/edit-user/edit-user.component";
 
 // Servicios:
 import { UserService } from './services/user.service';
@@ -26,7 +31,12 @@ import { UserGuard } from './services/user.guard';
     HomeComponent,
     RegisterComponent,
     LoginComponent,
-    TimelineComponent
+    TimelineComponent,
+    ProfileComponent,
+    UsersComponent,
+    makePublicationComponent,
+    EditProfileComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

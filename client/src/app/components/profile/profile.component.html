@@ -1,0 +1,43 @@
+<h1>{{title}}</h1>
+
+<div *ngIf="user" class="perfil">
+  <h1>{{user.name}}</h1>
+  <h3>@{{user.nick}}</h3>
+  <p *ngIf="following">Te sigue</p>
+  <p>{{user.biography}}</p>
+  <hr/>
+  <div>
+    <button [routerLink]="['/edit-profile']">Editar perfil</button>
+  </div>
+  <div *ngIf="stats" class="perfil_stats">
+    Siguiendo: {{stats.followed}}
+    Seguidores: {{stats.followed}}
+    Publicaciones: {{stats.publications}}
+  </div>
+</div>
+
+<div class="publicationes_usuario">
+  <div class="timeline_boton">
+    <button (click)="refresh()">Refrescar</button>
+  </div>
+  <div *ngFor="let publication of publications">
+    <div class="publicacion_imagen">
+      <img *ngIf="publication.user.image" src="{{url+'/getImage/'+publication.user.image}}"/>
+      <img *ngIf="!publication.user.image" src="assets/default/banner_default.jpg"/>
+    </div>
+    <div class="publicacion_datos">
+      <h3>{{publication.user.nick}} | @{{publication.user.name}}</h3>
+      <span class="date">
+            {{ (publication.created_at) * 1000 | date: 'medium'}}
+      </span>
+    </div>
+    <p>{{publication.text}}</p>
+    <button *ngIf="this.identity._id == publication.user._id" (click)="deletePublication(publication._id)">
+      Borrar
+    </button>
+    <hr/>
+  </div>
+  <div *ngIf="page < pages">
+    <button (click)="viewMore()">Ver más publicaciones</button>
+  </div>
+</div>

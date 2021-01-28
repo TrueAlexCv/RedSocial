@@ -1,0 +1,17 @@
+<h1>{{title}}</h1>
+<div *ngFor="let user of users">
+  <div class="publicacion_imagen">
+    <img *ngIf="user.image" src="{{url+'/getImage/'+user.image}}"/>
+    <img *ngIf="!user.image" src="assets/default/banner_default.jpg"/>
+  </div>
+  <div class="publicacion_datos">
+    <h3>{{user.nick}} | @{{user.name}}</h3>
+  </div>
+  <p>{{user.biography}}</p>
+  <hr/>
+</div>
+
+<div>
+  <button *ngIf="page > 1" [routerLink]="['/users', prev]">Anterior</button>
+  <button *ngIf="page < pages" [routerLink]="['/users', next]">Siguiente</button>
+</div>

@@ -1,0 +1,8 @@
+<h1>{{title}}</h1>
+<form #make="ngForm" (ngSubmit)="makePublication(make)" class="formulario">
+  <div>
+    <textarea name="text" #text="ngModel" [(ngModel)]="publication.text"></textarea>
+    <input type="file" placeholder="Subir imagen" (change)="uploadFiles($event)" />
+    <input type="submit" value="Publicar" [disabled]="!make.form.valid"/>
+  </div>
+</form>

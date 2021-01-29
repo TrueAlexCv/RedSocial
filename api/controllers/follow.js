@@ -158,8 +158,8 @@ function getOnlyFollowing(req, res) {
     let userId = req.user.sub;
 
     let following;
-    if (req.params.followed) {
-        following = Follow.find({followed: userId});
+    if (req.params.following) {
+        following = Follow.find({user: userId});
     } else {
         following = Follow.find({user: userId});
     }

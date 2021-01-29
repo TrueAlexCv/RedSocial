@@ -15,7 +15,7 @@ api.get('/following/:id?/:page?', md_auth.ensureAuth,
         FollowController.getFollowingUsers);
 api.get('/followed/:id?/:page?', md_auth.ensureAuth,
         FollowController.getFollowedUsers);
-api.get('/only-following/:followed?', md_auth.ensureAuth,
+api.get('/only-following/:following?', md_auth.ensureAuth,
         FollowController.getOnlyFollowing);
 
 module.exports = api;

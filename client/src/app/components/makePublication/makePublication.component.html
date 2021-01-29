@@ -1,3 +1,4 @@
+<div class="publicacion">
 <h1>{{title}}</h1>
 <form #make="ngForm" (ngSubmit)="makePublication(make)" class="formulario">
   <div>
@@ -6,3 +7,4 @@
     <input type="submit" value="Publicar" [disabled]="!make.form.valid"/>
   </div>
 </form>
+</div>

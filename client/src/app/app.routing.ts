@@ -17,6 +17,8 @@ import {EditUserComponent} from "./components/edit-user/edit-user.component";
 import {UserGuard} from './services/user.guard';
 
 import {User} from "./models/user";
+import {FollowingComponent} from "./components/following/following.component";
+import {FollowedComponent} from "./components/followed/followed.component";
 
 
 const appRoutes: Routes = [
@@ -28,7 +30,9 @@ const appRoutes: Routes = [
   {path: 'users/:page', component: UsersComponent, canActivate: [UserGuard]},
   {path: 'makePublication', component: makePublicationComponent, canActivate: [UserGuard]},
   {path: 'edit-profile', component: EditProfileComponent, canActivate: [UserGuard]},
-  {path: 'edit-user', component: EditUserComponent, canActivate: [UserGuard]}
+  {path: 'edit-user', component: EditUserComponent, canActivate: [UserGuard]},
+  {path: 'following/:id/:page', component: FollowingComponent, canActivate: [UserGuard]},
+  {path: 'followed/:id/:page', component: FollowedComponent, canActivate: [UserGuard]}
 ];
 
 export const appRoutingProviders: any[] = [];

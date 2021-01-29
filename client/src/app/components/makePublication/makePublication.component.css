@@ -1,0 +1,6 @@
+.publicacion {
+  position: absolute;
+  z-index: 2;
+  border: 2px solid black;
+  width: 50vh;
+}

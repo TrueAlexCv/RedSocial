@@ -1,6 +1,96 @@
 .menu {
-    position: relative;
-    width: 100%;
-    height: 70px;
-    border: 1px solid black;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 70px;
+  border: 1px solid black;
+  background: #ff4141;
+}
+
+/* No identity: */
+
+.menu_noidentity {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+}
+
+.menu_noidentity > img {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+/* Identity: */
+.menu_opciones {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  margin-left: 5%;
+}
+
+.menu_opciones-botones {
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  margin-right: 10%;
+  border: none;
+  border-radius: 50px;
+  padding: 10px;
+  height: 80%;
+  width: 56px;
+}
+
+.menu_opciones-botones:hover {
+  background: #ff9191;
+  transition-duration: 0.2s;
+}
+
+.menu_cabecera > img {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.menu_cabecera {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+}
+
+.menu_perfil {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  margin-right: 5%;
+}
+
+.menu_perfil_opciones {
+  display: none;
+}
+
+/* makePublication */
+.makePublication {
+  position: fixed;
+  bottom: 7%;
+  right: 7%;
+  z-index: 1;
+}
+
+.makePublication_boton {
+  border-radius: 50px;
+  background: red;
+  padding: 10px;
+  outline: none;
+  border: 2px solid black;
 }

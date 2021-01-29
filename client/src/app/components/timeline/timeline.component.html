@@ -10,7 +10,7 @@
       <img *ngIf="!publication.user.image" src="assets/default/banner_default.jpg"/>
     </div>
     <div class="publicacion_datos">
-      <h3>{{publication.user.nick}} | @{{publication.user.name}}</h3>
+      <a [routerLink]="['/profile',publication.user._id]">{{publication.user.nick}} | @{{publication.user.name}}</a>
       <span class="date">
             {{ (publication.created_at) * 1000 | date: 'medium'}}
       </span>

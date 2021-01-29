@@ -1,0 +1,219 @@
+.register {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 80%;
+  border: 2px solid black;
+  border-radius: 50px;
+  background: #eee;
+}
+
+/* Cabecera: */
+
+.register_cabecera {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.register_cabecera_titulo {
+  font-size: 2rem;
+  margin-left: 5px;
+}
+
+/* Formulario: */
+
+.register_formulario {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.register_formulario_nombre {
+  position: relative;
+  display: flex;
+  flex-display: row;
+  align-items: center;
+  height: 12%;
+  margin-top: 5%;
+}
+
+.register_formulario_nombre_titulo {
+  font-size: 1.5rem;
+  width: 15%;
+  margin-left: 5%;
+}
+
+.register_formulario_nombre_input {
+  width: 50%;
+  height: 60%;
+  border: solid black;
+  border-radius: 50px;
+  padding-left: 5px;
+  outline: none;
+}
+
+.register_formulario_nick {
+  position: relative;
+  display: flex;
+  flex-display: column;
+  align-items: center;
+  height: 12%;
+}
+
+.register_formulario_nick_titulo {
+  font-size: 1.5rem;
+  width: 15%;
+  margin-left: 5%;
+}
+
+.register_formulario_nick_input {
+  width: 50%;
+  height: 60%;
+  border: solid black;
+  border-radius: 50px;
+  padding-left: 5px;
+  outline: none;
+}
+
+.register_formulario_email {
+  position: relative;
+  display: flex;
+  flex-display: column;
+  align-items: center;
+  height: 12%;
+}
+
+.register_formulario_email_titulo {
+  font-size: 1.5rem;
+  width: 15%;
+  margin-left: 5%;
+}
+
+.register_formulario_email_input {
+  width: 50%;
+  height: 60%;
+  border: solid black;
+  border-radius: 50px;
+  padding-left: 5px;
+  outline: none;
+}
+
+.register_formulario_password {
+  position: relative;
+  display: flex;
+  flex-display: column;
+  align-items: center;
+  height: 12%;
+}
+
+.register_formulario_password_titulo {
+  font-size: 1.3rem;
+  width: 15%;
+  margin-left: 5%;
+}
+
+.register_formulario_password_input {
+  width: 50%;
+  height: 60%;
+  border: solid black;
+  border-radius: 50px;
+  padding-left: 5px;
+  outline: none;
+}
+
+.register_formulario_error {
+  height: 5%;
+  width: 65%;
+  font-size: 1rem;
+  margin-left: 5%;
+  border: 1px solid black;
+  border-radius: 50px;
+  background: red;
+  color: white;
+  padding-left: 2%;
+}
+
+/* Terminos y condiciones: */
+
+.register_formulario_terminos {
+  position: relative;
+  display: flex;
+  flex-display: column;
+  align-items: center;
+  height: 12%;
+}
+
+.register_formulario_terminos_titulo {
+  font-size: 1.3rem;
+  text-decoration: none;
+  color: black;
+}
+
+.register_formulario_terminos_titulo:hover {
+  color: #0a4481;
+}
+
+.register_formulario_terminos_input {
+  height: 50%;
+  margin-left: 5%;
+  margin-right: 2%;
+  transform: scale(1.5);
+}
+
+.register_formulario_terminos_error {
+  font-size: 1rem;
+  margin-left: 5%;
+  border: 1px solid black;
+  border-radius: 50px;
+  background: red;
+  color: white;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+/* Submit: */
+
+.register_formulario_submit:disabled {
+  position: relative;
+  height: 12%;
+  margin-bottom: 5%;
+  width: 20%;
+  margin-left: 35%;
+  background: #d9d9d9;
+  color: white;
+  border: 1px solid black;
+  border-radius: 50px;
+  outline: none;
+}
+
+.register_formulario_submit:hover:disabled {
+  background: #c3c3c3;
+  color: white;
+  border: 1px solid gray;
+}
+
+.register_formulario_submit {
+  position: relative;
+  height: 12%;
+  margin-bottom: 5%;
+  width: 20%;
+  margin-left: 35%;
+  background: #ee3f3f;
+  color: #dedede;
+  border: 1px solid black;
+  border-radius: 50px;
+  outline: none;
+}
+
+.register_formulario_submit:hover {
+  background: red;
+  color: white;
+  border: 2px solid black;
+}

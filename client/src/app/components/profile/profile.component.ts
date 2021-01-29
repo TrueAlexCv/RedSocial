@@ -5,12 +5,14 @@ import {User} from "../../models/user";
 import {GLOBAL} from "../../services/global";
 import {PublicationService} from "../../services/publication.service";
 import {Publication} from "../../models/publication";
+import {Follow} from "../../models/follow";
+import {FollowService} from "../../services/follow.service";
 
 @Component({
   selector: 'profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  providers: [UserService, PublicationService]
+  providers: [UserService, FollowService, PublicationService]
 })
 
 export class ProfileComponent implements OnInit {
@@ -28,9 +30,12 @@ export class ProfileComponent implements OnInit {
   public total!: number;
   public itemsPerPage!: number;
   public status!: string;
+  public follows!: any;
+  public followCursor!: any;
 
   constructor(
     private _userService: UserService,
+    private _followService: FollowService,
     private _publicationService: PublicationService,
     private _route: ActivatedRoute,
     private _router: Router
@@ -45,6 +50,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     console.log('profile.component ha sido cargado correctamente');
     this.loadUser();
+    this.getOnlyFollows();
   }
 
   loadUser() {
@@ -135,5 +141,60 @@ export class ProfileComponent implements OnInit {
   refresh() {
     this.page = 1;
     this.getPublicationsUser(this.user._id, this.page, false);
+  }
+
+  getOnlyFollows() {
+    this._followService.getOnlyFollowing(this.token).subscribe(
+      response => {
+        if(response.follows) {
+          this.follows = response.follows;
+          console.log(response.follows);
+          console.log(this.follows);
+        } else {
+          this.status = 'error';
+        }
+      },
+      error => {
+        console.log(error as any);
+        this.status = 'error';
+      });
+  }
+
+  followUser(id: any) {
+    const follow = new Follow('',this.identity._id,id);
+    this._followService.followUser(this.token, follow).subscribe(
+      response => {
+        if (!response.follow) {
+          this.status = 'error';
+        } else {
+          this.follows.push(response.follow);
+        }
+      },
+      error => {
+        console.log(error as any);
+        this.status = 'error';
+      });
+  }
+
+  unfollowUser(id: any) {
+    this._followService.unfollowUser(this.token, id).subscribe(
+      response => {
+        const eliminar = this.follows.indexOf(id);
+        if (eliminar !== -1) {
+          this.follows.splice(eliminar, 1);
+        }
+      },
+      error => {
+        console.log(error as any);
+        this.status = 'error';
+      });
+  }
+
+  mouseEnter(id: any) {
+    this.followCursor = id;
+  }
+
+  mouseLeave(id: any) {
+    this.followCursor = 0;
   }
 }

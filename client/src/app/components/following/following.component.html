@@ -1,0 +1,7 @@
+<h1>{{title}}</h1>
+
+<div *ngFor="let user of follows">
+  <h3>{{user.followed.name}} | @{{user.followed.nick}}</h3>
+  <p>{{user.followed.biography}}</p>
+  <hr/>
+</div>

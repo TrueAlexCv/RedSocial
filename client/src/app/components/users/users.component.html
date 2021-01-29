@@ -5,9 +5,22 @@
     <img *ngIf="!user.image" src="assets/default/banner_default.jpg"/>
   </div>
   <div class="publicacion_datos">
-    <h3>{{user.nick}} | @{{user.name}}</h3>
+    <a [routerLink]="['/profile',user._id]">{{user.nick}} | @{{user.name}}</a>
   </div>
   <p>{{user.biography}}</p>
+  <div *ngIf="identity._id != user._id">
+    <button *ngIf="follows.indexOf(user._id) < 0 ;else following"
+    (click)="followUser(user._id)">
+      Seguir
+    </button>
+    <ng-template #following>
+      <button  (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave(user._id)"
+       (click)="unfollowUser(user._id)" [class.danger]="followCursor==user._id">
+        <span *ngIf="followCursor != user._id ;else unfollow">Siguiendo</span>
+        <ng-template #unfollow>Dejar de seguir</ng-template>
+      </button>
+    </ng-template>
+  </div>
   <hr/>
 </div>
 

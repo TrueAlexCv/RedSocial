@@ -20,10 +20,13 @@ import { UsersComponent } from "./components/users/users.component";
 import { makePublicationComponent } from "./components/makePublication/makePublication.component";
 import { EditProfileComponent } from "./components/edit-profile/edit-profile.component";
 import { EditUserComponent } from "./components/edit-user/edit-user.component";
+import { FollowingComponent } from "./components/following/following.component";
+import { FollowedComponent } from "./components/followed/followed.component";
 
 // Servicios:
 import { UserService } from './services/user.service';
 import { UserGuard } from './services/user.guard';
+import {Follow} from "./models/follow";
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import { UserGuard } from './services/user.guard';
     UsersComponent,
     makePublicationComponent,
     EditProfileComponent,
-    EditUserComponent
+    EditUserComponent,
+    FollowingComponent,
+    FollowedComponent
   ],
   imports: [
     BrowserModule,

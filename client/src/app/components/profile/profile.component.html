@@ -7,12 +7,27 @@
   <p>{{user.biography}}</p>
   <hr/>
   <div>
-    <button [routerLink]="['/edit-profile']">Editar perfil</button>
+    <button *ngIf="identity._id == user._id" [routerLink]="['/edit-profile']">
+      Editar perfil
+    </button>
+    <div *ngIf="identity._id != user._id && this.follows">
+      <button *ngIf="follows.indexOf(user._id) < 0 ;else following"
+              (click)="followUser(user._id)">
+        Seguir
+      </button>
+      <ng-template #following>
+        <button  (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave(user._id)"
+                 (click)="unfollowUser(user._id)" [class.danger]="followCursor==user._id">
+          <span *ngIf="followCursor != user._id ;else unfollow">Siguiendo</span>
+          <ng-template #unfollow>Dejar de seguir</ng-template>
+        </button>
+      </ng-template>
+    </div>
   </div>
   <div *ngIf="stats" class="perfil_stats">
-    Siguiendo: {{stats.followed}}
-    Seguidores: {{stats.followed}}
-    Publicaciones: {{stats.publications}}
+    <a [routerLink]="['/following',user._id,1]">Siguiendo: {{stats.following}}</a>
+    <a [routerLink]="['/followed',user._id,1]">Seguidores: {{stats.followed}}</a>
+    <a>Publicaciones: {{stats.publications}}</a>
   </div>
 </div>
 

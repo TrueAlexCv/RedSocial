@@ -1,13 +1,50 @@
 <div class="menu">
-    Prueba
-    <div *ngIf="identity">
-      <button [routerLink]="['/timeline']">Timeline</button>
-      <button [routerLink]="['/users',1]">Gente</button>
-      <button [routerLink]="['/profile', identity._id]">Perfil</button>
+
+  <div *ngIf="!identity" class="menu_noidentity">
+      <img src="assets/icons/default-icon.png"/>
+      <h2>Twitter Rojo</h2>
+  </div>
+
+  <div *ngIf="identity" class="menu_opciones">
+    <button class="menu_opciones-botones" [routerLink]="['/timeline']">
+      <img src="assets/icons/home-icon.png" />
+    </button>
+    <button class="menu_opciones-botones" [routerLink]="['/users',1]">
+      <img src="assets/icons/users-icon.png" />
+    </button>
+    <button class="menu_opciones-botones">
+      <img src="assets/icons/tendencias-icon.png" />
+    </button>
+  </div>
+
+  <div *ngIf="identity" class="menu_cabecera">
+    <img src="assets/icons/default-icon.png"/>
+    <h2>Twitter Rojo</h2>
+  </div>
+
+  <div *ngIf="identity" class="menu_perfil">
+    <button class="menu_opciones-botones" [routerLink]="['/profile', identity._id]">
+      <img src="assets/icons/search-icon.png" />
+    </button>
+    <button class="menu_opciones-botones" [routerLink]="['/profile', identity._id]">
+      <img src="assets/icons/mensajes-icon.png" />
+    </button>
+    <button class="menu_opciones-botones" [routerLink]="['/profile', identity._id]">
+      <img src="assets/icons/user-icon.png" />
+    </button>
+    <div class="menu_perfil_opciones">
       <button [routerLink]="['/edit-user']">Editar Usuario</button>
       <button (click)="logout()">Logout</button>
-      <button *ngIf="!open" (click)="chargeComponent()">Twittear</button>
-      <button *ngIf="open" (click)="ngOnDestroy()">Cerrar Twitteador</button>
     </div>
+  </div>
+
 </div>
+
 <router-outlet></router-outlet>
+
+<div class="makePublication">
+<button class="makePublication_boton" *ngIf="!open && identity" (click)="chargeComponent()">
+  <img src="assets/icons/default-icon.png" />
+</button>
+<button *ngIf="open" (click)="ngOnDestroy()">Cerrar Twitteador</button>
+</div>

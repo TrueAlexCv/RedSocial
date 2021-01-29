@@ -1,32 +1,38 @@
-<h1>{{title}}</h1>
+<div class="login">
+  <div class="login_cabecera">
+    <img src="assets/icons/default-icon.png"/>
+    <h1 class="login_cabecera_titulo">{{title}}</h1>
+  </div>
+  <div *ngIf="status == 'error'" class="login_error">
+    <span class="login_error_mensaje">
+      Usuario incorrecto
+    </span>
+  </div>
 
-<span *ngIf="status == 'success'">
-    Sesión iniciada
-</span>
-
-<span *ngIf="status == 'error'">
-    Usuario incorrecto
-</span>
-
-<form #login="ngForm" (ngSubmit)="onSubmit(login)" class="formulario">
-    
-    <div>
-        <label>Email:</label>
-        <input type='email' name='email' #email="ngModel" 
-               [(ngModel)]="user.email" 
-               required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
-        <span *ngIf='!email.valid && email.touched'>
+  <form #login="ngForm" (ngSubmit)="onSubmit(login)" class="login_formulario">
+    <div class="login_formulario_email">
+      <label class="login_formulario_email_titulo">Email:</label>
+      <input type='email' name='email' #email="ngModel"
+             [(ngModel)]="user.email"
+             class="login_formulario_email_input"
+             required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+      <span *ngIf='!email.valid && email.touched' class="login_formulario_error">
             El email no es válido
-        </span>
+    </span>
     </div>
-    <div>
-        <label>Contraseña:</label>
-        <input type='password' name='password' #password="ngModel" 
-               [(ngModel)]="user.password" required minlength = 2 />
-        <span *ngIf='!password.valid && password.touched'>
+    <div class="login_formulario_password">
+      <label class="login_formulario_password_titulo">Contraseña:</label>
+      <input type='password' name='password' #password="ngModel"
+             [(ngModel)]="user.password" required minlength=2
+             class="login_formulario_password_input"/>
+      <span *ngIf='!password.valid && password.touched'
+            class="login_formulario_error">
             La contraseña no es válida
-        </span>
+    </span>
     </div>
-    <input type="submit" value="Iniciar Sesión" [disabled]="!login.form.valid"/>
-    
-</form>
+
+    <input type="submit" value="Iniciar Sesión" [disabled]="!login.form.valid"
+           class="login_formulario_submit"/>
+
+  </form>
+</div>

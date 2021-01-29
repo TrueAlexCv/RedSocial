@@ -1,1 +1,25 @@
 <h1>{{title}}</h1>
+<div *ngIf="status=='success'">
+  Actualizado!
+</div>
+<form #profile="ngForm" (ngSubmit)="updateProfile(profile)" class="formulario">
+  <div>
+    <label>Nombre:</label>
+    <input type="text" name="name" #name="ngModel" [(ngModel)]="identity.name" required
+    maxlength=50 />
+  </div>
+  <div>
+    <label>Biografía:</label>
+    <input type="text" name="biography" #biography="ngModel" [(ngModel)]="identity.biography"
+     maxlength=150 />
+  </div>
+  <div>
+    <label>Imagen de perfil:</label>
+    <input type="file" (change)="changeImage($event)" />
+  </div>
+  <div>
+    <label>Banner de perfil:</label>
+    <input type="file" (change)="changeBanner($event)" />
+  </div>
+  <input type="submit" placeholder="Actualizar perfil" [disabled]="!profile.form.valid" />
+</form>

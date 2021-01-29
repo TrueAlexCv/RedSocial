@@ -1,1 +1,19 @@
 <h1>{{title}}</h1>
+
+<div *ngIf="status == 'error'">
+  Se ha producido un error al actualizar tus datos de usuario
+</div>
+
+<form #user="ngForm" (ngSubmit)="updateUser(user)" class="formulario">
+  <div>
+    <label>Nick:</label>
+    <input type="text" name="nick" #nick="ngModel" [(ngModel)]="identity.nick"
+           required minlength=3 maxlength=15/>
+  </div>
+  <div>
+    <label>Email:</label>
+    <input type="text" name="email" #email="ngModel" [(ngModel)]="identity.email"
+           required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+  </div>
+  <input type="submit" placeholder="Actualizar usuario" [disabled]="!user.form.valid" />
+</form>

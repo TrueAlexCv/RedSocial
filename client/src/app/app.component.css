@@ -51,6 +51,8 @@
   transition-duration: 0.2s;
 }
 
+/* Menu - Cabecera: */
+
 .menu_cabecera > img {
   margin-left: 5px;
   margin-right: 5px;
@@ -65,6 +67,8 @@
   width: 30%;
 }
 
+/* Menu - Perfil: */
+
 .menu_perfil {
   position: relative;
   display: flex;
@@ -75,8 +79,62 @@
   margin-right: 5%;
 }
 
-.menu_perfil_opciones {
-  display: none;
+.menu_perfil-botones {
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  margin-right: 10%;
+  border: none;
+  border-radius: 50px;
+  padding: 10px;
+  height: 80%;
+  width: 56px;
+}
+
+.menu_perfil-botones:hover {
+  background: #ff9191;
+  transition-duration: 0.2s;
+}
+
+.menu_perfil_cuenta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu_perfil_cuenta_ajustes {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  bottom: -145px;
+  left: -6px;
+  border: 1px solid #00b8b4;
+  z-index: 5;
+}
+
+.menu_perfil_cuenta_ajustes:before {
+  content: '';
+  border: 15px solid #00b8b4;
+  border-left-color: transparent;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  position: absolute;
+  top: -30px;
+  left: calc(50% - 15px);
+}
+
+.menu_perfil_cuenta_ajustes > button {
+  cursor: pointer;
+  background: #d9d9d9;
+  color: black;
+  padding: 10px;
+  border: none;
+}
+
+.menu_perfil_cuenta_ajustes > button:hover {
+  cursor: pointer;
+  background: #c1bfbf;
+  color: black;
 }
 
 /* makePublication */
@@ -93,4 +151,5 @@
   padding: 10px;
   outline: none;
   border: 2px solid black;
+  cursor: pointer;
 }

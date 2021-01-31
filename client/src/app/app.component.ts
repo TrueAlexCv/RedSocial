@@ -19,6 +19,7 @@ export class AppComponent implements OnInit, DoCheck {
   public title: string;
   public identity: any;
   public url: string;
+  public cursor: any = 0;
 
   tabs = [{
    title: 'makePublication',
@@ -48,7 +49,16 @@ export class AppComponent implements OnInit, DoCheck {
   logout() {
     localStorage.clear();
     this.identity = null;
+    this.cursor = 0;
     this._router.navigate(['/']);
+  }
+
+  abrirAjustes(id: any) {
+    if(this.cursor === 0) {
+      this.cursor = id;
+    } else {
+      this.cursor = 0;
+    }
   }
 
   public open: boolean = false;

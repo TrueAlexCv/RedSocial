@@ -91,4 +91,13 @@ export class TimelineComponent implements OnInit {
       });
   }
 
+  public followCursor2: any = 0;
+  desplegarPanel(id: any) {
+    if(this.followCursor2 === 0) {
+      this.followCursor2 = id;
+    } else {
+      this.followCursor2 = 0;
+    }
+  }
+
 }

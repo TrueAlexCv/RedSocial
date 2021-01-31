@@ -91,7 +91,7 @@ export class UsersComponent implements OnInit {
         if (!response.follow) {
           this.status = 'error';
         } else {
-          this.follows.push(response.follow);
+          this.follows.push(response.follow.followed);
         }
       },
       error => {

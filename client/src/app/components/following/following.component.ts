@@ -25,6 +25,8 @@ export class FollowingComponent implements OnInit {
   public prev!: number;
   public next!: number;
   public follows!: any;
+  public myFollows!: any;
+  public followCursor!: any;
 
   constructor(
     private _userService: UserService,
@@ -42,6 +44,7 @@ export class FollowingComponent implements OnInit {
   ngOnInit() {
     console.log('following.component ha sido cargado correctamente');
     this.actualPage();
+    this.getOnlyFollowing();
   }
 
   actualPage() {
@@ -68,6 +71,7 @@ export class FollowingComponent implements OnInit {
       response => {
         if (response.follows) {
           this.follows = response.follows;
+          console.log(this.follows);
           this.total = response.total;
           this.pages = response.pages;
           if(page > this.pages) {
@@ -81,5 +85,58 @@ export class FollowingComponent implements OnInit {
         console.log(error as any);
         this.status = 'error';
       });
+  }
+
+  getOnlyFollowing() {
+    this._followService.getOnlyFollowing(this.token).subscribe(
+      response => {
+        if(response.following) {
+          this.myFollows = response.following;
+        } else {
+          this.status = 'error';
+        }
+      },
+      error => {
+        console.log(error as any);
+        this.status = 'error';
+      });
+  }
+
+  followUser(id: any) {
+    const follow = new Follow('',this.identity._id,id);
+    this._followService.followUser(this.token, follow).subscribe(
+      response => {
+        if (!response.follow) {
+          this.status = 'error';
+        } else {
+          this.myFollows.push(response.follow.followed);
+        }
+      },
+      error => {
+        console.log(error as any);
+        this.status = 'error';
+      });
+  }
+
+  unfollowUser(id: any) {
+    this._followService.unfollowUser(this.token, id).subscribe(
+      response => {
+        const eliminar = this.follows.indexOf(id);
+        if (eliminar !== -1) {
+          this.myFollows.splice(eliminar, 1);
+        }
+      },
+      error => {
+        console.log(error as any);
+        this.status = 'error';
+      });
+  }
+
+  mouseEnter(id: any) {
+    this.followCursor = id;
+  }
+
+  mouseLeave(id: any) {
+    this.followCursor = 0;
   }
 }

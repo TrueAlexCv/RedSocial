@@ -1,19 +1,19 @@
 <div class="menu">
 
   <div *ngIf="!identity" class="menu_noidentity">
-      <img src="assets/icons/default-icon.png"/>
-      <h2>Twitter Rojo</h2>
+    <img src="assets/icons/default-icon.png"/>
+    <h2>Twitter Rojo</h2>
   </div>
 
   <div *ngIf="identity" class="menu_opciones">
     <button class="menu_opciones-botones" [routerLink]="['/timeline']">
-      <img src="assets/icons/home-icon.png" />
+      <img src="assets/icons/home-icon.png"/>
     </button>
     <button class="menu_opciones-botones" [routerLink]="['/users',1]">
-      <img src="assets/icons/users-icon.png" />
+      <img src="assets/icons/users-icon.png"/>
     </button>
     <button class="menu_opciones-botones">
-      <img src="assets/icons/tendencias-icon.png" />
+      <img src="assets/icons/tendencias-icon.png"/>
     </button>
   </div>
 
@@ -23,28 +23,38 @@
   </div>
 
   <div *ngIf="identity" class="menu_perfil">
-    <button class="menu_opciones-botones" [routerLink]="['/profile', identity._id]">
-      <img src="assets/icons/search-icon.png" />
+
+    <button class="menu_perfil-botones" [routerLink]="['/profile', identity._id]">
+      <img src="assets/icons/search-icon.png"/>
     </button>
-    <button class="menu_opciones-botones" [routerLink]="['/profile', identity._id]">
-      <img src="assets/icons/mensajes-icon.png" />
+    <button class="menu_perfil-botones" [routerLink]="['/profile', identity._id]">
+      <img src="assets/icons/mensajes-icon.png"/>
     </button>
-    <button class="menu_opciones-botones" [routerLink]="['/profile', identity._id]">
-      <img src="assets/icons/user-icon.png" />
-    </button>
-    <div class="menu_perfil_opciones">
-      <button [routerLink]="['/edit-user']">Editar Usuario</button>
-      <button (click)="logout()">Logout</button>
+
+    <div class="menu_perfil_cuenta">
+      <button class="menu_perfil-botones" (click)="abrirAjustes(identity._id)">
+        <img src="assets/icons/user-icon.png"/>
+      </button>
+      <div *ngIf="cursor==identity._id" class="menu_perfil_cuenta_ajustes">
+        <button [routerLink]="['/profile', identity._id]" (click)="abrirAjustes(identity._id)">
+          Perfil
+        </button>
+        <button [routerLink]="['/edit-user']" (click)="abrirAjustes(identity._id)">
+          Editar Usuario
+        </button>
+        <button (click)="logout()">
+          Logout
+        </button>
+      </div>
     </div>
   </div>
-
 </div>
 
 <router-outlet></router-outlet>
 
 <div class="makePublication">
-<button class="makePublication_boton" *ngIf="!open && identity" (click)="chargeComponent()">
-  <img src="assets/icons/default-icon.png" />
-</button>
-<button *ngIf="open" (click)="ngOnDestroy()">Cerrar Twitteador</button>
+  <button class="makePublication_boton" *ngIf="!open && identity" (click)="chargeComponent()">
+    <img src="assets/icons/default-icon.png"/>
+  </button>
+  <button *ngIf="open" (click)="ngOnDestroy()">Cerrar Twitteador</button>
 </div>

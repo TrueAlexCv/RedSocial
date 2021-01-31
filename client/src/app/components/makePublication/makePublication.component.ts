@@ -28,7 +28,7 @@ export class makePublicationComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute
   ) {
-    this.title = 'makePublication';
+    this.title = 'Publicar un tweet';
     this.url = GLOBAL.url;
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();

@@ -2,5 +2,102 @@
   position: absolute;
   z-index: 2;
   border: 2px solid black;
-  width: 50vh;
+  width: 50%;
+  height: 50%;
+  background: #eee;
+}
+
+/* Publicación - Cabecera: */
+
+.publicacion_cabecera {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 15%;
+}
+
+.publicacion_cabecera > img {
+  margin-right: 5px;
+}
+
+/* Publicación - Form: */
+
+.publicacion_form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 85%;
+}
+
+/* Publicación - Datos: */
+
+.publicacion_form_datos {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 70%;
+}
+
+.publicacion_form_datos_imagen {
+  position: relative;
+  display: flex;
+  width: 15%;
+  height: 100%;
+}
+
+.publicacion_form_datos_imagen > img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+  border: 1px solid black;
+}
+
+.publicacion_form_datos_contenido {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  height: 100%;
+}
+
+.publicacion_form_datos_contenido_texto {
+  resize: none;
+  height: 60%;
+  font-size: 1.2rem;
+}
+
+.publicacion_form_datos_contenido_archivo {
+  cursor: pointer;
+}
+
+#publicacion_form_datos_contenido_archivo {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+/* Publicación - Submit: */
+
+.publicacion_form_submit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 15%;
+}
+
+.publicacion_form_submit > input {
+  width: 40%;
+  border-radius: 50px;
+  background: greenyellow;
 }

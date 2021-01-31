@@ -63,7 +63,6 @@ export class FollowService {
     let headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', token);
 
-    return this._http.get(this.url + 'only-following/' + true,
-      {headers: headers});
+    return this._http.get(this.url + 'only-following', {headers: headers});
   }
 }

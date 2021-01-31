@@ -1,10 +1,34 @@
 <div class="publicacion">
-<h1>{{title}}</h1>
-<form #make="ngForm" (ngSubmit)="makePublication(make)" class="formulario">
-  <div>
-    <textarea name="text" #text="ngModel" [(ngModel)]="publication.text"></textarea>
-    <input type="file" placeholder="Subir imagen" (change)="uploadFiles($event)" />
-    <input type="submit" value="Publicar" [disabled]="!make.form.valid"/>
+  <div class="publicacion_cabecera">
+    <img src="assets/icons/default-icon.png"/>
+    <h1>{{title}}</h1>
   </div>
-</form>
+
+  <form #make="ngForm" (ngSubmit)="makePublication(make)" class="publicacion_form">
+    <div class="publicacion_form_datos">
+      <div class="publicacion_form_datos_imagen">
+        <img *ngIf="identity.image else default" src="{{this.url + '/getImage/' + identity.image}}"/>
+        <ng-template #default>
+          <img src="assets/default/imagedefault.png"/>
+        </ng-template>
+      </div>
+      <div class="publicacion_form_datos_contenido">
+        <textarea class="publicacion_form_datos_contenido_texto"
+               name="text" #text="ngModel" [(ngModel)]="publication.text"
+                  placeholder="¿Qué estás pensando hoy?"
+                  required minlength=1 maxlength=280 >
+        </textarea>
+        <label for="publicacion_form_datos_contenido_archivo"
+               class="publicacion_form_datos_contenido_archivo">
+          <img src="assets/icons/image-icon.png" />
+        </label>
+        <input id="publicacion_form_datos_contenido_archivo"
+               type="file" placeholder="Subir imagen" (change)="uploadFiles($event)"/>
+      </div>
+    </div>
+
+    <div class="publicacion_form_submit">
+      <input type="submit" value="Publicar" [disabled]="!make.form.valid"/>
+    </div>
+  </form>
 </div>

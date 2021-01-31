@@ -25,13 +25,14 @@ export class ProfileComponent implements OnInit {
   public followed!: boolean;
   public stats!: any;
   public publications!: any;
-  public page: number;
+  public page!: number;
   public pages!: number;
   public total!: number;
   public itemsPerPage!: number;
   public status!: string;
   public follows!: any;
   public followCursor!: any;
+  public desplegar: boolean = false;
 
   constructor(
     private _userService: UserService,
@@ -44,13 +45,12 @@ export class ProfileComponent implements OnInit {
     this.url = GLOBAL.url;
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
-    this.page = 1;
   }
 
   ngOnInit() {
     console.log('profile.component ha sido cargado correctamente');
     this.loadUser();
-    this.getOnlyFollows();
+    this.getOnlyFollowing();
   }
 
   loadUser() {
@@ -101,16 +101,17 @@ export class ProfileComponent implements OnInit {
       response => {
         if (response.publications) {
           this.pages = response.pages;
-          this.total = response.total;
-          this.itemsPerPage = response.itemsPerPage;
+          this.total = response.total_items;
+          this.itemsPerPage = response.items_per_page;
           if (!adding) {
+            this.page = 1;
             this.publications = response.publications;
           } else {
             const arrayA = this.publications;
             const arrayB = response.publications;
             this.publications = arrayA.concat(arrayB);
           }
-          if (page > this.pages) {
+          if (page > 1 && page > this.pages) {
             this._router.navigate(['/profile', this.user._id]);
           }
         } else {
@@ -143,13 +144,11 @@ export class ProfileComponent implements OnInit {
     this.getPublicationsUser(this.user._id, this.page, false);
   }
 
-  getOnlyFollows() {
+  getOnlyFollowing() {
     this._followService.getOnlyFollowing(this.token).subscribe(
       response => {
-        if(response.follows) {
-          this.follows = response.follows;
-          console.log(response.follows);
-          console.log(this.follows);
+        if(response.following) {
+          this.follows = response.following;
         } else {
           this.status = 'error';
         }
@@ -167,7 +166,7 @@ export class ProfileComponent implements OnInit {
         if (!response.follow) {
           this.status = 'error';
         } else {
-          this.follows.push(response.follow);
+          this.follows.push(response.follow.followed);
         }
       },
       error => {
@@ -196,5 +195,14 @@ export class ProfileComponent implements OnInit {
 
   mouseLeave(id: any) {
     this.followCursor = 0;
+  }
+
+  public followCursor2: any = 0;
+  desplegarPanel(id: any) {
+    if(this.followCursor2 === 0) {
+      this.followCursor2 = id;
+    } else {
+      this.followCursor2 = 0;
+    }
   }
 }

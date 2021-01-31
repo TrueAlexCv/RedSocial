@@ -34,6 +34,7 @@ export class RegisterComponent implements OnInit {
                 if(response.user && response.user._id) {
                     this.status = 'success';
                     form.reset();
+                    this._router.navigate(['/']);
                 } else {
                     this.status = 'error';
                 }

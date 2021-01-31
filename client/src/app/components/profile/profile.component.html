@@ -1,58 +1,111 @@
-<h1>{{title}}</h1>
+<div class="cabecera">
+  <h1>{{title}}</h1>
+</div>
 
 <div *ngIf="user" class="perfil">
-  <h1>{{user.name}}</h1>
-  <h3>@{{user.nick}}</h3>
-  <p *ngIf="following">Te sigue</p>
-  <p>{{user.biography}}</p>
-  <hr/>
-  <div>
-    <button *ngIf="identity._id == user._id" [routerLink]="['/edit-profile']">
-      Editar perfil
-    </button>
-    <div *ngIf="identity._id != user._id && this.follows">
-      <button *ngIf="follows.indexOf(user._id) < 0 ;else following"
-              (click)="followUser(user._id)">
-        Seguir
+  <div class="perfil_imagenes">
+    <img *ngIf="user.banner else bannerDefault" src="{{url + '/getBanner/' + user.banner}}"
+         class="perfil_imagenes_banner"/>
+    <ng-template #bannerDefault>
+      <img src="assets/default/banner_default.jpg"
+           class="perfil_imagenes_banner"/>
+    </ng-template>
+    <img *ngIf="user.image else imageDefault" src="{{url + '/getImage/' + user.image}}"
+         class="perfil_imagenes_imagen"/>
+    <ng-template #imageDefault>
+      <img src="assets/default/imagedefault.png"
+           class="perfil_imagenes_imagen"/>
+    </ng-template>
+  </div>
+
+  <div class="perfil_datos">
+    <div class="perfil_datos_textos">
+      <div class="perfil_datos_textos_nombres">
+        <h1 class="perfil_datos_textos_nombres_nombre">{{user.name}}</h1>
+        <h1 class="perfil_datos_textos_nombres_nick">@{{user.nick}}</h1>
+        <p class="perfil_datos_textos_nombres_tesigue" *ngIf="followed">Te sigue</p>
+      </div>
+      <div class="perfil_datos_textos_biografia">
+        <p>{{user.biography}}</p>
+      </div>
+    </div>
+
+    <div class="perfil__datos_opciones">
+      <button *ngIf="identity._id == user._id" [routerLink]="['/edit-profile']">
+        Editar perfil
       </button>
-      <ng-template #following>
-        <button  (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave(user._id)"
-                 (click)="unfollowUser(user._id)" [class.danger]="followCursor==user._id">
+      <div *ngIf="identity._id != user._id && this.follows">
+        <button *ngIf="follows.indexOf(user._id) < 0"
+                (click)="followUser(user._id)"
+                (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave(user._id)"
+                class="safe">
+          Seguir
+        </button>
+        <button *ngIf="follows.indexOf(user._id) >= 0"
+                (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave(user._id)"
+                (click)="unfollowUser(user._id)" [class.danger]="followCursor==user._id">
           <span *ngIf="followCursor != user._id ;else unfollow">Siguiendo</span>
           <ng-template #unfollow>Dejar de seguir</ng-template>
         </button>
-      </ng-template>
+      </div>
     </div>
   </div>
+
   <div *ngIf="stats" class="perfil_stats">
-    <a [routerLink]="['/following',user._id,1]">Siguiendo: {{stats.following}}</a>
-    <a [routerLink]="['/followed',user._id,1]">Seguidores: {{stats.followed}}</a>
-    <a>Publicaciones: {{stats.publications}}</a>
+    <a class="perfil_stats_siguiendo" [routerLink]="['/following',user._id,1]">
+      Siguiendo: {{stats.following}}
+    </a>
+    <a class="perfil_stats_seguidores" [routerLink]="['/followed',user._id,1]">
+      Seguidores: {{stats.followed}}
+    </a>
+    <a class="perfil_stats_publicaciones">Publicaciones: {{stats.publications}}</a>
   </div>
 </div>
 
-<div class="publicationes_usuario">
-  <div class="timeline_boton">
+<div class="publicaciones">
+  <div *ngIf="publications" class="publicaciones_refrescar">
     <button (click)="refresh()">Refrescar</button>
   </div>
-  <div *ngFor="let publication of publications">
-    <div class="publicacion_imagen">
+
+  <div *ngFor="let publication of publications" class="publicaciones_publicacion">
+    <div class="publicaciones_publicacion_imagen">
       <img *ngIf="publication.user.image" src="{{url+'/getImage/'+publication.user.image}}"/>
       <img *ngIf="!publication.user.image" src="assets/default/banner_default.jpg"/>
     </div>
-    <div class="publicacion_datos">
-      <h3>{{publication.user.nick}} | @{{publication.user.name}}</h3>
-      <span class="date">
+
+    <div class="publicaciones_publicacion_datos">
+      <div class="publicaciones_publicacion_datos_nombres">
+        <h3>{{publication.user.nick}} | @{{publication.user.name}}</h3>
+        <span class="date">
             {{ (publication.created_at) * 1000 | date: 'medium'}}
-      </span>
+        </span>
+      </div>
+      <div class="publicaciones_publicacion_datos_texto">
+        <p>{{publication.text}}</p>
+      </div>
     </div>
-    <p>{{publication.text}}</p>
-    <button *ngIf="this.identity._id == publication.user._id" (click)="deletePublication(publication._id)">
-      Borrar
-    </button>
+
+    <div class="publicaciones_publicacion_opciones">
+      <button class="publicaciones_publicacion_opciones_boton"
+              (click)="desplegarPanel(publication._id)">
+      </button>
+      <div *ngIf="this.followCursor2 == publication._id"
+           class="publicaciones_publicacion_opciones_panel">
+        <button *ngIf="this.identity._id == publication.user._id"
+                (click)="deletePublication(publication._id)"
+                class="publicaciones_publicacion_opciones_panel_borrar">
+          Borrar!
+        </button>
+        <button *ngIf="this.identity._id != publication.user._id"
+                class="publicaciones_publicacion_opciones_panel_denunciar">
+          Denunciar Tweet
+        </button>
+      </div>
+    </div>
     <hr/>
   </div>
-  <div *ngIf="page < pages">
+
+  <div *ngIf="page < pages" class="publicaciones_vermas">
     <button (click)="viewMore()">Ver más publicaciones</button>
   </div>
 </div>

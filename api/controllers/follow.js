@@ -155,29 +155,32 @@ async function followCount(userId) {
 }
 
 function getOnlyFollowing(req, res) {
-    let userId = req.user.sub;
-
-    let following;
-    if (req.params.following) {
-        following = Follow.find({user: userId});
-    } else {
-        following = Follow.find({user: userId});
-    }
-
-    following.populate('user followed').exec((err, follows) => {
-        if (err)
-            return res.status(500).send({
-                message: "[ERROR]: Petición de seguidores de usuario"
-            });
-        if (!follows)
-            return res.status(404).send({
-                message: "[ERROR]: No hay ningún seguimiento"
-            });
-
+    const userId = req.user.sub;
+    followingUser(userId).then((value) => {
         return res.status(200).send({
-            follows
+            following: value.following
         });
     });
+}
+
+async function followingUser(userId) {
+    let following = await Follow.find({
+        'user': userId
+    }).select({
+        '_id': 0, '__uv': 0, 'user': 0
+    }).exec().then((follows) => {
+        let follows_clean = [];
+
+        follows.forEach((follow) => {
+            follows_clean.push(follow.followed);
+        });
+        return follows_clean;
+    }).catch((err) => {
+        return handleError(err);
+    });
+    return {
+        following: following
+    };
 }
 
 module.exports = {

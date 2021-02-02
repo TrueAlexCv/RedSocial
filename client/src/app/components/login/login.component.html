@@ -10,6 +10,7 @@
   </div>
 
   <form #login="ngForm" (ngSubmit)="onSubmit(login)" class="login_formulario">
+
     <div class="login_formulario_email">
       <label class="login_formulario_email_titulo">Email:</label>
       <input type='email' name='email' #email="ngModel"
@@ -18,8 +19,9 @@
              required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
       <span *ngIf='!email.valid && email.touched' class="login_formulario_error">
             El email no es válido
-    </span>
+      </span>
     </div>
+
     <div class="login_formulario_password">
       <label class="login_formulario_password_titulo">Contraseña:</label>
       <input type='password' name='password' #password="ngModel"
@@ -28,7 +30,7 @@
       <span *ngIf='!password.valid && password.touched'
             class="login_formulario_error">
             La contraseña no es válida
-    </span>
+      </span>
     </div>
 
     <input type="submit" value="Iniciar Sesión" [disabled]="!login.form.valid"

@@ -1,0 +1,135 @@
+.editar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  width: 50%;
+  border: 1px solid black;
+  background: #eee;
+}
+
+/* Editar - Cabecera: */
+
+.editar_cabecera {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 10%;
+  margin-top: 5%;
+}
+
+.editar_cabecera > img {
+  margin-right: 1%;
+}
+
+/* Editar - Error: */
+
+.editar_error {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 10%;
+}
+
+.editar_error > span {
+  height: 90%;
+  background: red;
+  color: white;
+  padding: 1%;
+}
+
+/* Editar - Form: */
+
+.editar_form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.editar_form-error {
+  height: 60%;
+  background: red;
+  color: white;
+  padding: 1%;
+  margin-left: 1%;
+}
+
+.editar_form_name {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+  height: 20%;
+}
+
+.editar_form_name > label {
+  font-size: 1.3rem;
+  margin-right: 1%;
+}
+
+.editar_form_name > input {
+  height: 70%;
+}
+
+.editar_form_biography {
+  position: relative;
+  dispay: flex;
+  flex-direction: row;
+  width: 90%;
+  height: 20%;
+}
+
+.editar_form_biography > label {
+  font-size: 1.3rem;
+  margin-right: 1%;
+}
+
+.editar_form_biography > input {
+  height: 70%;
+}
+
+.editar_form_submit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 20%;
+}
+
+.editar_form_submit > input:disabled {
+  background: gray;
+  cursor: initial;
+}
+
+.editar_form_submit > input:hover:disabled {
+  background: darkgray;
+}
+
+.editar_form_submit > input {
+  width: 15%;
+  height: 80%;
+  background: #ee3f3f;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid black;
+}
+
+.editar_form_submit > input:hover {
+  background: red;
+  border: 2px solid black;
+}

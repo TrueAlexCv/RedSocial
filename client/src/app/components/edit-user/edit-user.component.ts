@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Router,ActivatedRoute,Params} from "@angular/router";
+import {Router, ActivatedRoute, Params} from "@angular/router";
 import {User} from "../../models/user";
 import {UserService} from "../../services/user.service";
 import {GLOBAL} from "../../services/global";
 
 @Component({
-  selector: 'edit-profile',
+  selector: 'edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.css'],
   providers: [UserService]
@@ -17,6 +17,10 @@ export class EditUserComponent implements OnInit {
   public url: string;
   public identity: any;
   public token: any;
+  public passwords: any = {
+    newpassword: null,
+    actualpassword: null
+  };
 
   constructor(
     private _userService: UserService,
@@ -36,10 +40,28 @@ export class EditUserComponent implements OnInit {
   updateUser(form: any) {
     this._userService.updateUser(this.identity).subscribe(
       response => {
-        if(response.user) {
+        if (response.user) {
+          if(this.passwords.newpassword !== null && this.passwords.actualpassword !== null) {
+            this.updatePassword();
+          }
           this.status = 'success';
           localStorage.setItem('identity', JSON.stringify(this.identity));
-          this._router.navigate(['/profile',this.identity._id]);
+          this._router.navigate(['/profile', this.identity._id]);
+        } else {
+          this.status = 'error';
+        }
+      },
+      error => {
+        console.log(error as any);
+        this.status = 'error';
+      });
+  }
+
+  updatePassword() {
+    this._userService.updatePassword(this.passwords).subscribe(
+      response => {
+        if (response.user) {
+          this.status = 'success';
         } else {
           this.status = 'error';
         }

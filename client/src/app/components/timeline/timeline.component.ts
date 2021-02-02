@@ -3,7 +3,7 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import {PublicationService} from '../../services/publication.service';
 import {Publication} from '../../models/publication';
-import { GLOBAL } from '../../services/global';
+import {GLOBAL} from '../../services/global';
 
 @Component({
   selector: 'timeline',
@@ -39,7 +39,6 @@ export class TimelineComponent implements OnInit {
 
   ngOnInit() {
     console.log('timeline.component ha sido cargado correctamente');
-
     this.getTimeline(this.page, false);
   }
 
@@ -92,8 +91,9 @@ export class TimelineComponent implements OnInit {
   }
 
   public followCursor2: any = 0;
+
   desplegarPanel(id: any) {
-    if(this.followCursor2 === 0) {
+    if (this.followCursor2 === 0) {
       this.followCursor2 = id;
     } else {
       this.followCursor2 = 0;

@@ -1,19 +1,58 @@
-<h1>{{title}}</h1>
+<div class="editar">
+  <div class="editar_cabecera">
+    <img src="assets/icons/user-icon.png"/>
+    <h1>{{title}}</h1>
+  </div>
 
-<div *ngIf="status == 'error'">
-  Se ha producido un error al actualizar tus datos de usuario
+  <div *ngIf="status == 'error'" class="editar_error">
+    <span>
+      Se ha producido un error al actualizar tus datos de usuario
+    </span>
+  </div>
+
+  <form #user="ngForm" (ngSubmit)="updateUser(user)" class="editar_form">
+
+    <div class="editar_form_nick">
+      <label>Nick:</label>
+      <input type="text" name="nick" #nick="ngModel" [(ngModel)]="identity.nick"
+             required minlength=3 maxlength=15/>
+      <span *ngIf='!nick.valid && nick.touched' class="editar_form-error">
+            El nick no es válido
+      </span>
+    </div>
+
+    <div class="editar_form_email">
+      <label>Email:</label>
+      <input type="text" name="email" #email="ngModel" [(ngModel)]="identity.email"
+             required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+      <span *ngIf='!email.valid && email.touched' class="editar_form-error">
+            El email no es válido
+      </span>
+    </div>
+
+    <div class="editar_form_password">
+      <img src="assets/icons/warning-icon.png"/>
+      <h2>Cambiar contraseña:</h2>
+    </div>
+
+    <div class="editar_form_actualpassword">
+      <label>Contraseña actual:</label>
+      <input type="password" name="password" #password="ngModel" [(ngModel)]="passwords.actualpassword"/>
+    </div>
+
+    <div class="editar_form_newpassword">
+      <label>Contraseña nueva:</label>
+      <input type="password" name="newpassword" #newpassword="ngModel" [(ngModel)]="passwords.newpassword"
+             minlength=2/>
+      <span *ngIf='!newpassword.valid && newpassword.touched'
+            class="editar_form-error">
+            La contraseña no es válida
+      </span>
+    </div>
+
+    <div class="editar_form_submit">
+      <input type="submit" placeholder="Actualizar usuario" [disabled]="!user.form.valid"/>
+    </div>
+
+  </form>
 </div>
-
-<form #user="ngForm" (ngSubmit)="updateUser(user)" class="formulario">
-  <div>
-    <label>Nick:</label>
-    <input type="text" name="nick" #nick="ngModel" [(ngModel)]="identity.nick"
-           required minlength=3 maxlength=15/>
-  </div>
-  <div>
-    <label>Email:</label>
-    <input type="text" name="email" #email="ngModel" [(ngModel)]="identity.email"
-           required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
-  </div>
-  <input type="submit" placeholder="Actualizar usuario" [disabled]="!user.form.valid" />
-</form>

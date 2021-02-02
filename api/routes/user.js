@@ -19,13 +19,15 @@ api.get('/users/:page?', md_auth.ensureAuth, UserController.getUsers);
 api.get('/counters/:id?', md_auth.ensureAuth, UserController.getCounters);
 api.put('/update-user/:id', md_auth.ensureAuth, UserController.updateUser);
 api.post('/update-profile/:id', md_auth.ensureAuth,
-        UserController.updateProfile);
+    UserController.updateProfile);
 api.post('/upload-image/:id', [md_auth.ensureAuth, md_upload_image],
-        UserController.uploadImage);
+    UserController.uploadImage);
 api.post('/upload-banner/:id', [md_auth.ensureAuth, md_upload_banner],
-        UserController.uploadBanner);
+    UserController.uploadBanner);
 api.get('/getImage/:image', UserController.getImage);
 api.get('/getBanner/:banner', UserController.getBanner);
+api.post('/change-password', md_auth.ensureAuth, UserController.updatePassword);
+api.post('/search-users/:page?', UserController.searchUsers);
 
 module.exports = api;
 

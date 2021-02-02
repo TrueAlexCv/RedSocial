@@ -102,6 +102,7 @@
 }
 
 /* Submit: */
+
 .login_formulario_submit:disabled {
   position: relative;
   height: 12%;

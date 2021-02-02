@@ -1,6 +1,6 @@
 'use strict';
 
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 const mongoosePaginate = require('mongoose-pagination');
 const fs = require('fs');
 const path = require('path');
@@ -26,10 +26,12 @@ function registerUser(req, res) {
         user.banner = null;
         user.biography = null;
 
-        User.find({$or: [
+        User.find({
+            $or: [
                 {email: user.email.toLowerCase()},
                 {nick: user.nick.toLowerCase()}
-            ]}).exec((err, users) => {
+            ]
+        }).exec((err, users) => {
             if (err)
                 return res.status(500).send({
                     message: "[ERROR]: Petición de registro de usuario"
@@ -163,25 +165,25 @@ function getUsers(req, res) {
     const itemsPerPage = 5;
 
     User.find().sort('_id').paginate(page, itemsPerPage,
-            (err, users, total) => {
-        if (err)
-            return res.status(500).send({
-                message: "[ERROR]: Petición listado de usuarios"
-            });
-        if (!users)
-            return res.status(404).send({
-                message: "[ERROR]: No hay usuarios"
-            });
-        followUsers(user_identity).then((value) => {
-            return res.status(200).send({
-                users,
-                users_following: value.following,
-                users_followed: value.followed,
-                total,
-                pages: Math.ceil(total / itemsPerPage)
+        (err, users, total) => {
+            if (err)
+                return res.status(500).send({
+                    message: "[ERROR]: Petición listado de usuarios"
+                });
+            if (!users)
+                return res.status(404).send({
+                    message: "[ERROR]: No hay usuarios"
+                });
+            followUsers(user_identity).then((value) => {
+                return res.status(200).send({
+                    users,
+                    users_following: value.following,
+                    users_followed: value.followed,
+                    total,
+                    pages: Math.ceil(total / itemsPerPage)
+                });
             });
         });
-    });
 }
 
 async function followUsers(user_identity) {
@@ -271,10 +273,12 @@ function updateUser(req, res) {
         });
     }
 
-    User.find({$or: [
+    User.find({
+        $or: [
             {email: update.email.toString().toLowerCase()},
             {nick: update.nick.toString().toLowerCase()}
-        ]}).exec((err, users) => {
+        ]
+    }).exec((err, users) => {
         let user_isset = false;
         users.forEach((user) => {
             if (user && user._id != userId)
@@ -284,7 +288,7 @@ function updateUser(req, res) {
             return res.status(404).send({
                 message: "[ERROR]: El usuario ya existe"
             });
-        User.findByIdAndUpdate(userId, update, {new : true}, (err, userUpdated) => {
+        User.findByIdAndUpdate(userId, update, {new: true}, (err, userUpdated) => {
             if (err)
                 return res.status(500).send({
                     message: "[ERROR]: Petición actualizar usuario"
@@ -307,11 +311,11 @@ function updateProfile(req, res) {
     if (userId !== req.user.sub) {
         return res.status(500).send({
             message: "[ERROR]: No tienes permisos para editar el perfil " +
-                    "de este usuario"
+                "de este usuario"
         });
     }
 
-    User.findByIdAndUpdate(userId, update, {new : true}, (err, userUpdated) => {
+    User.findByIdAndUpdate(userId, update, {new: true}, (err, userUpdated) => {
         if (err)
             return res.status(500).send({
                 message: "[ERROR]: Petición para editar el perfil de usuario"
@@ -327,6 +331,73 @@ function updateProfile(req, res) {
     });
 }
 
+function updatePassword(req, res) {
+    const userId = req.user.sub;
+    const params = req.body;
+    const actualPassword = req.body.actualpassword;
+    const newPassword = req.body.newpassword;
+
+    User.findById(userId, (err, user) => {
+        if (err)
+            return res.status(500).send({
+                message: "[ERROR]: Petición datos de usuario"
+            });
+        if (!user)
+            return res.status(500).send({
+                message: "[ERROR]: No se encuentra el usuario"
+            });
+        let userPassword = user.password;
+        bcrypt.compare(actualPassword, userPassword, (err, result) => {
+            if (err)
+                return res.status(500).send({
+                    message: "[ERROR]: Petición al comparar las contraseñas"
+                });
+            if (result) {
+                bcrypt.hash(newPassword, 10, (err, hash) => {
+                    if (err) {
+                        return res.status(404).send({
+                            message: "[ERROR]: Petición para encriptar la nueva contraseña"
+                        });
+                    }
+                    req.body.password = hash;
+                    User.findByIdAndUpdate(userId, params, {new: true}, (err, userUpdated) => {
+                        if (err)
+                            return res.status(500).send({
+                                message: "[ERROR]: Petición de actualizar el usuario"
+                            });
+                        if (!userUpdated)
+                            return res.status(404).send({
+                                message: "[ERROR]: Al actualizar el usuario"
+                            });
+                        return res.status(200).send({
+                            user: userUpdated
+                        });
+                    });
+                });
+            } else {
+                return res.status(404).send({
+                    message: "[ERROR]: La contraseña actual es incorrecta"
+                });
+            }
+        });
+    });
+}
+
+async function encriptar(newPassword) {
+    const password = await bcrypt.hash(newPassword, true, (err, hash) => {
+        if (err)
+            return res.status(500).send({
+                message: "[ERROR]: Al encriptar la contraseña"
+            });
+        if (!hash) {
+            return res.status(500).send({
+                message: "[ERROR]: Al encriptar el hash"
+            });
+        }
+        return hash;
+    });
+}
+
 function uploadImage(req, res) {
     let userId = req.params.id;
 
@@ -337,7 +408,7 @@ function uploadImage(req, res) {
             return fs.unlink(file_path, (err) => {
                 res.status(500).send({
                     message: "[ERROR]: No tienes permisos para actualizar la imagen"
-                            + " de este usuario"
+                        + " de este usuario"
                 });
             });
         }
@@ -348,22 +419,22 @@ function uploadImage(req, res) {
         var file_ext = ext_split[1];
 
         if (file_ext === 'png' || file_ext === 'jpg' || file_ext === 'jpeg') {
-            User.findByIdAndUpdate(userId, {image: file_name}, {new : true},
-                    (err, userUpdated) => {
-                if (err)
-                    return res.status(500).send({
-                        message: "[ERROR]: Petición para actualizar la imagen "
+            User.findByIdAndUpdate(userId, {image: file_name}, {new: true},
+                (err, userUpdated) => {
+                    if (err)
+                        return res.status(500).send({
+                            message: "[ERROR]: Petición para actualizar la imagen "
                                 + "de este usuario"
+                        });
+                    if (!userUpdated) {
+                        return res.status(404).send({
+                            message: "[ERROR]: Al actualizar la imagen del usuario"
+                        });
+                    }
+                    return res.status(200).send({
+                        user: userUpdated
                     });
-                if (!userUpdated) {
-                    return res.status(404).send({
-                        message: "[ERROR]: Al actualizar la imagen del usuario"
-                    });
-                }
-                return res.status(200).send({
-                    user: userUpdated
                 });
-            });
         } else {
             return fs.unlink(file_path, (err) => {
                 res.status(404).send({
@@ -388,7 +459,7 @@ function uploadBanner(req, res) {
             return fs.unlink(file_path, (err) => {
                 res.status(500).send({
                     message: "[ERROR]: No tienes permisos para actualizar el"
-                            + " banner de este usuario"
+                        + " banner de este usuario"
 
                 });
             });
@@ -400,22 +471,22 @@ function uploadBanner(req, res) {
         var file_ext = ext_split[1];
 
         if (file_ext === 'png' || file_ext === 'jpg' || file_ext === 'jpeg') {
-            User.findByIdAndUpdate(userId, {banner: file_name}, {new : true},
-                    (err, userUpdated) => {
-                if (err)
-                    return res.status(500).send({
-                        message: "[ERROR]: Petición para actualizar el banner "
+            User.findByIdAndUpdate(userId, {banner: file_name}, {new: true},
+                (err, userUpdated) => {
+                    if (err)
+                        return res.status(500).send({
+                            message: "[ERROR]: Petición para actualizar el banner "
                                 + "de este usuario"
+                        });
+                    if (!userUpdated) {
+                        return res.status(404).send({
+                            message: "[ERROR]: Al actualizar el banner del usuario"
+                        });
+                    }
+                    return res.status(200).send({
+                        user: userUpdated
                     });
-                if (!userUpdated) {
-                    return res.status(404).send({
-                        message: "[ERROR]: Al actualizar el banner del usuario"
-                    });
-                }
-                return res.status(200).send({
-                    user: userUpdated
                 });
-            });
         } else {
             return fs.unlink(file_path, (err) => {
                 res.status(404).send({
@@ -460,6 +531,34 @@ function getBanner(req, res) {
     });
 }
 
+function searchUsers(req, res) {
+    let word = req.body.word;
+    let page = 1;
+    const itemsPerPage = 5;
+    if(req.params.page) {
+        page = req.params.page;
+    }
+    const r = new RegExp(`\w*${word}\w*`, "i");
+    User.find({
+        'nick': r
+    }).sort('nick').paginate(page, itemsPerPage,
+        (err, users, total) => {
+            if (err)
+                return res.status(500).send({
+                    message: "[ERROR]: Petición listado de usuarios"
+                });
+            if (!users)
+                return res.status(404).send({
+                    message: "[ERROR]: No hay usuarios"
+                });
+            return res.status(200).send({
+                users,
+                total,
+                pages: Math.ceil(total/itemsPerPage)
+            });
+        });
+}
+
 module.exports = {
     registerUser,
     loginUser,
@@ -471,7 +570,9 @@ module.exports = {
     uploadImage,
     uploadBanner,
     getImage,
-    getBanner
+    getBanner,
+    updatePassword,
+    searchUsers
 };
 
 

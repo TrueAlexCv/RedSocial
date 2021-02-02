@@ -12,14 +12,13 @@ import {UsersComponent} from "./components/users/users.component";
 import {makePublicationComponent} from "./components/makePublication/makePublication.component";
 import {EditProfileComponent} from "./components/edit-profile/edit-profile.component";
 import {EditUserComponent} from "./components/edit-user/edit-user.component";
+import {FollowingComponent} from "./components/following/following.component";
+import {FollowedComponent} from "./components/followed/followed.component";
+import {MessagesComponent} from "./components/messages/messages.component";
+import {SearchComponent} from "./components/search/search.component";
 
 // Servicios:
 import {UserGuard} from './services/user.guard';
-
-import {User} from "./models/user";
-import {FollowingComponent} from "./components/following/following.component";
-import {FollowedComponent} from "./components/followed/followed.component";
-
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -32,7 +31,12 @@ const appRoutes: Routes = [
   {path: 'edit-profile', component: EditProfileComponent, canActivate: [UserGuard]},
   {path: 'edit-user', component: EditUserComponent, canActivate: [UserGuard]},
   {path: 'following/:id/:page', component: FollowingComponent, canActivate: [UserGuard]},
-  {path: 'followed/:id/:page', component: FollowedComponent, canActivate: [UserGuard]}
+  {path: 'followed/:id/:page', component: FollowedComponent, canActivate: [UserGuard]},
+  {path: 'messages', component: MessagesComponent},
+  {path: 'search', component: SearchComponent},
+  {path: 'search/:page?', component: SearchComponent},
+  {path: '**', component: TimelineComponent, canActivate: [UserGuard]},
+  {path: '**', component: HomeComponent}
 ];
 
 export const appRoutingProviders: any[] = [];

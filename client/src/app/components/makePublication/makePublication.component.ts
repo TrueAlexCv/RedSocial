@@ -1,10 +1,10 @@
-import{Component,OnInit} from "@angular/core";
-import { Router,ActivatedRoute, Params} from "@angular/router";
-import{Publication} from "../../models/publication";
-import{PublicationService} from "../../services/publication.service";
-import {UserService} from "../../services/user.service";
-import {UploadService} from "../../services/upload.service";
-import {GLOBAL} from "../../services/global";
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Router, ActivatedRoute, Params} from '@angular/router';
+import {Publication} from '../../models/publication';
+import {PublicationService} from '../../services/publication.service';
+import {UserService} from '../../services/user.service';
+import {UploadService} from '../../services/upload.service';
+import {GLOBAL} from '../../services/global';
 
 @Component({
   selector: 'makePublication',
@@ -14,12 +14,6 @@ import {GLOBAL} from "../../services/global";
 })
 
 export class makePublicationComponent implements OnInit {
-  public title: string;
-  public url: string;
-  public identity: any;
-  public token: any;
-  public status!: string;
-  public publication: Publication;
 
   constructor(
     private _userService: UserService,
@@ -32,8 +26,15 @@ export class makePublicationComponent implements OnInit {
     this.url = GLOBAL.url;
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
-    this.publication = new Publication("","","","",this.identity);
+    this.publication = new Publication('', '', '', '', this.identity);
   }
+  public title: string;
+  public url: string;
+  public identity: any;
+  public token: any;
+  public status!: string;
+  public publication: Publication;
+  public files!: Array<File>;
 
   ngOnInit() {
     console.log('makePublication.component ha sido cargado correctamente');
@@ -42,10 +43,10 @@ export class makePublicationComponent implements OnInit {
   makePublication(form: any) {
     this._publicationService.makePublication(this.token, this.publication).subscribe(
       response => {
-        if(response.publication) {
-          if(this.files && this.files.length) {
+        if (response.publication) {
+          if (this.files && this.files.length) {
             this._uploadService.makeFileRequest(this.url + 'publication-image/' +
-              response.publication._id, [], this.files, this.token, 'image')
+              response.publication._id, [], this.files, this.token, 'image');
           }
           this.status = 'success';
           form.reset();
@@ -60,8 +61,8 @@ export class makePublicationComponent implements OnInit {
       });
   }
 
-  public files!: Array<File>;
   uploadFiles(file: any) {
-    this.files = <Array<File>>file.target.files;
+    this.files = (file.target.files as Array<File>);
   }
+
 }

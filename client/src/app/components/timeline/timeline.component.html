@@ -14,7 +14,7 @@
     <div class="publicaciones_publicacion_datos">
       <div class="publicaciones_publicacion_datos_nombres">
         <a [routerLink]="['/profile',publication.user._id]">
-          {{publication.user.nick}} | @{{publication.user.name}}
+          {{publication.user.name}} | @{{publication.user.nick}}
         </a>
         <span class="date">
             {{ (publication.created_at) * 1000 | date: 'medium'}}

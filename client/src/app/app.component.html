@@ -24,7 +24,7 @@
 
   <div *ngIf="identity" class="menu_perfil">
 
-    <button class="menu_perfil-botones" [routerLink]="['/profile', identity._id]">
+    <button class="menu_perfil-botones" [routerLink]="['/search']">
       <img src="assets/icons/search-icon.png"/>
     </button>
     <button class="menu_perfil-botones" [routerLink]="['/profile', identity._id]">
@@ -56,5 +56,22 @@
   <button class="makePublication_boton" *ngIf="!open && identity" (click)="chargeComponent()">
     <img src="assets/icons/default-icon.png"/>
   </button>
-  <button *ngIf="open" (click)="ngOnDestroy()">Cerrar Twitteador</button>
+</div>
+
+<div *ngIf="open" class="closePublication">
+  <div class="closePublication_barra">
+    <button class="closePublication_barra_boton"
+            (click)="ngOnDestroy()">
+      <img src="assets/icons/close-icon.png"/>
+    </button>
+  </div>
+  <div class="closePublication_barra_2">
+    <button class="closePublication_barra_2_boton" (click)="makeAndClose()">
+      Publicar
+    </button>
+  </div>
+</div>
+
+<div *ngIf="loading">
+  Cargando...
 </div>

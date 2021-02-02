@@ -1,9 +1,10 @@
 .publicacion {
-  position: absolute;
-  z-index: 2;
-  border: 2px solid black;
+  position: fixed;
+  z-index: 5;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   width: 50%;
-  height: 50%;
+  height: 42%;
   background: #eee;
 }
 

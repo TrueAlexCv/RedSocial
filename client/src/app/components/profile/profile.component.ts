@@ -111,6 +111,13 @@ export class ProfileComponent implements OnInit {
             const arrayB = response.publications;
             this.publications = arrayA.concat(arrayB);
           }
+          if (page !== 1) {
+            setTimeout(() => {
+              for (let i = 1; i <= 750; i++) {
+                self.scroll(1, i);
+              }
+            }, 0);
+          }
           if (page > 1 && page > this.pages) {
             this._router.navigate(['/profile', this.user._id]);
           }

@@ -8,6 +8,7 @@
   justify-content: center;
   width: 100%;
   margin-bottom: 1%;
+  scroll-behavior: smooth;
 }
 
 .publicaciones_publicacion {

@@ -56,6 +56,11 @@ export class TimelineComponent implements OnInit {
             const arrayB = response.publications;
             this.publications = arrayA.concat(arrayB);
           }
+          setTimeout(() => {
+            for (let i = 1; i <= 750; i++) {
+              self.scroll(1, i);
+            }
+          }, 0);
           if (page > this.pages) {
             this._router.navigate(['/timeline']);
           }
@@ -73,6 +78,12 @@ export class TimelineComponent implements OnInit {
   viewMore() {
     this.page += 1;
     this.getTimeline(this.page, true);
+  }
+
+  lol24(): any {
+    for (let i = 1; i <= 750; i++) {
+      self.scroll(1, i);
+    }
   }
 
   refresh() {

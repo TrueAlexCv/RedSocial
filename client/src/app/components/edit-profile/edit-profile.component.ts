@@ -18,6 +18,7 @@ export class EditProfileComponent implements OnInit {
   public status!: string;
   public identity: any;
   public token: any;
+  public guardar: any;
 
   constructor(
     private _userService: UserService,
@@ -29,6 +30,10 @@ export class EditProfileComponent implements OnInit {
     this.url = GLOBAL.url;
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    this.guardar = {
+      name: this.identity.name,
+      biography: this.identity.biography
+    };
   }
 
   ngOnInit() {
@@ -68,5 +73,13 @@ export class EditProfileComponent implements OnInit {
   public uploadBanner!: Array<File>;
   changeBanner(file: any) {
     this.uploadBanner = <Array<File>>file.target.files;
+  }
+
+  get isDirty(): boolean {
+    const datos = {
+      name: this.identity.name,
+      biography: this.identity.biography
+    };
+    return (datos.name !== this.guardar.name) || (datos.biography !== this.guardar.biography);
   }
 }

@@ -48,21 +48,21 @@ export class FollowingComponent implements OnInit {
   }
 
   actualPage() {
-    this._route.params.subscribe( params => {
-        this.userId = params['id'];
-        this.page = params['page'];
-        if(!this.page) {
-          this.page = 1;
-          this.next = 2;
-        } else {
-          this.prev = this.page - 1;
-          this.next = this.page + 1;
+    this._route.params.subscribe(params => {
+      this.userId = params['id'];
+      this.page = params['page'];
+      if (!this.page) {
+        this.page = 1;
+        this.next = 2;
+      } else {
+        this.prev = this.page - 1;
+        this.next = this.page + 1;
 
-          if(this.prev <= 0) {
-            this.prev = 1;
-          }
+        if (this.prev <= 0) {
+          this.prev = 1;
         }
-        this.getFollowingUsers(this.userId,this.page);
+      }
+      this.getFollowingUsers(this.userId, this.page);
     });
   }
 
@@ -71,11 +71,10 @@ export class FollowingComponent implements OnInit {
       response => {
         if (response.follows) {
           this.follows = response.follows;
-          console.log(this.follows);
           this.total = response.total;
           this.pages = response.pages;
-          if(page > this.pages) {
-            this._router.navigate(['/profile',id]);
+          if (page > this.pages) {
+            this._router.navigate(['/profile', id]);
           }
         } else {
           this.status = 'error';
@@ -87,10 +86,12 @@ export class FollowingComponent implements OnInit {
       });
   }
 
+  /* Seguimiento de usuarios: */
+
   getOnlyFollowing() {
     this._followService.getOnlyFollowing(this.token).subscribe(
       response => {
-        if(response.following) {
+        if (response.following) {
           this.myFollows = response.following;
         } else {
           this.status = 'error';
@@ -103,7 +104,7 @@ export class FollowingComponent implements OnInit {
   }
 
   followUser(id: any) {
-    const follow = new Follow('',this.identity._id,id);
+    const follow = new Follow('', this.identity._id, id);
     this._followService.followUser(this.token, follow).subscribe(
       response => {
         if (!response.follow) {
@@ -121,7 +122,7 @@ export class FollowingComponent implements OnInit {
   unfollowUser(id: any) {
     this._followService.unfollowUser(this.token, id).subscribe(
       response => {
-        const eliminar = this.follows.indexOf(id);
+        const eliminar = this.myFollows.indexOf(id);
         if (eliminar !== -1) {
           this.myFollows.splice(eliminar, 1);
         }

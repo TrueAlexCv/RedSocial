@@ -41,25 +41,27 @@ function registerUser(req, res) {
                     message: "[ERROR]: El usuario ya existe"
                 });
             } else {
-                bcrypt.hash(params.password, null, null, (err, hash) => {
+                bcrypt.hash(params.password, 10, (err, hash) => {
                     if (err)
                         return res.status(500).send({
                             message: "[ERROR]: Al encriptar la contraseña"
                         });
                     user.password = hash;
-                });
-                user.save((err, userStored) => {
-                    if (err)
-                        return res.status(500).send({
-                            message: "[ERROR]: Al guardar el usuario"
-                        });
-                    if (userStored) {
-                        return res.status(200).send({
-                            user: userStored
-                        });
-                    } else {
-                        return res.status(404).send({
-                            message: "[ERROR]: Al guardar el usuario"
+                    if(hash) {
+                        user.save((err, userStored) => {
+                            if (err)
+                                return res.status(500).send({
+                                    message: "[ERROR]: Al guardar el usuario"
+                                });
+                            if (userStored) {
+                                return res.status(200).send({
+                                    user: userStored
+                                });
+                            } else {
+                                return res.status(404).send({
+                                    message: "[ERROR]: Al guardar el usuario"
+                                });
+                            }
                         });
                     }
                 });
@@ -380,21 +382,6 @@ function updatePassword(req, res) {
                 });
             }
         });
-    });
-}
-
-async function encriptar(newPassword) {
-    const password = await bcrypt.hash(newPassword, true, (err, hash) => {
-        if (err)
-            return res.status(500).send({
-                message: "[ERROR]: Al encriptar la contraseña"
-            });
-        if (!hash) {
-            return res.status(500).send({
-                message: "[ERROR]: Al encriptar el hash"
-            });
-        }
-        return hash;
     });
 }
 

@@ -28,6 +28,8 @@ import {SearchComponent} from "./components/search/search.component";
 // Servicios:
 import {UserService} from './services/user.service';
 import {UserGuard} from './services/user.guard';
+import {EditUserGuard} from "./services/edit-user.guard";
+import {EditProfileGuard} from "./services/edit-profile.guard";
 
 // Pipes:
 import {SearchPipe} from './pipes/search/search.pipe';
@@ -67,6 +69,8 @@ import {WebSocketService} from './services/web-socket.service';
     appRoutingProviders,
     UserService,
     UserGuard,
+    EditUserGuard,
+    EditProfileGuard,
     WebSocketService,
     CookieService
   ],

@@ -87,6 +87,8 @@ export class FollowedComponent implements OnInit {
       });
   }
 
+  /* Seguimiento de usuarios: */
+
   getOnlyFollowing() {
     this._followService.getOnlyFollowing(this.token).subscribe(
       response => {
@@ -121,7 +123,7 @@ export class FollowedComponent implements OnInit {
   unfollowUser(id: any) {
     this._followService.unfollowUser(this.token, id).subscribe(
       response => {
-        const eliminar = this.follows.indexOf(id);
+        const eliminar = this.myFollows.indexOf(id);
         if (eliminar !== -1) {
           this.myFollows.splice(eliminar, 1);
         }

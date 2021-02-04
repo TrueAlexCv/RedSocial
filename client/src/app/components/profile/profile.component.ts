@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit {
       let id: any = params['id'];
       this.getUser(id);
       this.getCounters(id);
-      this.getPublicationsUser(id,1,false);
+      this.getPublicationsUser(id, 1, false);
     });
   }
 
@@ -125,13 +125,15 @@ export class ProfileComponent implements OnInit {
   }
 
   deletePublication(id: any) {
-    this._publicationService.deletePublication(this.token, id).subscribe(
-      response => {
-        this.refresh();
-      },
-      error => {
-        console.log(error as any);
-      });
+    if (confirm('¿Estás seguro de que quieres borrar el tweet?')) {
+      this._publicationService.deletePublication(this.token, id).subscribe(
+        response => {
+          this.refresh();
+        },
+        error => {
+          console.log(error as any);
+        });
+    }
   }
 
   viewMore() {
@@ -147,7 +149,7 @@ export class ProfileComponent implements OnInit {
   getOnlyFollowing() {
     this._followService.getOnlyFollowing(this.token).subscribe(
       response => {
-        if(response.following) {
+        if (response.following) {
           this.follows = response.following;
         } else {
           this.status = 'error';
@@ -160,7 +162,7 @@ export class ProfileComponent implements OnInit {
   }
 
   followUser(id: any) {
-    const follow = new Follow('',this.identity._id,id);
+    const follow = new Follow('', this.identity._id, id);
     this._followService.followUser(this.token, follow).subscribe(
       response => {
         if (!response.follow) {
@@ -198,8 +200,9 @@ export class ProfileComponent implements OnInit {
   }
 
   public followCursor2: any = 0;
+
   desplegarPanel(id: any) {
-    if(this.followCursor2 === 0) {
+    if (this.followCursor2 === 0) {
       this.followCursor2 = id;
     } else {
       this.followCursor2 = 0;

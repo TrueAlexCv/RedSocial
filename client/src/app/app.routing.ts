@@ -19,6 +19,8 @@ import {SearchComponent} from "./components/search/search.component";
 
 // Servicios:
 import {UserGuard} from './services/user.guard';
+import {EditUserGuard} from "./services/edit-user.guard";
+import {EditProfileGuard} from "./services/edit-profile.guard";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -28,8 +30,8 @@ const appRoutes: Routes = [
   {path: 'profile/:id', component: ProfileComponent, canActivate: [UserGuard]},
   {path: 'users/:page', component: UsersComponent, canActivate: [UserGuard]},
   {path: 'makePublication', component: makePublicationComponent, canActivate: [UserGuard]},
-  {path: 'edit-profile', component: EditProfileComponent, canActivate: [UserGuard]},
-  {path: 'edit-user', component: EditUserComponent, canActivate: [UserGuard]},
+  {path: 'edit-profile', component: EditProfileComponent, canActivate: [UserGuard], canDeactivate: [EditProfileGuard]},
+  {path: 'edit-user', component: EditUserComponent, canActivate: [UserGuard], canDeactivate: [EditUserGuard]},
   {path: 'following/:id/:page', component: FollowingComponent, canActivate: [UserGuard]},
   {path: 'followed/:id/:page', component: FollowedComponent, canActivate: [UserGuard]},
   {path: 'messages', component: MessagesComponent},

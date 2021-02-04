@@ -81,13 +81,15 @@ export class TimelineComponent implements OnInit {
   }
 
   deletePublication(id: any) {
-    this._publicationService.deletePublication(this.token, id).subscribe(
-      response => {
-        this.refresh();
-      },
-      error => {
-        console.log(error as any);
-      });
+    if (confirm('¿Estás seguro de que quieres borrar el tweet?')) {
+      this._publicationService.deletePublication(this.token, id).subscribe(
+        response => {
+          this.refresh();
+        },
+        error => {
+          console.log(error as any);
+        });
+    }
   }
 
   public followCursor2: any = 0;

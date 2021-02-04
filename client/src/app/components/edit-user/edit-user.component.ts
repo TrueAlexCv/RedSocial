@@ -41,7 +41,7 @@ export class EditUserComponent implements OnInit {
     this._userService.updateUser(this.identity).subscribe(
       response => {
         if (response.user) {
-          if(this.passwords.newpassword !== null && this.passwords.actualpassword !== null) {
+          if (this.passwords.newpassword !== null && this.passwords.actualpassword !== null) {
             this.updatePassword();
           }
           this.status = 'success';
@@ -70,6 +70,15 @@ export class EditUserComponent implements OnInit {
         console.log(error as any);
         this.status = 'error';
       });
+  }
+
+  /* Cambios: */
+  get isDirty(): boolean {
+    const inicial: any = {
+      newpassword: null,
+      actualpassword: null
+    };
+    return JSON.stringify(inicial) !== JSON.stringify(this.passwords);
   }
 
 }

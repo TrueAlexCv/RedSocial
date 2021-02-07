@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute, Params} from "@angular/router";
-import {User} from "../../models/user";
+import {Router, ActivatedRoute} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {GLOBAL} from "../../services/global";
 
@@ -23,22 +22,21 @@ export class EditUserComponent implements OnInit {
   };
 
   constructor(
-    private _userService: UserService,
-    private _router: Router,
-    private _route: ActivatedRoute
+    private userService: UserService,
+    private router: Router,
   ) {
-    this.title = "Editar usuario";
+    this.title = 'Editar usuario';
     this.url = GLOBAL.url;
-    this.identity = this._userService.getIdentity();
-    this.token = this._userService.getToken();
+    this.identity = this.userService.getIdentity();
+    this.token = this.userService.getToken();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.log('edit-user.component ha sido cargado correctamente');
   }
 
-  updateUser(form: any) {
-    this._userService.updateUser(this.identity).subscribe(
+  updateUser(form: any): void {
+    this.userService.updateUser(this.identity).subscribe(
       response => {
         if (response.user) {
           if (this.passwords.newpassword !== null && this.passwords.actualpassword !== null) {
@@ -46,7 +44,7 @@ export class EditUserComponent implements OnInit {
           }
           this.status = 'success';
           localStorage.setItem('identity', JSON.stringify(this.identity));
-          this._router.navigate(['/profile', this.identity._id]);
+          this.router.navigate(['/profile', this.identity._id]);
         } else {
           this.status = 'error';
         }
@@ -57,8 +55,8 @@ export class EditUserComponent implements OnInit {
       });
   }
 
-  updatePassword() {
-    this._userService.updatePassword(this.passwords).subscribe(
+  updatePassword(): void {
+    this.userService.updatePassword(this.passwords).subscribe(
       response => {
         if (response.user) {
           this.status = 'success';

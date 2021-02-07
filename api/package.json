@@ -18,7 +18,7 @@
     "moment": "^2.29.1",
     "mongoose": "^5.11.13",
     "mongoose-pagination": "^1.0.0",
-    "socket.io": "^3.1.0",
+    "socket.io": "^2.3.0",
     "chalk": "^4.1.0"
   },
   "devDependencies": {

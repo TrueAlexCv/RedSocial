@@ -17,19 +17,19 @@ import {LoginComponent} from './components/login/login.component';
 import {TimelineComponent} from './components/timeline/timeline.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {UsersComponent} from './components/users/users.component';
-import {makePublicationComponent} from './components/makePublication/makePublication.component';
+import {MakePublicationComponent} from './components/makePublication/makePublication.component';
 import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
 import {EditUserComponent} from './components/edit-user/edit-user.component';
 import {FollowingComponent} from './components/following/following.component';
 import {FollowedComponent} from './components/followed/followed.component';
 import {MessagesComponent} from './components/messages/messages.component';
-import {SearchComponent} from "./components/search/search.component";
+import {SearchComponent} from './components/search/search.component';
 
 // Servicios:
 import {UserService} from './services/user.service';
 import {UserGuard} from './services/user.guard';
-import {EditUserGuard} from "./services/edit-user.guard";
-import {EditProfileGuard} from "./services/edit-profile.guard";
+import {EditUserGuard} from './services/edit-user.guard';
+import {EditProfileGuard} from './services/edit-profile.guard';
 
 // Pipes:
 import {SearchPipe} from './pipes/search/search.pipe';
@@ -48,7 +48,7 @@ import {WebSocketService} from './services/web-socket.service';
     TimelineComponent,
     ProfileComponent,
     UsersComponent,
-    makePublicationComponent,
+    MakePublicationComponent,
     EditProfileComponent,
     EditUserComponent,
     FollowingComponent,

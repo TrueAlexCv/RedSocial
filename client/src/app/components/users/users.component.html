@@ -23,7 +23,7 @@
           Seguir
         </button>
         <ng-template #following>
-          <button (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave(user._id)"
+          <button (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave()"
                   (click)="unfollowUser(user._id)" [class.danger]="followCursor==user._id">
             <span *ngIf="followCursor != user._id ;else unfollow">Siguiendo</span>
             <ng-template #unfollow>Dejar de seguir</ng-template>

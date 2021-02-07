@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute, Params} from '@angular/router';
+import {Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import {PublicationService} from '../../services/publication.service';
-import {Publication} from '../../models/publication';
 import {GLOBAL} from '../../services/global';
 
 @Component({
@@ -23,27 +22,27 @@ export class TimelineComponent implements OnInit {
   public pages!: number;
   public total!: number;
   public itemsPerPage!: number;
+  public publicationCursor: any = 0;
 
   constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _userService: UserService,
-    private _publicationService: PublicationService
+    private router: Router,
+    private userService: UserService,
+    private publicationService: PublicationService
   ) {
     this.title = 'Timeline';
     this.url = GLOBAL.url;
-    this.identity = this._userService.getIdentity();
-    this.token = this._userService.getToken();
+    this.identity = this.userService.getIdentity();
+    this.token = this.userService.getToken();
     this.page = 1;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.log('timeline.component ha sido cargado correctamente');
     this.getTimeline(this.page, false);
   }
 
-  getTimeline(page: number, more = false) {
-    this._publicationService.getTimeline(this.token, page).subscribe(
+  getTimeline(page: number, more = false): void {
+    this.publicationService.getTimeline(this.token, page).subscribe(
       response => {
         if (response.publications) {
           this.total = response.total_items;
@@ -62,7 +61,7 @@ export class TimelineComponent implements OnInit {
             }
           }, 0);
           if (page > this.pages) {
-            this._router.navigate(['/timeline']);
+            this.router.navigate(['/timeline']);
           }
         } else {
           this.status = 'error';
@@ -75,25 +74,19 @@ export class TimelineComponent implements OnInit {
       });
   }
 
-  viewMore() {
+  viewMore(): void {
     this.page += 1;
     this.getTimeline(this.page, true);
   }
 
-  lol24(): any {
-    for (let i = 1; i <= 750; i++) {
-      self.scroll(1, i);
-    }
-  }
-
-  refresh() {
+  refresh(): void {
     this.page = 1;
     this.getTimeline(this.page, false);
   }
 
-  deletePublication(id: any) {
+  deletePublication(id: any): void {
     if (confirm('¿Estás seguro de que quieres borrar el tweet?')) {
-      this._publicationService.deletePublication(this.token, id).subscribe(
+      this.publicationService.deletePublication(this.token, id).subscribe(
         response => {
           this.refresh();
         },
@@ -103,14 +96,11 @@ export class TimelineComponent implements OnInit {
     }
   }
 
-  public followCursor2: any = 0;
-
-  desplegarPanel(id: any) {
-    if (this.followCursor2 === 0) {
-      this.followCursor2 = id;
+  desplegarPanel(id: any): void {
+    if (this.publicationCursor === 0) {
+      this.publicationCursor = id;
     } else {
-      this.followCursor2 = 0;
+      this.publicationCursor = 0;
     }
   }
-
 }

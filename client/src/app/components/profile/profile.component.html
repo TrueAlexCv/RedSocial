@@ -35,18 +35,18 @@
         Editar perfil
       </button>
       <div *ngIf="identity._id != user._id && this.follows">
-        <button *ngIf="follows.indexOf(user._id) < 0"
+        <button *ngIf="follows.indexOf(user._id) < 0 ;else following"
                 (click)="followUser(user._id)"
-                (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave(user._id)"
                 class="safe">
           Seguir
         </button>
-        <button *ngIf="follows.indexOf(user._id) >= 0"
-                (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave(user._id)"
-                (click)="unfollowUser(user._id)" [class.danger]="followCursor==user._id">
-          <span *ngIf="followCursor != user._id ;else unfollow">Siguiendo</span>
-          <ng-template #unfollow>Dejar de seguir</ng-template>
-        </button>
+        <ng-template #following>
+          <button (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave()"
+                  (click)="unfollowUser(user._id)" [class.danger]="followCursor==user._id">
+            <span *ngIf="followCursor != user._id ;else unfollow">Siguiendo</span>
+            <ng-template #unfollow>Dejar de seguir</ng-template>
+          </button>
+        </ng-template>
       </div>
     </div>
   </div>
@@ -89,7 +89,7 @@
       <button class="publicaciones_publicacion_opciones_boton"
               (click)="desplegarPanel(publication._id)">
       </button>
-      <div *ngIf="this.followCursor2 == publication._id"
+      <div *ngIf="this.publicationCursor == publication._id"
            class="publicaciones_publicacion_opciones_panel">
         <button *ngIf="this.identity._id == publication.user._id"
                 (click)="deletePublication(publication._id)"

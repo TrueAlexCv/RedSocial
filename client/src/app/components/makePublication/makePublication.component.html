@@ -14,13 +14,13 @@
       </div>
       <div class="publicacion_form_datos_contenido">
         <textarea class="publicacion_form_datos_contenido_texto"
-               name="text" #text="ngModel" [(ngModel)]="publication.text"
+                  name="text" #text="ngModel" [(ngModel)]="publication.text"
                   placeholder="¿Qué estás pensando hoy?"
-                  required minlength=1 maxlength=280 >
+                  required minlength=1 maxlength=280>
         </textarea>
         <label for="publicacion_form_datos_contenido_archivo"
                class="publicacion_form_datos_contenido_archivo">
-          <img src="assets/icons/image-icon.png" />
+          <img src="assets/icons/image-icon.png"/>
         </label>
         <input id="publicacion_form_datos_contenido_archivo"
                type="file" placeholder="Subir imagen" (change)="uploadFiles($event)"/>

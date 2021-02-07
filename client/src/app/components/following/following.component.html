@@ -34,8 +34,8 @@
   </div>
 
   <div class="users_paginas">
-    <button *ngIf="page > 1" [routerLink]="['/users', prev]">Anterior</button>
-    <button *ngIf="page < pages" [routerLink]="['/users', next]">Siguiente</button>
+    <button *ngIf="page > 1" [routerLink]="['/following', userId, prev]">Anterior</button>
+    <button *ngIf="page < pages" [routerLink]="['/following', userId, next]">Siguiente</button>
   </div>
 
 </div>

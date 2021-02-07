@@ -1,6 +1,6 @@
 <div class="editar">
   <div class="editar_cabecera">
-    <img src="assets/icons/user-icon.png" />
+    <img src="assets/icons/user-icon.png"/>
     <h1>{{title}}</h1>
   </div>
   <div *ngIf="status=='error'">
@@ -17,6 +17,7 @@
         El nombre es incorrecto
       </span>
     </div>
+
     <div class="editar_form_biography">
       <label>Biografía:</label>
       <input type="text" name="biography" #biography="ngModel" [(ngModel)]="identity.biography"
@@ -25,14 +26,17 @@
         La biografia es incorrecta
       </span>
     </div>
+
     <div class="editar_form_image">
       <label>Imagen de perfil:</label>
       <input type="file" (change)="changeImage($event)"/>
     </div>
+
     <div class="editar_form_banner">
       <label>Banner de perfil:</label>
       <input type="file" (change)="changeBanner($event)"/>
     </div>
+
     <div class="editar_form_submit">
       <input type="submit" placeholder="Actualizar perfil" [disabled]="!profile.form.valid"/>
     </div>

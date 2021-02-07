@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute, Params, Route} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Follow} from '../../models/follow';
 import {FollowService} from '../../services/follow.service';
 import {UserService} from '../../services/user.service';
@@ -29,53 +29,53 @@ export class FollowedComponent implements OnInit {
   public followCursor!: any;
 
   constructor(
-    private _userService: UserService,
-    private _followService: FollowService,
-    private _router: Router,
-    private _route: ActivatedRoute
+    private userService: UserService,
+    private followService: FollowService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.title = 'Followed';
     this.url = GLOBAL.url;
-    this.identity = this._userService.getIdentity();
-    this.token = this._userService.getToken();
+    this.identity = this.userService.getIdentity();
+    this.token = this.userService.getToken();
     this.page = 1;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.log('following.component ha sido cargado correctamente');
     this.actualPage();
     this.getOnlyFollowing();
   }
 
-  actualPage() {
-    this._route.params.subscribe( params => {
-      this.userId = params['id'];
-      this.page = params['page'];
-      if(!this.page) {
+  actualPage(): void {
+    this.route.params.subscribe(params => {
+      this.userId = params.id;
+      this.page = +params['page'];
+      if (!this.page) {
         this.page = 1;
         this.next = 2;
       } else {
         this.prev = this.page - 1;
         this.next = this.page + 1;
 
-        if(this.prev <= 0) {
+        if (this.prev <= 0) {
           this.prev = 1;
         }
       }
-      this.getFollowedUsers(this.userId,this.page);
+      this.getFollowedUsers(this.userId, this.page);
     });
   }
 
-  getFollowedUsers(id: any, page: any) {
-    this._followService.getFollowedUsers(this.token, id, page).subscribe(
+  getFollowedUsers(id: any, page: any): void {
+    this.followService.getFollowedUsers(this.token, id, page).subscribe(
       response => {
         if (response.follows) {
           this.follows = response.follows;
           console.log(this.follows);
           this.total = response.total;
           this.pages = response.pages;
-          if(page > this.pages) {
-            this._router.navigate(['/profile',id]);
+          if (page > this.pages) {
+            this.router.navigate(['/profile', id]);
           }
         } else {
           this.status = 'error';
@@ -89,10 +89,10 @@ export class FollowedComponent implements OnInit {
 
   /* Seguimiento de usuarios: */
 
-  getOnlyFollowing() {
-    this._followService.getOnlyFollowing(this.token).subscribe(
+  getOnlyFollowing(): void {
+    this.followService.getOnlyFollowing(this.token).subscribe(
       response => {
-        if(response.following) {
+        if (response.following) {
           this.myFollows = response.following;
         } else {
           this.status = 'error';
@@ -104,9 +104,9 @@ export class FollowedComponent implements OnInit {
       });
   }
 
-  followUser(id: any) {
-    const follow = new Follow('',this.identity._id,id);
-    this._followService.followUser(this.token, follow).subscribe(
+  followUser(id: any): void {
+    const follow = new Follow('', this.identity._id, id);
+    this.followService.followUser(this.token, follow).subscribe(
       response => {
         if (!response.follow) {
           this.status = 'error';
@@ -120,8 +120,8 @@ export class FollowedComponent implements OnInit {
       });
   }
 
-  unfollowUser(id: any) {
-    this._followService.unfollowUser(this.token, id).subscribe(
+  unfollowUser(id: any): void {
+    this.followService.unfollowUser(this.token, id).subscribe(
       response => {
         const eliminar = this.myFollows.indexOf(id);
         if (eliminar !== -1) {
@@ -134,11 +134,11 @@ export class FollowedComponent implements OnInit {
       });
   }
 
-  mouseEnter(id: any) {
+  mouseEnter(id: any): void {
     this.followCursor = id;
   }
 
-  mouseLeave(id: any) {
+  mouseLeave(id: any): void {
     this.followCursor = 0;
   }
 }

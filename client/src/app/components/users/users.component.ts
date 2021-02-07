@@ -1,10 +1,9 @@
-import {Component, OnInit} from "@angular/core";
-import {Router, ActivatedRoute, Params} from "@angular/router";
-import {UserService} from "../../services/user.service";
-import {User} from "../../models/user";
-import {GLOBAL} from "../../services/global";
-import {Follow} from "../../models/follow";
-import {FollowService} from "../../services/follow.service";
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+import {UserService} from '../../services/user.service';
+import {GLOBAL} from '../../services/global';
+import {Follow} from '../../models/follow';
+import {FollowService} from '../../services/follow.service';
 
 @Component({
   selector: 'users',
@@ -20,35 +19,35 @@ export class UsersComponent implements OnInit {
   public identity: any;
   public token: any;
   public users!: any;
-  public total!: number;
   public page: number;
   public pages!: number;
+  public total!: number;
   public next!: number;
   public prev!: number;
   public follows!: any;
   public followCursor!: any;
 
   constructor(
-    private _userService: UserService,
-    private _followService: FollowService,
-    private _router: Router,
-    private _route: ActivatedRoute
+    private userService: UserService,
+    private followService: FollowService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.title = 'Usuarios';
     this.url = GLOBAL.url;
-    this.identity = this._userService.getIdentity();
-    this.token = this._userService.getToken();
+    this.identity = this.userService.getIdentity();
+    this.token = this.userService.getToken();
     this.page = 1;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.log('users.component ha sido cargado correctamente');
     this.actualPage();
   }
 
-  actualPage() {
-    this._route.params.subscribe(params => {
-      let page = +params['page'];
+  actualPage(): void {
+    this.route.params.subscribe(params => {
+      let page = +params.page;
       this.page = page;
 
       if (!page) {
@@ -66,8 +65,8 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  getUsers(page: any) {
-    this._userService.getUsers(page).subscribe(
+  getUsers(page: any): void {
+    this.userService.getUsers(page).subscribe(
       response => {
         if (response.users) {
           this.users = response.users;
@@ -84,9 +83,9 @@ export class UsersComponent implements OnInit {
       });
   }
 
-  followUser(id: any) {
-    const follow = new Follow('',this.identity._id,id);
-    this._followService.followUser(this.token, follow).subscribe(
+  followUser(id: any): void {
+    const follow = new Follow('', this.identity._id, id);
+    this.followService.followUser(this.token, follow).subscribe(
       response => {
         if (!response.follow) {
           this.status = 'error';
@@ -100,8 +99,8 @@ export class UsersComponent implements OnInit {
       });
   }
 
-  unfollowUser(id: any) {
-    this._followService.unfollowUser(this.token, id).subscribe(
+  unfollowUser(id: any): void {
+    this.followService.unfollowUser(this.token, id).subscribe(
       response => {
         const eliminar = this.follows.indexOf(id);
         if (eliminar !== -1) {
@@ -114,12 +113,11 @@ export class UsersComponent implements OnInit {
       });
   }
 
-  mouseEnter(id: any) {
+  mouseEnter(id: any): void {
     this.followCursor = id;
   }
 
-  mouseLeave(id: any) {
+  mouseLeave(): void {
     this.followCursor = 0;
   }
-
 }

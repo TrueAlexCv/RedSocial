@@ -29,7 +29,7 @@
       <button class="publicaciones_publicacion_opciones_boton"
               (click)="desplegarPanel(publication._id)">
       </button>
-      <div *ngIf="this.followCursor2 == publication._id"
+      <div *ngIf="this.publicationCursor == publication._id"
            class="publicaciones_publicacion_opciones_panel">
         <button *ngIf="this.identity._id == publication.user._id"
                 (click)="deletePublication(publication._id)"

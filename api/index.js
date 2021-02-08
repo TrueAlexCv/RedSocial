@@ -19,40 +19,24 @@ mongoose.connect("mongodb://localhost:27017/RedSocial",
 
 // SocketIO:
 io.on('connection', function (socket) {
-    const id_handshake = socket.id;
-    let {payload} = socket.handshake.query;
-    console.log(`${chalk.blue(`Nuevo dispositivo conectado: ${id_handshake}`)}`);
-    if (!payload) {
-        console.log(`${chalk.red(`Sin payload`)}`);
-    } else {
-        payload = JSON.parse(payload)
-        socket.join(`room_${payload.id}`); //Creamso una sala para el usaurio
-        console.log(`${chalk.yellow(`El dispositivo ${id_handshake} se unio a -> ${`room_${payload.id}`}`)}`);
-        socket.emit('message', {
-            msg: `Hola tu eres el dispositivo ${id_handshake}, perteneces a la sala room_${payload.id}, de ${payload.user}`
-        });
+    const userId = socket.id;
+    console.log(`${chalk.blue(`Nuevo dispositivo conectado: ${userId}`)}`);
 
-        socket.on('default', function (res) {
+    socket.emit('message', {
+        msg: `Hola tu eres ${userId}`
+    });
 
-            switch (res.event) {
-                case 'message':
-
-                    const inPayloadCookie = JSON.parse(res.cookiePayload);
-                    const inPayload = res.payload;
-                    io.to(`room_${inPayloadCookie.id}`).emit('message', {
-                        msg: `Mensaje a todos los dispositivos de la sala room__${inPayloadCookie.id}: ${inPayload.message}`
-                    });
-
-                    break;
-            }
-
-        }); // listen to the event
-    }
-    ;
-
-    // console.log( socket.handshake.headers['user-agent']); //Obtener navegador
-
-
+    socket.on('default', function (res) {
+        console.log("Hola", res);
+        switch (res.event) {
+            case 'message':
+                const inPayload = res.payload;
+                io.emit('message', {
+                    msg: `Mensaje: ${inPayload.message}`
+                });
+                break;
+        }
+    });
     socket.on('disconnect', function () {
         console.log('user disconnected');
     });

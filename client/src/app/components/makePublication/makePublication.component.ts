@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Router} from '@angular/router';
 import {Publication} from '../../models/publication';
 import {PublicationService} from '../../services/publication.service';
 import {UserService} from '../../services/user.service';
@@ -27,7 +27,6 @@ export class MakePublicationComponent implements OnInit {
     private publicationService: PublicationService,
     private uploadService: UploadService,
     private router: Router,
-    private route: ActivatedRoute
   ) {
     this.title = 'Publicar un tweet';
     this.url = GLOBAL.url;
@@ -64,5 +63,4 @@ export class MakePublicationComponent implements OnInit {
   uploadFiles(file: any): void {
     this.files = (file.target.files as Array<File>);
   }
-
 }

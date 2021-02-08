@@ -1,9 +1,9 @@
 'use strict';
 
 const mongoose = require('mongoose');
-var schema = mongoose.Schema;
+const schema = mongoose.Schema;
 
-var followSchema = schema({
+const followSchema = schema({
     user: {type: schema.ObjectId, ref: 'User'},
     followed: {type: schema.ObjectId, ref: 'User'}
 });

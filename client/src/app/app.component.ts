@@ -13,12 +13,14 @@ import {
 import {UserService} from './services/user.service';
 import {GLOBAL} from './services/global';
 import {MakePublicationComponent} from './components/makePublication/makePublication.component';
+import {PublicationService} from './services/publication.service';
+import {UploadService} from './services/upload.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [UserService]
+  providers: [UserService, MakePublicationComponent, PublicationService, UploadService]
 })
 
 export class AppComponent implements OnInit, DoCheck {
@@ -39,8 +41,10 @@ export class AppComponent implements OnInit, DoCheck {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
+    protected publicationService: PublicationService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef,
+    protected makePublication: MakePublicationComponent
   ) {
     this.title = 'Página principal';
     this.url = GLOBAL.url;
@@ -98,7 +102,7 @@ export class AppComponent implements OnInit, DoCheck {
     this.ref.changeDetectorRef.detectChanges();
     if (this.do) {
       this.do = false;
-      this.router.navigate(['/timeline']);
+      this.router.navigate(['/users', 2]);
     }
   }
 

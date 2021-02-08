@@ -1,0 +1,50 @@
+<!-- <div>
+  <div class="search">
+    <input type="text" placeholder="Enviar un mensaje"
+           [(ngModel)]="input_message" />
+    <button type="button" (click)="sendData('message')" >Enviar</button>
+  </div>
+
+  <ul class="lolol">
+    <li  *ngFor="let m of messages">{{m}}</li>
+  </ul>
+</div> -->
+
+
+<!-- ==============================================
+Hero
+=============================================== -->
+<section class="hero">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-6 offset-lg-3">
+
+        <hr/>
+
+        <div class="cardbox shadow-lg bg-white">
+
+          <hr/>
+
+          <div class="cardbox-comments">
+            <div class="search">
+              <input [(ngModel)]="input_message"  placeholder="Write a comment" type="text">
+              <button (click)="sendData('message')" type="button" class="btn btn-primary btn-sm">ENVIAR</button>
+            </div><!--/. Search -->
+          </div><!--/ cardbox-like -->
+
+        </div><!--/ cardbox -->
+
+      </div><!--/ col-lg-6 -->
+
+    </div><!--/ row -->
+  </div><!--/ container -->
+</section>
+
+<hr/>
+
+<div class="cardbox-item">
+  <ul class="list-ul">
+    <li *ngFor="let m of messages">{{m}}</li>
+  </ul>
+</div>

@@ -27,7 +27,6 @@ io.on('connection', function (socket) {
     });
 
     socket.on('default', function (res) {
-        console.log("Hola", res);
         switch (res.event) {
             case 'message':
                 const inPayload = res.payload;

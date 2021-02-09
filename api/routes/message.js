@@ -10,8 +10,9 @@ const md_auth = require('../middlewares/authenticated');
 const MessageController = require('../controllers/message');
 
 api.post('/add-message', md_auth.ensureAuth, MessageController.addMessage);
-api.get('/get-emitted-messages', md_auth.ensureAuth, MessageController.getEmittedMessages);
-api.get('/get-received-messages', md_auth.ensureAuth, MessageController.getReceivedMessages);
+api.post('/get-messages', md_auth.ensureAuth, MessageController.getMessages);
+api.post('/get-emitted-messages', md_auth.ensureAuth, MessageController.getEmittedMessages);
+api.post('/get-received-messages', md_auth.ensureAuth, MessageController.getReceivedMessages);
 api.post('/set-viewed-messages', md_auth.ensureAuth, MessageController.setViewedMessages);
 
 module.exports = api;

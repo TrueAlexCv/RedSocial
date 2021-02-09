@@ -39,7 +39,7 @@ function addMessage(req, res) {
     });
 }
 
-function getEmittedMessages(req, res) {
+function getMessages(req, res) {
     const userId = req.user.sub;
     const params = req.body
     const receiver = params.receiver;
@@ -50,25 +50,61 @@ function getEmittedMessages(req, res) {
     }
     const itemsPerPage = 10;
     const page = 1;
+    Message.find({
+        $or:
+            [{emitter: userId, receiver: receiver},
+                {emitter: receiver, receiver: userId}]
+    }).sort('created_at').populate('emitter receiver')
+        .paginate(page, itemsPerPage, (err, messages, total) => {
+            if (err) {
+                return res.status(500).send({
+                    message: "[ERROR]: Petición mensajes enviados"
+                });
+            }
+            if (!messages) {
+                return res.status({
+                    message: "[ERROR]: No hay mensajes enviados"
+                });
+            }
+            return res.status(200).send({
+                total: total,
+                page: page,
+                pages: Math.ceil(total / itemsPerPage),
+                messages: messages
+            });
+        });
+}
+
+function getEmittedMessages(req, res) {
+    const userId = req.user.sub;
+    const params = req.body
+    const receiver = params.receiver;
+    if (!params.receiver) {
+        return res.status(404).send({
+            message: "[ERROR]: No se localiza el emitter"
+        });
+    }
+    const itemsPerPage = 10;
+    const page = 1;
     Message.find({emitter: userId, receiver: receiver}).sort('created_at')
         .paginate(page, itemsPerPage, (err, messages, total) => {
-        if(err) {
-            return res.status(500).send({
-                message: "[ERROR]: Petición mensajes enviados"
+            if (err) {
+                return res.status(500).send({
+                    message: "[ERROR]: Petición mensajes recibidos"
+                });
+            }
+            if (!messages) {
+                return res.status({
+                    message: "[ERROR]: No hay mensajes recibidos"
+                });
+            }
+            return res.status(200).send({
+                total: total,
+                page: page,
+                pages: Math.ceil(total / itemsPerPage),
+                messages: messages
             });
-        }
-        if(!messages) {
-            return res.status({
-                message: "[ERROR]: No hay mensajes enviados"
-            });
-        }
-        return res.status(200).send({
-            total: total,
-            page: page,
-            pages: Math.ceil(total/itemsPerPage),
-            messages: messages
         });
-    });
 }
 
 function getReceivedMessages(req, res) {
@@ -84,12 +120,12 @@ function getReceivedMessages(req, res) {
     const page = 1;
     Message.find({emitter: emitter, receiver: userId}).sort('created_at')
         .paginate(page, itemsPerPage, (err, messages, total) => {
-            if(err) {
+            if (err) {
                 return res.status(500).send({
                     message: "[ERROR]: Petición mensajes recibidos"
                 });
             }
-            if(!messages) {
+            if (!messages) {
                 return res.status({
                     message: "[ERROR]: No hay mensajes recibidos"
                 });
@@ -97,7 +133,7 @@ function getReceivedMessages(req, res) {
             return res.status(200).send({
                 total: total,
                 page: page,
-                pages: Math.ceil(total/itemsPerPage),
+                pages: Math.ceil(total / itemsPerPage),
                 messages: messages
             });
         });
@@ -109,25 +145,26 @@ function setViewedMessages(req, res) {
     const emitter = params.emitter;
 
     Message.updateMany({emitter: emitter, receiver: userId, viewed: false}, {viewed: true},
-        {'multi':true}, (err, messagesUpdated) => {
-        if(err) {
-            return res.status(500).send({
-                message: "[ERROR]: Petición actualizar mensajes vistos"
-            });
-        }
-        if(!messagesUpdated) {
-            return res.status(404).send({
-                message: "[ERROR]: Los mensajes no se han actualizado a vistos"
-            });
-        }
-        return res.status(200).send({
-            messages: messagesUpdated
+        {'multi': true}, (err, messagesUpdated) => {
+            if (err) {
+                return res.status(500).send({
+                    message: "[ERROR]: Petición actualizar mensajes vistos"
+                });
+            }
+            if (!messagesUpdated) {
+                return res.status(404).send({
+                    message: "[ERROR]: Los mensajes no se han actualizado a vistos"
+                });
+            }
+            return res.status(200).send({
+                messages: messagesUpdated
             });
         });
 }
 
 module.exports = {
     addMessage,
+    getMessages,
     getEmittedMessages,
     getReceivedMessages,
     setViewedMessages

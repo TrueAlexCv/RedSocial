@@ -1,50 +1,39 @@
-<!-- <div>
-  <div class="search">
-    <input type="text" placeholder="Enviar un mensaje"
-           [(ngModel)]="input_message" />
-    <button type="button" (click)="sendData('message')" >Enviar</button>
-  </div>
-
-  <ul class="lolol">
-    <li  *ngFor="let m of messages">{{m}}</li>
-  </ul>
-</div> -->
-
-
-<!-- ==============================================
-Hero
-=============================================== -->
+<!-- WebSockets(incompleto):
 <section class="hero">
-  <div class="container">
-    <div class="row">
-
-      <div class="col-lg-6 offset-lg-3">
-
-        <hr/>
-
-        <div class="cardbox shadow-lg bg-white">
-
-          <hr/>
-
-          <div class="cardbox-comments">
-            <div class="search">
-              <input [(ngModel)]="input_message"  placeholder="Write a comment" type="text">
-              <button (click)="sendData('message')" type="button" class="btn btn-primary btn-sm">ENVIAR</button>
-            </div><!--/. Search -->
-          </div><!--/ cardbox-like -->
-
-        </div><!--/ cardbox -->
-
-      </div><!--/ col-lg-6 -->
-
-    </div><!--/ row -->
-  </div><!--/ container -->
+  <div class="search">
+    <input [(ngModel)]="input_message" placeholder="Write a comment" type="text">
+    <button (click)="sendData('message')" type="button" class="btn btn-primary btn-sm">ENVIAR</button>
+  </div>
 </section>
-
-<hr/>
 
 <div class="cardbox-item">
   <ul class="list-ul">
-    <li *ngFor="let m of messages">{{m}}</li>
+    <li *ngFor="let m of messagesSocket">{{m}}</li>
   </ul>
+</div>
+-->
+
+<div *ngIf="follows">
+  <div *ngFor="let follow of follows">
+    <button (click)="getMessages(follow.user._id)">
+      {{follow.user.name}} | @{{follow.user.nick}}
+    </button>
+    <hr/>
+  </div>
+</div>
+
+<div *ngIf="messages">
+  Mensajes: {{messages.length}}
+  <div *ngFor="let message of messages">
+    <div [class.danger]="(message.viewed == 'false') && (message.receiver._id == identity._id)">
+      Mensaje de @{{message.emitter.nick}} al usuario @{{message.receiver.nick}}
+      {{message.text}}
+      <hr/>
+    </div>
+  </div>
+</div>
+<div>
+  <h2>Enviar mensaje:</h2>
+  <input type="text" [(ngModel)]="input"/>
+  <button (click)="addMessage(receiver)">Enviar</button>
 </div>

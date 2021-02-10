@@ -15,8 +15,9 @@
 <div class="chat" xmlns="http://www.w3.org/1999/html">
 
   <div *ngIf="follows" class="chat_users">
-    <div *ngFor="let follow of follows" class="chat_users_user">
-      <div (click)="getMessages(follow.user._id)" class="chat_users_user_caja">
+    <div *ngFor="let follow of follows" class="chat_users_user" [class.selected]="selected == follow.user._id">
+      <div (click)="getMessages(follow.user._id)"
+           class="chat_users_user_caja">
         <img *ngIf="follow.user.image else defaultImage"
              src="{{url+'getImage/'+follow.user.image}}"/>
         <ng-template #defaultImage>
@@ -30,19 +31,36 @@
   </div>
 
   <div class="chat_caja">
-    <div *ngIf="messages else noMensajes" class="chat_caja_mensajes">
-      <div *ngFor="let message of messages" class="chat_caja_mensajes_mensaje">
-        <div class="chat_caja_mensajes_mensaje_caja"
-             [class.danger]="(message.viewed == 'false') && (message.receiver._id == identity._id)">
-          Mensaje de @{{message.emitter.nick}} al usuario @{{message.receiver.nick}}
-          {{message.text}}
+    <div *ngIf="messages else noMensajes" class="chat_caja_mensajes" id="scroll">
+      <div *ngFor="let message of messages" class="chat_caja_mensajes_mensaje"
+           [class.danger]="(message.viewed == 'false') && (message.receiver._id == identity._id)"
+           [class.mirror]="message.receiver._id == this.identity._id">
+
+        <div *ngIf="message.receiver._id == this.identity._id else right"
+             class="chat_caja_mensajes_mensaje_left">
+          <img *ngIf="message.emitter.image else imageMsgDefault"
+               src="{{url+'getImage/'+message.emitter.image}}"/>
+          <ng-template #imageMsgDefault>
+          <img src="assets/default/imagedefault.png"/>
+          </ng-template>
+          <p class="chat_caja_mensajes_mensaje_left_caja">
+            {{message.text}}
+          </p>
         </div>
+
+        <ng-template #right>
+          <div class="chat_caja_mensajes_mensaje_right">
+            <p class="chat_caja_mensajes_mensaje_right_caja">
+              {{message.text}}
+            </p>
+          </div>
+        </ng-template>
       </div>
     </div>
 
     <div *ngIf="messages" class="chat_caja_enviar">
       <textarea placeholder="Enviar un mensaje..." [(ngModel)]="input"
-             class="chat_caja_enviar_input"></textarea>
+                class="chat_caja_enviar_input"></textarea>
       <button (click)="addMessage(receiver)" class="chat_caja_enviar_boton">Enviar</button>
     </div>
 

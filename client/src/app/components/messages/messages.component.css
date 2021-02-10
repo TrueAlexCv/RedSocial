@@ -1,6 +1,13 @@
+.selected {
+  background: #ccfff4 !important;
+}
+
 .danger {
-  background: red;
-  color: white;
+  background: #73d6d0 !important;
+}
+
+.mirror {
+  justify-content: flex-start !important;
 }
 
 .chat {
@@ -47,8 +54,8 @@
 }
 
 .chat_users_user_caja > img {
-  width: 30px;
-  height: 30px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   border: 1px solid black;
   margin-right: 1%;
@@ -74,26 +81,79 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 85%;
-  background: #c9fffe;
+  height: 90%;
+  background: #e1fffe;
   overflow: auto;
 }
 
 .chat_caja_mensajes_mensaje {
-  background: #a8ffa8;
-  border: 1px solid black;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 1%;
 }
 
-.chat_caja_mensajes_mensaje_caja {
-  color: black;
+/* Mensajes - Mensaje - Left: */
+
+.chat_caja_mensajes_mensaje_left {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  width: 50%;
 }
+
+.chat_caja_mensajes_mensaje_left > img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid black;
+  margin-right: 1%;
+  top: 0;
+}
+
+.chat_caja_mensajes_mensaje_left_caja {
+  position: relative;
+  color: black;
+  border-radius: 20px;
+  border: 1px solid black;
+  padding: 2%;
+  max-width: 70%;
+  background: #fff;
+  overflow-wrap: break-word;
+}
+
+/* Mensajes - Mensaje - Right: */
+
+.chat_caja_mensajes_mensaje_right {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: flex-end;
+}
+
+.chat_caja_mensajes_mensaje_right_caja {
+  position: relative;
+  color: black;
+  border-radius: 20px;
+  border: 1px solid black;
+  padding: 2%;
+  max-width: 70%;
+  background: #bbffbf;
+  overflow-wrap: break-word;
+}
+
+/* Chat - Enviar: */
 
 .chat_caja_enviar {
   position: relative;
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 15%;
+  height: 10%;
 }
 
 .chat_caja_enviar_input {
@@ -106,9 +166,11 @@
 .chat_caja_enviar_boton {
   width: 20%;
   height: 100%;
+  cursor: pointer;
 }
 
 /* Chat - Caja(Default): */
+
 .chat_caja_default {
   position: relative;
   display: flex;

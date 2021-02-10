@@ -31,6 +31,7 @@ export class MessagesComponent implements OnInit {
   public pagesMsg!: number;
   public totalMsg!: number;
   public receiver!: any;
+  public selected!: any;
   /* WebSockets(incompleto): */
   public msg!: any;
   public messagesSocket = ['Websockets:'];
@@ -80,6 +81,7 @@ export class MessagesComponent implements OnInit {
   }
 
   getMessages(userId: any): void {
+    this.selected = userId;
     this.receiver = userId;
     this.messageService.getMessages(this.token, {receiver: userId}).subscribe(
       response => {
@@ -88,6 +90,7 @@ export class MessagesComponent implements OnInit {
           this.totalMsg = response.total;
           this.pagesMsg = response.pages;
           this.status = 'success';
+          console.log(this.messages);
         } else {
           this.status = 'error';
         }

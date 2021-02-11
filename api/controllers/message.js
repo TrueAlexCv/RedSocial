@@ -162,10 +162,29 @@ function setViewedMessages(req, res) {
         });
 }
 
+function deleteMessage(req, res) {
+    const userId = req.user.sub;
+    const messageId = req.params.id;
+    Message.find({
+        emitter: userId,
+        _id: messageId
+    }).remove((err) => {
+        if(err) {
+            return res.status(404).send({
+                message: "[ERROR]: Al eliminar el mensaje"
+            });
+        }
+        return res.status(200).send({
+            message: "Mensaje eliminado correctamente"
+        });
+    })
+}
+
 module.exports = {
     addMessage,
     getMessages,
     getEmittedMessages,
     getReceivedMessages,
-    setViewedMessages
+    setViewedMessages,
+    deleteMessage
 }

@@ -51,4 +51,11 @@ export class MessageService {
 
     return this.http.post(this.url + 'set-viewed-messages', params, {headers: headers});
   }
+
+  deleteMessage(token: any, message: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', token);
+
+    return this.http.delete(this.url + 'delete-message/' + message, {headers:headers});
+  }
 }

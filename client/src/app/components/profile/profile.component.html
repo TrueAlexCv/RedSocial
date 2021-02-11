@@ -30,11 +30,12 @@
       </div>
     </div>
 
-    <div class="perfil__datos_opciones">
-      <button *ngIf="identity._id == user._id" [routerLink]="['/edit-profile']">
+    <div *ngIf="this.follows" class="perfil__datos_opciones">
+      <button *ngIf="identity._id == user._id else seguimiento" [routerLink]="['/edit-profile']">
         Editar perfil
       </button>
-      <div *ngIf="identity._id != user._id && this.follows">
+
+      <ng-template #seguimiento>
         <button *ngIf="follows.indexOf(user._id) < 0 ;else following"
                 (click)="followUser(user._id)"
                 class="safe">
@@ -47,7 +48,7 @@
             <ng-template #unfollow>Dejar de seguir</ng-template>
           </button>
         </ng-template>
-      </div>
+      </ng-template>
     </div>
   </div>
 

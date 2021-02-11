@@ -32,6 +32,7 @@ export class MessagesComponent implements OnInit {
   public totalMsg!: number;
   public receiver!: any;
   public selected!: any;
+  public messageCursor: any = 0;
   /* WebSockets(incompleto): */
   public msg!: any;
   public messagesSocket = ['Websockets:'];
@@ -81,6 +82,7 @@ export class MessagesComponent implements OnInit {
   }
 
   getMessages(userId: any): void {
+    this.messageCursor = 0;
     this.selected = userId;
     this.receiver = userId;
     this.messageService.getMessages(this.token, {receiver: userId}).subscribe(
@@ -90,7 +92,6 @@ export class MessagesComponent implements OnInit {
           this.totalMsg = response.total;
           this.pagesMsg = response.pages;
           this.status = 'success';
-          console.log(this.messages);
         } else {
           this.status = 'error';
         }
@@ -119,15 +120,61 @@ export class MessagesComponent implements OnInit {
     this.message.receiver = userId;
     this.messageService.addMessage(this.token, this.message).subscribe(
       response => {
-        this.message.emitter = this.identity;
-        this.message.receiver = this.userService.getUser(userId);
-        this.messages.push(this.message);
-        this.input = '';
+        if (response.messageStored) {
+          this.message = response.messageStored;
+          this.messages.push(this.message);
+          this.input = '';
+        } else {
+          this.status = 'error';
+        }
       },
       error => {
         this.status = 'error';
         console.log(error as any);
       });
+  }
+
+  deleteMessage(message: any): void {
+    if (confirm('¿Estás seguro de que quieres borrar el mensaje?')) {
+      this.messageService.deleteMessage(this.token, message._id).subscribe(
+        response => {
+          if (response.message) {
+            const eliminar = this.messages.indexOf(message);
+            if (eliminar !== -1) {
+              this.messages.splice(eliminar, 1);
+            }
+            this.status = 'success';
+          } else {
+            this.status = 'error';
+          }
+        },
+        error => {
+          this.status = 'error';
+          console.log(error as any);
+        });
+    }
+  }
+
+  desplegarPanel(id: any): void {
+    if (this.messageCursor === 0) {
+      this.messageCursor = id;
+    } else {
+      this.messageCursor = 0;
+    }
+  }
+
+  copiarMensaje(i: number): void {
+    const mensaje: any = document.getElementsByClassName('copiar')[i];
+    console.log(i);
+    console.log(mensaje);
+    const aux = document.createElement('input');
+    aux.setAttribute('value', mensaje.innerHTML);
+    document.body.appendChild(aux);
+
+    aux.select();
+    document.execCommand('copy');
+
+    document.body.removeChild(aux);
   }
 
   /* WebSockets(incompleto): */

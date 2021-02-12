@@ -35,7 +35,7 @@
     <div *ngIf="messages else noMensajes" class="chat_caja_mensajes" id="scroll">
       <div *ngFor="let message of messages let i = index" [attr.data-index]="i"
            class="chat_caja_mensajes_mensaje"
-           [class.danger]="(message.viewed == 'false') && (message.receiver._id == identity._id)"
+           [class.not_viewed]="(message.viewed == 'false') && (message.receiver._id == identity._id)"
            [class.mirror]="message.receiver._id == this.identity._id">
 
         <div *ngIf="message.receiver._id == this.identity._id else right"
@@ -45,7 +45,7 @@
           <ng-template #imageMsgDefault>
             <img src="assets/default/imagedefault.png"/>
           </ng-template>
-          <p class="chat_caja_mensajes_mensaje_left_caja">
+          <p class="chat_caja_mensajes_mensaje_left_caja copiar">
             {{message.text}}
           </p>
         </div>
@@ -57,10 +57,10 @@
             </p>
             <div class="chat_caja_mensajes_mensaje_right_opciones">
               <button class="chat_caja_mensajes_mensaje_right_opciones_boton"
-                      (click)="desplegarPanel(message._id)"></button>
-              <div *ngIf="messageCursor == message._id"
+                      (click)="desplegarPanel(message._id, message)"></button>
+              <div *ngIf="messageCursor == message._id" (click)="desplegarPanel(message._id, message)"
                    class="chat_caja_mensajes_mensaje_right_opciones_lista">
-                <button (click)="deleteMessage(message)"
+                <button (click)="confirmar = true"
                         class="chat_caja_mensajes_mensaje_right_opciones_lista_eliminar">
                   Eliminar mensaje
                 </button>
@@ -89,4 +89,26 @@
 
   </div>
 
+</div>
+
+<div *ngIf="confirmar" class="fondo">
+</div>
+
+<div class="confirmar" *ngIf="confirmar">
+  <div class="confirmar_ventana">
+    <div class="confirmar_ventana_titulo">
+      <h2>Eliminar mensaje:</h2>
+    </div>
+    <div class="confirmar_ventana_mensaje">
+      <p>Este mensaje se eliminará por completo y no podrá ser recuperado</p>
+    </div>
+    <div class="confirmar_ventana_botones">
+      <button (click)="confirmar = false" class="confirmar_ventana_botones_cancelar">
+        Cancelar
+      </button>
+      <button (click)="deleteMessage(store)" class="confirmar_ventana_botones_eliminar">
+        Eliminar
+      </button>
+    </div>
+  </div>
 </div>

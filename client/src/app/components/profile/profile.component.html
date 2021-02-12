@@ -91,9 +91,9 @@
               (click)="desplegarPanel(publication._id)">
       </button>
       <div *ngIf="this.publicationCursor == publication._id"
-           class="publicaciones_publicacion_opciones_panel">
+           class="publicaciones_publicacion_opciones_panel" (click)="desplegarPanel(publication._id)">
         <button *ngIf="this.identity._id == publication.user._id"
-                (click)="deletePublication(publication._id)"
+                (click)="confirmar = true"
                 class="publicaciones_publicacion_opciones_panel_borrar">
           Borrar!
         </button>
@@ -110,3 +110,26 @@
     <button (click)="viewMore()">Ver más publicaciones</button>
   </div>
 </div>
+
+<div *ngIf="confirmar" class="fondo">
+</div>
+
+<div class="confirmar" *ngIf="confirmar">
+  <div class="confirmar_ventana">
+    <div class="confirmar_ventana_titulo">
+      <h2>Eliminar publicación:</h2>
+    </div>
+    <div class="confirmar_ventana_mensaje">
+      <p>Esta publicación se eliminará por completo y no podrá ser recuperada</p>
+    </div>
+    <div class="confirmar_ventana_botones">
+      <button (click)="confirmar = false" class="confirmar_ventana_botones_cancelar">
+        Cancelar
+      </button>
+      <button (click)="deletePublication(store)" class="confirmar_ventana_botones_eliminar">
+        Eliminar
+      </button>
+    </div>
+  </div>
+</div>
+

@@ -32,6 +32,8 @@ export class ProfileComponent implements OnInit {
   public publicationCursor!: any;
   public follows!: any;
   public followCursor!: any;
+  public confirmar = false;
+  public store!: any;
 
   constructor(
     private userService: UserService,
@@ -132,15 +134,14 @@ export class ProfileComponent implements OnInit {
   }
 
   deletePublication(id: any): void {
-    if (confirm('¿Estás seguro de que quieres borrar el tweet?')) {
-      this.publicationService.deletePublication(this.token, id).subscribe(
-        response => {
-          this.refresh();
-        },
-        error => {
-          console.log(error as any);
-        });
-    }
+    this.confirmar = false;
+    this.publicationService.deletePublication(this.token, id).subscribe(
+      response => {
+        this.refresh();
+      },
+      error => {
+        console.log(error as any);
+      });
   }
 
   viewMore(): void {
@@ -159,6 +160,7 @@ export class ProfileComponent implements OnInit {
     } else {
       this.publicationCursor = 0;
     }
+    this.store = id;
   }
 
   /* Seguimiento de usuarios: */

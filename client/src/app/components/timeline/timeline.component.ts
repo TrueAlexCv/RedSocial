@@ -23,6 +23,8 @@ export class TimelineComponent implements OnInit {
   public total!: number;
   public itemsPerPage!: number;
   public publicationCursor: any = 0;
+  public confirmar = false;
+  public store!: any;
 
   constructor(
     private router: Router,
@@ -85,15 +87,14 @@ export class TimelineComponent implements OnInit {
   }
 
   deletePublication(id: any): void {
-    if (confirm('¿Estás seguro de que quieres borrar el tweet?')) {
-      this.publicationService.deletePublication(this.token, id).subscribe(
-        response => {
-          this.refresh();
-        },
-        error => {
-          console.log(error as any);
-        });
-    }
+    this.confirmar = false;
+    this.publicationService.deletePublication(this.token, id).subscribe(
+      response => {
+        this.refresh();
+      },
+      error => {
+        console.log(error as any);
+      });
   }
 
   desplegarPanel(id: any): void {
@@ -102,5 +103,6 @@ export class TimelineComponent implements OnInit {
     } else {
       this.publicationCursor = 0;
     }
+    this.store = id;
   }
 }

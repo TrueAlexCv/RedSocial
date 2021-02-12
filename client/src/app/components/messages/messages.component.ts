@@ -33,6 +33,8 @@ export class MessagesComponent implements OnInit {
   public receiver!: any;
   public selected!: any;
   public messageCursor: any = 0;
+  public confirmar = false;
+  public store!: any;
   /* WebSockets(incompleto): */
   public msg!: any;
   public messagesSocket = ['Websockets:'];
@@ -135,38 +137,37 @@ export class MessagesComponent implements OnInit {
   }
 
   deleteMessage(message: any): void {
-    if (confirm('¿Estás seguro de que quieres borrar el mensaje?')) {
-      this.messageService.deleteMessage(this.token, message._id).subscribe(
-        response => {
-          if (response.message) {
-            const eliminar = this.messages.indexOf(message);
-            if (eliminar !== -1) {
-              this.messages.splice(eliminar, 1);
-            }
-            this.status = 'success';
-          } else {
-            this.status = 'error';
+    this.confirmar = false;
+    this.messageService.deleteMessage(this.token, message._id).subscribe(
+      response => {
+        if (response.message) {
+          const eliminar = this.messages.indexOf(message);
+          if (eliminar !== -1) {
+            this.messages.splice(eliminar, 1);
           }
-        },
-        error => {
+          this.status = 'success';
+        } else {
           this.status = 'error';
-          console.log(error as any);
-        });
-    }
+        }
+      },
+      error => {
+        this.status = 'error';
+        console.log(error as any);
+      });
   }
 
-  desplegarPanel(id: any): void {
+  desplegarPanel(id: any, message: any): void {
     if (this.messageCursor === 0) {
       this.messageCursor = id;
     } else {
       this.messageCursor = 0;
     }
+    this.store = message;
   }
 
   copiarMensaje(i: number): void {
+    this.messageCursor = 0;
     const mensaje: any = document.getElementsByClassName('copiar')[i];
-    console.log(i);
-    console.log(mensaje);
     const aux = document.createElement('input');
     aux.setAttribute('value', mensaje.innerHTML);
     document.body.appendChild(aux);

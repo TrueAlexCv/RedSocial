@@ -1,0 +1,179 @@
+.safe {
+  background: greenyellow !important;
+}
+
+.safe:hover {
+  background: #18ff18 !important;
+}
+
+.not_viewed {
+  background: red !important;
+}
+
+/* Search: */
+
+.search {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+}
+
+.search_cabecera {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 20%;
+}
+
+.search_cabecera > img {
+  margin-right: 1%;
+}
+
+.search_cabecera_titulo {
+  font-size: 1.5rem;
+}
+
+.search_form {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 80%;
+}
+
+.search_form_input {
+
+}
+
+/* Usuarios: */
+
+.users {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  height: 100%;
+  margin-bottom: 1%;
+}
+
+.users_user {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  vertical-align: top;
+  width: 70%;
+  border: 1px solid black;
+}
+
+/* Usuario - Imagen: */
+
+.users_user_imagen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  vertical-align: top;
+  height: 100%;
+  padding: 1%;
+}
+
+.users_user_imagen > img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+/* Usuario - Datos: */
+
+.users_user_datos {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  vertical-align: top;
+  width: 60%;
+  height: 100%;
+  padding: 1%;
+}
+
+.users_user_datos_nombres {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  vertical-align: top;
+}
+
+.users_user_datos_nombres > a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.2rem;
+}
+
+.users_user_datos_nombres > a:hover {
+  color: #0a4481;
+}
+
+.users_user_datos_texto {
+
+}
+
+/* Usuario - Opciones: */
+
+.users_user_opciones {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+}
+
+.users_user_opciones_boton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.users_user_opciones_boton > button {
+  border-radius: 50px;
+  outline: none;
+  padding: 6%;
+  background: #8989dd;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+/* Usuario - Páginas: */
+
+.users_paginas {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 70%;
+  margin: 1%;
+}
+
+.users_paginas > button {
+  cursor: pointer;
+  padding: 1%;
+  background: #b5b5b5;
+  border: 1px solid black;
+  outline: none;
+}
+
+.users_paginas > button:hover {
+  background: #e7e7ee;
+}
+

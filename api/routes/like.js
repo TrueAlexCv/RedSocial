@@ -10,7 +10,7 @@ const md_auth = require('../middlewares/authenticated');
 const LikeController = require('../controllers/like');
 
 api.post('/add-like', md_auth.ensureAuth, LikeController.addLike);
-api.delete('/delete-like', md_auth.ensureAuth, LikeController.deleteLike);
+api.delete('/delete-like/:id', md_auth.ensureAuth, LikeController.deleteLike);
 api.get('/likes-user/:id?/:page?', md_auth.ensureAuth, LikeController.getLikesUser);
 api.get('/likes-publication/:id?/:page?', md_auth.ensureAuth, LikeController.getLikesPublication);
 api.get('/num-likes-user/:id', md_auth.ensureAuth, LikeController.getCountLikesUser);

@@ -34,17 +34,17 @@ function addLike(req, res) {
 
 function deleteLike(req, res) {
     const userId = req.user.sub;
-    const params = req.body;
-    const publicationId = params.publication;
+    const publicationId = req.params.id;
 
     Like.find({
-        'user': userId,
-        'publication': publicationId
-    }).remove((err) => {
-        if (err)
+        user: userId,
+        publication: publicationId
+    }).deleteMany((err) => {
+        if (err) {
             return res.status(500).send({
                 message: "[ERROR]: Petición de quitar el like de la publicación"
             });
+        }
         return res.status(200).send({
             message: "Se ha quitado el like a la publicación " + publicationId
         });
@@ -167,6 +167,23 @@ async function getCountLikesPublication(req, res) {
     }
     return res.status(200).send({
         numLikesPublication: number
+    });
+}
+
+function deleteLikesPublication(req, res) {
+    const publicationId = req.params.id;
+
+    Like.find({
+        publication: publicationId
+    }).deleteMany((err) => {
+        if (err) {
+            return res.status(500).send({
+                message: "[ERROR]: Petición de quitar los likes a la publicación eliminada"
+            });
+        }
+        return res.status(200).send({
+            message: "Se han quitado los likes a la publicación eliminada " + publicationId
+        });
     });
 }
 

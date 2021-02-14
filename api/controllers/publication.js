@@ -43,22 +43,32 @@ function makePublication(req, res) {
 
 function deletePublication(req, res) {
     let publicationId = req.params.id;
-    Publication.find({
-        'user': req.user.sub, '_id': publicationId
-    })
-        .remove((err, publicationRemoved) => {
-            if (err)
-                return res.status(500).send({
-                    message: "[ERROR]: Petición de eliminar la publicación"
-                });
-            if (!publicationRemoved)
-                return res.status(404).send({
-                    message: "[ERROR]: No se ha borrado la publicación"
-                });
-            return res.status(200).send({
-                publication: publicationRemoved
+
+    Like.find({
+        publication: publicationId
+    }).deleteMany((err) => {
+        if (err) {
+            return res.status(500).send({
+                message: "[ERROR]: Petición de quitar los likes a la publicación eliminada"
             });
-        });
+        }
+        Publication.find({
+            'user': req.user.sub, '_id': publicationId
+        })
+            .remove((err, publicationRemoved) => {
+                if (err)
+                    return res.status(500).send({
+                        message: "[ERROR]: Petición de eliminar la publicación"
+                    });
+                if (!publicationRemoved)
+                    return res.status(404).send({
+                        message: "[ERROR]: No se ha borrado la publicación"
+                    });
+                return res.status(200).send({
+                    publication: publicationRemoved
+                });
+            });
+    });
 }
 
 function getPublication(req, res) {

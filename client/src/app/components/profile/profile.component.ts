@@ -1,44 +1,46 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {UserService} from '../../services/user.service';
-import {User} from '../../models/user';
 import {GLOBAL} from '../../services/global';
+import {UserService} from '../../services/user.service';
 import {PublicationService} from '../../services/publication.service';
-import {Follow} from '../../models/follow';
 import {FollowService} from '../../services/follow.service';
+import {LikeService} from '../../services/like.service';
+import {Follow} from '../../models/follow';
 
 @Component({
   selector: 'profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  providers: [UserService, FollowService, PublicationService]
+  providers: [UserService, FollowService, PublicationService, LikeService]
 })
 
 export class ProfileComponent implements OnInit {
+  /* Basic: */
   public title: string;
   public url: string;
   public status!: string;
+
+  /* Identity: */
   public identity: any;
   public token: any;
-  public user!: User;
-  public following!: boolean;
+
+  /* User: */
+  public user!: any;
   public followed!: boolean;
   public stats!: any;
-  public publications!: any;
-  public page!: number;
-  public pages!: number;
-  public total!: number;
-  public itemsPerPage!: number;
-  public publicationCursor!: any;
+
+  /* Seguimiento: */
   public follows!: any;
   public followCursor!: any;
-  public confirmar = false;
-  public store!: any;
+
+  /* Special: */
+  public showLikes = false;
 
   constructor(
     private userService: UserService,
     private followService: FollowService,
     private publicationService: PublicationService,
+    private likeService: LikeService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -46,7 +48,6 @@ export class ProfileComponent implements OnInit {
     this.url = GLOBAL.url;
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
-    this.publicationCursor = 0;
   }
 
   ngOnInit(): void {
@@ -60,7 +61,6 @@ export class ProfileComponent implements OnInit {
       const id: any = params.id;
       this.getUser(id);
       this.getCounters(id);
-      this.getPublicationsUser(id, 1, false);
     });
   }
 
@@ -69,13 +69,6 @@ export class ProfileComponent implements OnInit {
       response => {
         if (response.user) {
           this.user = response.user;
-
-          if (response.following && response.following._id) {
-            this.following = true;
-          } else {
-            this.following = false;
-          }
-
           if (response.followed && response.followed._id) {
             this.followed = true;
           } else {
@@ -96,71 +89,6 @@ export class ProfileComponent implements OnInit {
       error => {
         console.log(error as any);
       });
-  }
-
-  getPublicationsUser(id: any, page: number, adding = false): void {
-    this.publicationService.getPublicationsUser(this.token, id, page).subscribe(
-      response => {
-        if (response.publications) {
-          this.pages = response.pages;
-          this.total = response.total_items;
-          this.itemsPerPage = response.items_per_page;
-          if (!adding) {
-            this.page = 1;
-            this.publications = response.publications;
-          } else {
-            const arrayA = this.publications;
-            const arrayB = response.publications;
-            this.publications = arrayA.concat(arrayB);
-          }
-          if (page !== 1) {
-            setTimeout(() => {
-              for (let i = 1; i <= 750; i++) {
-                self.scroll(1, i);
-              }
-            }, 0);
-          }
-          if (page > 1 && page > this.pages) {
-            this.router.navigate(['/profile', this.user._id]);
-          }
-        } else {
-          this.status = 'error';
-        }
-      },
-      error => {
-        console.log(error as any);
-        this.status = 'error';
-      });
-  }
-
-  deletePublication(id: any): void {
-    this.confirmar = false;
-    this.publicationService.deletePublication(this.token, id).subscribe(
-      response => {
-        this.refresh();
-      },
-      error => {
-        console.log(error as any);
-      });
-  }
-
-  viewMore(): void {
-    this.page += 1;
-    this.getPublicationsUser(this.user._id, this.page, true);
-  }
-
-  refresh(): void {
-    this.page = 1;
-    this.getPublicationsUser(this.user._id, this.page, false);
-  }
-
-  desplegarPanel(id: any): void {
-    if (this.publicationCursor === 0) {
-      this.publicationCursor = id;
-    } else {
-      this.publicationCursor = 0;
-    }
-    this.store = id;
   }
 
   /* Seguimiento de usuarios: */

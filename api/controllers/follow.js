@@ -113,8 +113,8 @@ function getFollowedUsers(req, res) {
                 follows,
                 users_following: value.following,
                 users_followed: value.followed
-            })
-        })
+            });
+        });
     });
 
 

@@ -9,6 +9,7 @@ const path = require('path');
 const User = require('../models/user');
 const Follow = require('../models/follow');
 const Publication = require('../models/publication');
+const Like = require('../models/like');
 
 // Services:
 const jwt = require('../services/jwt.js');
@@ -233,21 +234,28 @@ function getCounters(req, res) {
 
 async function countersUser(userId) {
     try {
-        var following = await Follow.countDocuments({
+        const following = await Follow.countDocuments({
             'user': userId
         }).exec().then((value) => {
             return value;
         }).catch((err) => {
             return;
         });
-        var followed = await Follow.countDocuments({
+        const followed = await Follow.countDocuments({
             'followed': userId
         }).exec().then((value) => {
             return value;
         }).catch((err) => {
             return;
         });
-        var publications = await Publication.countDocuments({
+        const publications = await Publication.countDocuments({
+            'user': userId
+        }).exec().then((value) => {
+            return value;
+        }).catch((err) => {
+            return;
+        });
+        const likes = await Like.countDocuments({
             'user': userId
         }).exec().then((value) => {
             return value;
@@ -257,7 +265,8 @@ async function countersUser(userId) {
         return {
             following: following,
             followed: followed,
-            publications: publications
+            publications: publications,
+            likes: likes
         };
     } catch (err) {
         console.log(err);

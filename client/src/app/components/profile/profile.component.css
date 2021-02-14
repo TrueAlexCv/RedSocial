@@ -2,7 +2,7 @@
   background: greenyellow !important;
 }
 
-.not_viewed {
+.danger {
   background: red !important;
 }
 
@@ -50,7 +50,7 @@
   min-height: 100px;
   width: 50%;
   border: 1px solid black;
-  background: rgba(0,186,217,0.11);
+  background: rgba(0, 186, 217, 0.11);
 }
 
 .perfil_datos_textos {
@@ -80,7 +80,7 @@
 }
 
 .perfil_datos_textos_nombres_tesigue {
-  background: rgba(11,0,18,0.86);
+  background: rgba(11, 0, 18, 0.86);
   color: white;
   border: 1px solid gray;
   height: 50%;
@@ -119,35 +119,46 @@
   min-height: 50px;
   width: 50%;
   border: 1px solid black;
-  background: rgba(0,186,217,0.11);
+  background: rgba(0, 186, 217, 0.11);
 }
 
 .perfil_stats_siguiendo {
   text-decoration: none;
   font-size: 1.5rem;
   color: black;
-  width: 30%;
+  width: 25%;
+  height: 100%;
   border-right: 1px solid black;
   text-align: center;
-  margin-left: 5%;
 }
 
 .perfil_stats_seguidores {
   text-decoration: none;
   font-size: 1.5rem;
   color: black;
-  width: 30%;
+  width: 25%;
+  height: 100%;
   border-right: 1px solid black;
   text-align: center;
 }
 
 .perfil_stats_publicaciones {
   text-decoration: none;
+  font-size: 1.2rem;
+  color: black;
+  width: 25%;
+  height: 100%;
+  border-right: 1px solid black;
+  text-align: center;
+}
+
+.perfil_stats_likes {
+  text-decoration: none;
   font-size: 1.5rem;
   color: black;
-  width: 30%;
+  width: 25%;
+  height: 100%;
   text-align: center;
-  margin-right: 5%;
 }
 
 /* Publicaciones: */
@@ -169,7 +180,7 @@
   vertical-align: top;
   width: 50%;
   border: 1px solid black;
-  background: rgba(0,186,217,0.11);
+  background: rgba(0, 186, 217, 0.11);
 }
 
 /* Publicacion - Imagen: */
@@ -307,6 +318,7 @@
   height: 50%;
   padding: 2%;
 }
+
 .confirmar_ventana_botones {
   position: relative;
   display: flex;

@@ -59,77 +59,15 @@
     <a class="perfil_stats_seguidores" [routerLink]="['/followed',user._id,1]">
       Seguidores: {{stats.followed}}
     </a>
-    <a class="perfil_stats_publicaciones">Publicaciones: {{stats.publications}}</a>
+    <a (click)="showLikes = false" class="perfil_stats_publicaciones">
+      Publications: {{stats.publications}}
+    </a>
+    <a (click)="showLikes = true" class="perfil_stats_likes">
+      Likes: {{stats.likes}}
+    </a>
   </div>
 </div>
 
-<div class="publicaciones">
-  <div *ngIf="publications" class="publicaciones_refrescar">
-    <button (click)="refresh()">Refrescar</button>
-  </div>
-
-  <div *ngFor="let publication of publications" class="publicaciones_publicacion">
-    <div class="publicaciones_publicacion_imagen">
-      <img *ngIf="publication.user.image" src="{{url+'/getImage/'+publication.user.image}}"/>
-      <img *ngIf="!publication.user.image" src="assets/default/banner_default.jpg"/>
-    </div>
-
-    <div class="publicaciones_publicacion_datos">
-      <div class="publicaciones_publicacion_datos_nombres">
-        <h3>{{publication.user.name}} | @{{publication.user.nick}}</h3>
-        <span class="date">
-            {{ (publication.created_at) * 1000 | date: 'medium'}}
-        </span>
-      </div>
-      <div class="publicaciones_publicacion_datos_texto">
-        <p>{{publication.text}}</p>
-      </div>
-    </div>
-
-    <div class="publicaciones_publicacion_opciones">
-      <button class="publicaciones_publicacion_opciones_boton"
-              (click)="desplegarPanel(publication._id)">
-      </button>
-      <div *ngIf="this.publicationCursor == publication._id"
-           class="publicaciones_publicacion_opciones_panel" (click)="desplegarPanel(publication._id)">
-        <button *ngIf="this.identity._id == publication.user._id"
-                (click)="confirmar = true"
-                class="publicaciones_publicacion_opciones_panel_borrar">
-          Borrar!
-        </button>
-        <button *ngIf="this.identity._id != publication.user._id"
-                class="publicaciones_publicacion_opciones_panel_denunciar">
-          Denunciar Tweet
-        </button>
-      </div>
-    </div>
-    <hr/>
-  </div>
-
-  <div *ngIf="page < pages" class="publicaciones_vermas">
-    <button (click)="viewMore()">Ver más publicaciones</button>
-  </div>
-</div>
-
-<div *ngIf="confirmar" class="fondo">
-</div>
-
-<div class="confirmar" *ngIf="confirmar">
-  <div class="confirmar_ventana">
-    <div class="confirmar_ventana_titulo">
-      <h2>Eliminar publicación:</h2>
-    </div>
-    <div class="confirmar_ventana_mensaje">
-      <p>Esta publicación se eliminará por completo y no podrá ser recuperada</p>
-    </div>
-    <div class="confirmar_ventana_botones">
-      <button (click)="confirmar = false" class="confirmar_ventana_botones_cancelar">
-        Cancelar
-      </button>
-      <button (click)="deletePublication(store)" class="confirmar_ventana_botones_eliminar">
-        Eliminar
-      </button>
-    </div>
-  </div>
-</div>
+<publications-user *ngIf="!showLikes"></publications-user>
+<likes-user *ngIf="showLikes"></likes-user>
 

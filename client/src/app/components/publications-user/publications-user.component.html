@@ -1,0 +1,77 @@
+<div class="publicaciones">
+
+  <div *ngIf="publications" class="publicaciones_refrescar">
+    <button (click)="refresh()">Refrescar</button>
+  </div>
+
+  <div *ngFor="let publication of publications" class="publicaciones_publicacion">
+
+    <div class="publicaciones_publicacion_imagen">
+      <img *ngIf="publication.user.image" src="{{url+'/getImage/'+publication.user.image}}"/>
+      <img *ngIf="!publication.user.image" src="assets/default/banner_default.jpg"/>
+    </div>
+
+    <div class="publicaciones_publicacion_datos">
+      <div class="publicaciones_publicacion_datos_nombres">
+        <h3>{{publication.user.name}} | @{{publication.user.nick}}</h3>
+        <span class="date">
+            {{ (publication.created_at) * 1000 | date: 'medium'}}
+        </span>
+      </div>
+      <div class="publicaciones_publicacion_datos_texto">
+        <p>{{publication.text}}</p>
+      </div>
+    </div>
+
+    <div class="publicaciones_publicacion_opciones">
+      <button class="publicaciones_publicacion_opciones_boton"
+              (click)="desplegarOpciones(publication._id)">
+      </button>
+      <div *ngIf="this.publicationCursor == publication._id"
+           class="publicaciones_publicacion_opciones_panel" (click)="desplegarOpciones(publication._id)">
+        <button *ngIf="this.identity._id == publication.user._id"
+                (click)="confirm = true"
+                class="publicaciones_publicacion_opciones_panel_borrar">
+          Borrar!
+        </button>
+        <button *ngIf="this.identity._id != publication.user._id"
+                class="publicaciones_publicacion_opciones_panel_denunciar">
+          Denunciar Tweet
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="page < pages" class="publicaciones_vermas">
+    <button (click)="viewMore()">Ver más publicaciones</button>
+  </div>
+
+</div>
+
+<!-- Confirmar: -->
+
+<div *ngIf="confirm" class="fondo">
+</div>
+
+<div class="confirmar" *ngIf="confirm">
+  <div class="confirmar_ventana">
+
+    <div class="confirmar_ventana_titulo">
+      <h2>Eliminar publicación:</h2>
+    </div>
+
+    <div class="confirmar_ventana_mensaje">
+      <p>Esta publicación se eliminará por completo y no podrá ser recuperada</p>
+    </div>
+
+    <div class="confirmar_ventana_botones">
+      <button (click)="confirm = false" class="confirmar_ventana_botones_cancelar">
+        Cancelar
+      </button>
+      <button (click)="deletePublication(storePublicationId)" class="confirmar_ventana_botones_eliminar">
+        Eliminar
+      </button>
+    </div>
+
+  </div>
+</div>

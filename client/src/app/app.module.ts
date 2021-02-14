@@ -24,6 +24,8 @@ import {FollowingComponent} from './components/following/following.component';
 import {FollowedComponent} from './components/followed/followed.component';
 import {MessagesComponent} from './components/messages/messages.component';
 import {SearchComponent} from './components/search/search.component';
+import {PublicationsUserComponent} from './components/publications-user/publications-user.component';
+import {LikesUserComponent} from './components/likes-user/likes-user.component';
 
 // Servicios:
 import {UserService} from './services/user.service';
@@ -55,7 +57,9 @@ import {WebSocketService} from './services/web-socket.service';
     FollowedComponent,
     MessagesComponent,
     SearchPipe,
-    SearchComponent
+    SearchComponent,
+    PublicationsUserComponent,
+    LikesUserComponent
   ],
   imports: [
     BrowserModule,

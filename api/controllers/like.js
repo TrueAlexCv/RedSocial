@@ -1,5 +1,7 @@
 'use strict';
 
+const moment = require('moment');
+
 // Model:
 const Like = require('../models/like');
 
@@ -11,6 +13,7 @@ function addLike(req, res) {
     let like = new Like();
     like.user = userId;
     like.publication = likeId;
+    like.created_at = moment().unix();
 
     like.save((err, likeStored) => {
         if (err) {
@@ -62,24 +65,27 @@ function getLikesUser(req, res) {
 
     Like.find({
         user: userId
-    }).populate('publication').paginate(page, itemsPerPage, (err, likes, total) => {
-        if (err) {
-            return res.status(500).send({
-                message: "[ERROR]: Petición likes del usuario"
+    }).sort('-created_at')
+        .populate({path: 'publication', populate: {path: 'user'}})
+        .paginate(page, itemsPerPage, (err, likes, total) => {
+            if (err) {
+                return res.status(500).send({
+                    message: "[ERROR]: Petición likes del usuario"
+                });
+            }
+            if (!likes) {
+                return res.status(404).send({
+                    message: "[ERROR]: El usuario no tiene likes"
+                });
+            }
+            return res.status(200).send({
+                total: total,
+                itemsPerPage: itemsPerPage,
+                page: page,
+                pages: Math.ceil(total / itemsPerPage),
+                likes: likes
             });
-        }
-        if (!likes) {
-            return res.status(404).send({
-                message: "[ERROR]: El usuario no tiene likes"
-            });
-        }
-        return res.status(200).send({
-            total: total,
-            itemsPerPage: itemsPerPage,
-            page: page,
-            likes: likes
         });
-    });
 }
 
 function getLikesPublication(req, res) {
@@ -123,20 +129,44 @@ async function getCountLikesUser(req, res) {
     if (req.params.id) {
         userId = req.params.id;
     }
-    let dato;
+    let number;
     try {
-        dato = await Like.countDocuments({
-            'user': userId
+        number = await Like.countDocuments({
+            user: userId
         }).exec().then((value) => {
             return value;
         }).catch((err) => {
             return;
         });
-    } catch(err) {
+    } catch (err) {
         console.log(err);
     }
     return res.status(200).send({
-        message: dato
+        numLikesUser: number
+    });
+}
+
+async function getCountLikesPublication(req, res) {
+    const publicationId = req.params.id;
+    if (!req.params.id) {
+        return res.status(404).send({
+            message: "[ERROR]: No hay ninguna publicación"
+        });
+    }
+    let number;
+    try {
+        number = await Like.countDocuments({
+            publication: publicationId
+        }).exec().then((value) => {
+            return value;
+        }).catch((err) => {
+            return;
+        });
+    } catch (err) {
+        console.log(err);
+    }
+    return res.status(200).send({
+        numLikesPublication: number
     });
 }
 
@@ -145,5 +175,6 @@ module.exports = {
     deleteLike,
     getLikesUser,
     getLikesPublication,
-    getCountLikesUser
+    getCountLikesUser,
+    getCountLikesPublication
 }

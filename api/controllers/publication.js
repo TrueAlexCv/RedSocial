@@ -9,6 +9,7 @@ const mongoosePaginate = require('mongoose-pagination');
 const User = require('../models/user');
 const Follow = require('../models/follow');
 const Publication = require('../models/publication');
+const Like = require('../models/like');
 
 function makePublication(req, res) {
     let params = req.body;
@@ -43,20 +44,21 @@ function makePublication(req, res) {
 function deletePublication(req, res) {
     let publicationId = req.params.id;
     Publication.find({
-        'user': req.user.sub, '_id': publicationId})
-            .remove((err, publicationRemoved) => {
-                if (err)
-                    return res.status(500).send({
-                        message: "[ERROR]: Petición de eliminar la publicación"
-                    });
-                if (!publicationRemoved)
-                    return res.status(404).send({
-                        message: "[ERROR]: No se ha borrado la publicación"
-                    });
-                return res.status(200).send({
-                    publication: publicationRemoved
+        'user': req.user.sub, '_id': publicationId
+    })
+        .remove((err, publicationRemoved) => {
+            if (err)
+                return res.status(500).send({
+                    message: "[ERROR]: Petición de eliminar la publicación"
                 });
+            if (!publicationRemoved)
+                return res.status(404).send({
+                    message: "[ERROR]: No se ha borrado la publicación"
+                });
+            return res.status(200).send({
+                publication: publicationRemoved
             });
+        });
 }
 
 function getPublication(req, res) {
@@ -95,24 +97,24 @@ function getPublicationsUser(req, res) {
     Publication.find({
         user: user
     }).sort('-created_at').populate('user')
-            .paginate(page, itemsPerPage, (err, publications, total) => {
-                if (err)
-                    return res.status(500).send({
-                        message: "[ERROR]: Petición de las publicaciones " +
-                                "del usuario"
-                    });
-                if (!publications)
-                    return res.status(404).send({
-                        message: "[ERROR]: El usuario no tiene publicaciones"
-                    });
-                return res.status(200).send({
-                    total_items: total,
-                    pages: Math.ceil(total / itemsPerPage),
-                    page: page,
-                    items_per_page: itemsPerPage,
-                    publications
+        .paginate(page, itemsPerPage, (err, publications, total) => {
+            if (err)
+                return res.status(500).send({
+                    message: "[ERROR]: Petición de las publicaciones " +
+                        "del usuario"
                 });
+            if (!publications)
+                return res.status(404).send({
+                    message: "[ERROR]: El usuario no tiene publicaciones"
+                });
+            return res.status(200).send({
+                total_items: total,
+                pages: Math.ceil(total / itemsPerPage),
+                page: page,
+                items_per_page: itemsPerPage,
+                publications
             });
+        });
 }
 
 function getTimeline(req, res) {
@@ -144,25 +146,25 @@ function getTimeline(req, res) {
         Publication.find({
             user: {"$in": follows_clean}
         }).sort('-created_at').populate('user')
-                .paginate(page, itemsPerPage, (err, publications, total) => {
-                    if (err)
-                        return res.status(500).send({
-                            message: "[ERROR]: Petición al devolver las " +
-                                    "publicaciones"
-                        });
-                    if (!publications)
-                        return res.status(404).send({
-                            message: "[ERROR]: Los usuarios no tienen " +
-                                    "publicaciones"
-                        });
-                    return res.status(200).send({
-                        total_items: total,
-                        pages: Math.ceil(total / itemsPerPage),
-                        page: page,
-                        items_per_page: itemsPerPage,
-                        publications
+            .paginate(page, itemsPerPage, (err, publications, total) => {
+                if (err)
+                    return res.status(500).send({
+                        message: "[ERROR]: Petición al devolver las " +
+                            "publicaciones"
                     });
+                if (!publications)
+                    return res.status(404).send({
+                        message: "[ERROR]: Los usuarios no tienen " +
+                            "publicaciones"
+                    });
+                return res.status(200).send({
+                    total_items: total,
+                    pages: Math.ceil(total / itemsPerPage),
+                    page: page,
+                    items_per_page: itemsPerPage,
+                    publications
                 });
+            });
     });
 }
 
@@ -178,34 +180,34 @@ function uploadImage(req, res) {
         let file_ext = exp_split[1];
 
         if (file_ext === 'png' || file_ext === 'jpg' ||
-                file_ext === 'jpeg' || file_ext === 'gif') {
+            file_ext === 'jpeg' || file_ext === 'gif') {
             Publication.findOne({
                 'user': req.user.sub,
                 '_id': publicationId
             }).exec((err, publication) => {
                 if (publication) {
                     Publication.findByIdAndUpdate(publicationId,
-                            {file: file_name}, {new : true},
-                            (err, publicationUpdated) => {
-                        if (err)
-                            return res.status(500).send({
-                                message: "[ERROR]: Petición " +
+                        {file: file_name}, {new: true},
+                        (err, publicationUpdated) => {
+                            if (err)
+                                return res.status(500).send({
+                                    message: "[ERROR]: Petición " +
                                         "actualizar imagen de la publicación"
-                            });
-                        if (!publicationUpdated)
-                            return res.status(404).send({
-                                message: "[ERROR]: No se actualizó la " +
+                                });
+                            if (!publicationUpdated)
+                                return res.status(404).send({
+                                    message: "[ERROR]: No se actualizó la " +
                                         "imagen de la publicación"
+                                });
+                            return res.status(200).send({
+                                user: publicationUpdated
                             });
-                        return res.status(200).send({
-                            user: publicationUpdated
                         });
-                    });
                 } else {
                     return fs.unlink(file_path, (err) => {
                         res.status(404).send({
                             message: "[ERROR]: No tienes permisos para " +
-                                    "actualizar la imagen de esta publicación"
+                                "actualizar la imagen de esta publicación"
                         });
                     });
                 }

@@ -26,7 +26,7 @@ api.post('/upload-banner/:id', [md_auth.ensureAuth, md_upload_banner],
     UserController.uploadBanner);
 api.get('/getImage/:image', UserController.getImage);
 api.get('/getBanner/:banner', UserController.getBanner);
-api.post('/change-password', md_auth.ensureAuth, UserController.updatePassword);
+api.post('/update-password', md_auth.ensureAuth, UserController.updatePassword);
 api.post('/search-users/:page?', UserController.searchUsers);
 
 module.exports = api;

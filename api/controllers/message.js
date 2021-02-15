@@ -39,6 +39,24 @@ function addMessage(req, res) {
     });
 }
 
+function deleteMessage(req, res) {
+    const userId = req.user.sub;
+    const messageId = req.params.id;
+    Message.find({
+        emitter: userId,
+        _id: messageId
+    }).remove((err) => {
+        if(err) {
+            return res.status(404).send({
+                message: "[ERROR]: Al eliminar el mensaje"
+            });
+        }
+        return res.status(200).send({
+            message: "Mensaje eliminado correctamente"
+        });
+    })
+}
+
 function getMessages(req, res) {
     const userId = req.user.sub;
     const params = req.body
@@ -71,6 +89,29 @@ function getMessages(req, res) {
                 page: page,
                 pages: Math.ceil(total / itemsPerPage),
                 messages: messages
+            });
+        });
+}
+
+function setViewedMessages(req, res) {
+    const userId = req.user.sub;
+    const params = req.body;
+    const emitter = params.emitter;
+
+    Message.updateMany({emitter: emitter, receiver: userId, viewed: false}, {viewed: true},
+        {'multi': true}, (err, messagesUpdated) => {
+            if (err) {
+                return res.status(500).send({
+                    message: "[ERROR]: Petición actualizar mensajes vistos"
+                });
+            }
+            if (!messagesUpdated) {
+                return res.status(404).send({
+                    message: "[ERROR]: Los mensajes no se han actualizado a vistos"
+                });
+            }
+            return res.status(200).send({
+                messages: messagesUpdated
             });
         });
 }
@@ -139,52 +180,11 @@ function getReceivedMessages(req, res) {
         });
 }
 
-function setViewedMessages(req, res) {
-    const userId = req.user.sub;
-    const params = req.body;
-    const emitter = params.emitter;
-
-    Message.updateMany({emitter: emitter, receiver: userId, viewed: false}, {viewed: true},
-        {'multi': true}, (err, messagesUpdated) => {
-            if (err) {
-                return res.status(500).send({
-                    message: "[ERROR]: Petición actualizar mensajes vistos"
-                });
-            }
-            if (!messagesUpdated) {
-                return res.status(404).send({
-                    message: "[ERROR]: Los mensajes no se han actualizado a vistos"
-                });
-            }
-            return res.status(200).send({
-                messages: messagesUpdated
-            });
-        });
-}
-
-function deleteMessage(req, res) {
-    const userId = req.user.sub;
-    const messageId = req.params.id;
-    Message.find({
-        emitter: userId,
-        _id: messageId
-    }).remove((err) => {
-        if(err) {
-            return res.status(404).send({
-                message: "[ERROR]: Al eliminar el mensaje"
-            });
-        }
-        return res.status(200).send({
-            message: "Mensaje eliminado correctamente"
-        });
-    })
-}
-
 module.exports = {
     addMessage,
+    deleteMessage,
     getMessages,
+    setViewedMessages,
     getEmittedMessages,
     getReceivedMessages,
-    setViewedMessages,
-    deleteMessage
 }

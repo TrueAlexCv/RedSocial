@@ -23,6 +23,11 @@
       </div>
       <div class="publicaciones_publicacion_datos_texto">
         <p>{{publication.text}}</p>
+        <p *ngIf="publication.stats">{{publication.stats}}</p>
+        <button *ngIf="likes.indexOf(publication._id) === -1"
+                (click)="addLike(publication)">Like</button>
+        <button *ngIf="likes.indexOf(publication._id) !== -1"
+                (click)="deleteLike(publication)">Dislike</button>
       </div>
     </div>
 

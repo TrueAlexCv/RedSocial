@@ -22,13 +22,12 @@ export class LikeService {
     return this.http.post(this.url + 'add-like', params, {headers: headers});
   }
 
-  /* deleteLike(token: any, like: any): Observable<any> {
-    const params = JSON.stringify(like);
+  deleteLike(token: any, id: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', token);
 
-    return this.http.delete(this.url + 'delete-like', params, {headers: headers});
-  } */
+    return this.http.delete(this.url + 'delete-like/' + id, {headers: headers});
+  }
 
   getLikesUser(token: any, id: any, page: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
@@ -42,5 +41,26 @@ export class LikeService {
       .set('Authorization', token);
 
     return this.http.get(this.url + 'likes-publication/' + id + '/' + page, {headers: headers});
+  }
+
+  getCountLikesUser(token: any, id: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', token);
+
+    return this.http.get(this.url + 'num-likes-user/' + id, {headers: headers});
+  }
+
+  getCountLikesPublication(token: any, id: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', token);
+
+    return this.http.get(this.url + 'num-likes-publication/' + id, {headers: headers});
+  }
+
+  getOnlyLikes(token: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', token);
+
+    return this.http.get(this.url + 'only-likes', {headers: headers});
   }
 }

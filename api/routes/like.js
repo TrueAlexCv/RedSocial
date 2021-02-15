@@ -15,5 +15,6 @@ api.get('/likes-user/:id?/:page?', md_auth.ensureAuth, LikeController.getLikesUs
 api.get('/likes-publication/:id?/:page?', md_auth.ensureAuth, LikeController.getLikesPublication);
 api.get('/num-likes-user/:id', md_auth.ensureAuth, LikeController.getCountLikesUser);
 api.get('/num-likes-publication/:id', md_auth.ensureAuth, LikeController.getCountLikesPublication);
+api.get('/only-likes', md_auth.ensureAuth, LikeController.onlyLikesUser);
 
 module.exports = api;

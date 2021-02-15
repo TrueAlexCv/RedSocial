@@ -54,20 +54,19 @@ function deletePublication(req, res) {
         }
         Publication.find({
             'user': req.user.sub, '_id': publicationId
-        })
-            .remove((err, publicationRemoved) => {
-                if (err)
-                    return res.status(500).send({
-                        message: "[ERROR]: Petición de eliminar la publicación"
-                    });
-                if (!publicationRemoved)
-                    return res.status(404).send({
-                        message: "[ERROR]: No se ha borrado la publicación"
-                    });
-                return res.status(200).send({
-                    publication: publicationRemoved
+        }).remove((err, publicationRemoved) => {
+            if (err)
+                return res.status(500).send({
+                    message: "[ERROR]: Petición de eliminar la publicación"
                 });
+            if (!publicationRemoved)
+                return res.status(404).send({
+                    message: "[ERROR]: No se ha borrado la publicación"
+                });
+            return res.status(200).send({
+                publication: publicationRemoved
             });
+        });
     });
 }
 

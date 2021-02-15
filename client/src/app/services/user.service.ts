@@ -125,7 +125,7 @@ export class UserService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', this.getToken());
 
-    return this.http.post(this.url + 'change-password', params, {headers});
+    return this.http.post(this.url + 'update-password', params, {headers});
   }
 
   searchUsers(page = null, search: any): Observable<any> {

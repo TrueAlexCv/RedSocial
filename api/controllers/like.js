@@ -46,7 +46,7 @@ function deleteLike(req, res) {
             });
         }
         return res.status(200).send({
-            message: "Se ha quitado el like a la publicación " + publicationId
+            like: "Se ha quitado el like a la publicación " + publicationId
         });
     });
 }
@@ -170,21 +170,30 @@ async function getCountLikesPublication(req, res) {
     });
 }
 
-function deleteLikesPublication(req, res) {
-    const publicationId = req.params.id;
-
-    Like.find({
-        publication: publicationId
-    }).deleteMany((err) => {
-        if (err) {
-            return res.status(500).send({
-                message: "[ERROR]: Petición de quitar los likes a la publicación eliminada"
-            });
-        }
+function onlyLikesUser(req, res) {
+    const userId = req.user.sub;
+    onlyLikes(userId).then((value) => {
         return res.status(200).send({
-            message: "Se han quitado los likes a la publicación eliminada " + publicationId
+            likes: value
         });
     });
+}
+
+async function onlyLikes(userId) {
+    const resultado = await Like.find({
+        user: userId
+    }).select({
+        '_id': 0, '__uv': 0, 'user': 0
+    }).exec().then((likes) => {
+        let follows_clean = [];
+        likes.forEach((like) => {
+            follows_clean.push(like.publication);
+        });
+        return follows_clean;
+    }).catch((err) => {
+        return handleError(err);
+    });
+    return resultado;
 }
 
 module.exports = {
@@ -193,5 +202,6 @@ module.exports = {
     getLikesUser,
     getLikesPublication,
     getCountLikesUser,
-    getCountLikesPublication
+    getCountLikesPublication,
+    onlyLikesUser
 }

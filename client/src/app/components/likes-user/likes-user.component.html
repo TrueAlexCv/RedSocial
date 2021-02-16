@@ -13,13 +13,26 @@
 
     <div class="publicaciones_publicacion_datos">
       <div class="publicaciones_publicacion_datos_nombres">
-        <h3>{{like.publication.user.name}} | @{{like.publication.user.nick}}</h3>
+        <a [routerLink]="['/profile',like.publication.user._id]">
+          {{like.publication.user.name}} | @{{like.publication.user.nick}}
+        </a>
         <span class="date">
             {{ (like.publication.created_at) * 1000 | date: 'medium'}}
         </span>
       </div>
       <div class="publicaciones_publicacion_datos_texto">
         <p>{{like.publication.text}}</p>
+      </div>
+      <div class="publicaciones_publicacion_datos_likes">
+        <p *ngIf="like.publication.stats">{{like.publication.stats}}</p>
+        <li *ngIf="likes.indexOf(like.publication._id) === -1" (click)="addLike(like.publication)"
+            class="publicaciones_publicacion_datos_likes_like">
+          <img src="assets/icons/star-empty.png">
+        </li>
+        <li *ngIf="likes.indexOf(like.publication._id) !== -1" (click)="deleteLike(like.publication)"
+            class="publicaciones_publicacion_datos_likes_like">
+          <img src="assets/icons/star-full.png">
+        </li>
       </div>
     </div>
 

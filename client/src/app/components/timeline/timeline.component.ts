@@ -62,7 +62,7 @@ export class TimelineComponent implements OnInit {
           if (!more) {
             this.publications = response.publications;
             this.publications.forEach((publication: any) => {
-              this.count(publication._id).then((value) => {
+              this.countLikes(publication._id).then((value) => {
                 publication.stats = value;
               }).catch((err) => {
                 console.log(err);
@@ -72,7 +72,7 @@ export class TimelineComponent implements OnInit {
             const arrayA = this.publications;
             const arrayB = response.publications;
             arrayB.forEach((publication: any) => {
-              this.count(publication._id).then((value) => {
+              this.countLikes(publication._id).then((value) => {
                 publication.stats = value;
               }).catch((err) => {
                 console.log(err);
@@ -99,7 +99,7 @@ export class TimelineComponent implements OnInit {
       });
   }
 
-  async count(publication: any): Promise<any> {
+  async countLikes(publication: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.likeService.getCountLikesPublication(this.token, publication).subscribe(
         response => {

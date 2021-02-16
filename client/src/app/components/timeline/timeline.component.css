@@ -70,6 +70,25 @@
   font-style: italic;
 }
 
+.publicaciones_publicacion_datos_likes {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.publicaciones_publicacion_datos_likes_like {
+  list-style: none;
+  cursor: pointer;
+}
+
+.publicaciones_publicacion_datos_likes_like > img {
+  width: 20px;
+  height: 20px;
+}
+
 .publicaciones_publicacion_opciones {
   position: relative;
   display: flex;

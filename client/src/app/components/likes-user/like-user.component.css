@@ -56,10 +56,40 @@
   vertical-align: top;
 }
 
+.publicaciones_publicacion_datos_nombres > a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.2rem;
+}
+
+.publicaciones_publicacion_datos_nombres > a:hover {
+  color: #0a4481;
+}
+
 .date {
   padding-top: 0.5%;
   padding-left: 2%;
   font-style: italic;
+}
+
+
+.publicaciones_publicacion_datos_likes {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.publicaciones_publicacion_datos_likes_like {
+  list-style: none;
+  cursor: pointer;
+}
+
+.publicaciones_publicacion_datos_likes_like > img {
+  width: 20px;
+  height: 20px;
 }
 
 /* Publicacion - Opciones: */

@@ -119,6 +119,7 @@ function getLikesPublication(req, res) {
             total: total,
             itemsPerPage: itemsPerPage,
             page: page,
+            pages: Math.ceil(total/itemsPerPage),
             likes: likes
         });
     });

@@ -59,6 +59,8 @@
   border-radius: 50%;
   border: 1px solid black;
   margin-right: 1%;
+  cursor: pointer;
+  outline: none;
 }
 
 .chat_users_user_caja_nombre {
@@ -112,6 +114,8 @@
   border: 1px solid black;
   margin-right: 1%;
   top: 0;
+  cursor: pointer;
+  outline: none;
 }
 
 .chat_caja_mensajes_mensaje_left_caja {

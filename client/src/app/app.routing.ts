@@ -18,6 +18,7 @@ import {MessagesComponent} from './components/messages/messages.component';
 import {SearchComponent} from './components/search/search.component';
 import {PublicationsUserComponent} from './components/publications-user/publications-user.component';
 import {LikesUserComponent} from './components/likes-user/likes-user.component';
+import {PublicationComponent} from './components/publication/publication.component';
 
 // Servicios:
 import {UserGuard} from './services/user.guard';
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
   {path: 'search/:page?', component: SearchComponent},
   {path: 'publications/:id/:page', component: PublicationsUserComponent},
   {path: 'likes/:id/:page', component: LikesUserComponent},
+  {path: 'publication/:id', component: PublicationComponent},
   {path: '**', component: TimelineComponent, canActivate: [UserGuard]},
   {path: '**', component: HomeComponent}
 ];

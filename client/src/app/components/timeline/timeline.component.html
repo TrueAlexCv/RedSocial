@@ -7,18 +7,20 @@
   </div>
 
   <div *ngFor="let publication of publications" class="publicaciones_publicacion">
-    <div class="publicaciones_publicacion_imagen">
-      <img *ngIf="publication.user.image" src="{{url+'/getImage/'+publication.user.image}}"/>
-      <img *ngIf="!publication.user.image" src="assets/default/banner_default.jpg"/>
+    <div class="publicaciones_publicacion_imagen" [routerLink]="['/publication',publication._id]">
+      <img [routerLink]="['/profile',publication.user._id]" *ngIf="publication.user.image"
+        src="{{url+'/getImage/'+publication.user.image}}" />
+      <img [routerLink]="['/profile',publication.user._id]" *ngIf="!publication.user.image"
+        src="assets/default/banner_default.jpg" />
     </div>
 
-    <div class="publicaciones_publicacion_datos">
+    <div class="publicaciones_publicacion_datos" [routerLink]="['/publication',publication._id]">
       <div class="publicaciones_publicacion_datos_nombres">
         <a [routerLink]="['/profile',publication.user._id]">
           {{publication.user.name}} | @{{publication.user.nick}}
         </a>
         <span class="date">
-            {{ (publication.created_at) * 1000 | date: 'medium'}}
+          {{ (publication.created_at) * 1000 | date: 'medium'}}
         </span>
       </div>
       <div class="publicaciones_publicacion_datos_texto">
@@ -27,35 +29,31 @@
       <div class="publicaciones_publicacion_datos_likes">
         <p *ngIf="publication.stats">{{publication.stats}}</p>
         <li *ngIf="likes.indexOf(publication._id) === -1" (click)="addLike(publication)"
-            class="publicaciones_publicacion_datos_likes_like">
+          class="publicaciones_publicacion_datos_likes_like">
           <img src="assets/icons/star-empty.png">
         </li>
         <li *ngIf="likes.indexOf(publication._id) !== -1" (click)="deleteLike(publication)"
-            class="publicaciones_publicacion_datos_likes_like">
+          class="publicaciones_publicacion_datos_likes_like">
           <img src="assets/icons/star-full.png">
         </li>
       </div>
     </div>
 
     <div class="publicaciones_publicacion_opciones">
-      <button class="publicaciones_publicacion_opciones_boton"
-              (click)="desplegarPanel(publication._id)">
+      <button class="publicaciones_publicacion_opciones_boton" (click)="desplegarPanel(publication._id)">
       </button>
-      <div *ngIf="this.publicationCursor == publication._id"
-           class="publicaciones_publicacion_opciones_panel"
-           (click)="desplegarPanel(publication._id)">
-        <button *ngIf="this.identity._id == publication.user._id"
-                (click)="confirmar = true"
-                class="publicaciones_publicacion_opciones_panel_borrar">
+      <div *ngIf="this.publicationCursor == publication._id" class="publicaciones_publicacion_opciones_panel"
+        (click)="desplegarPanel(publication._id)">
+        <button *ngIf="this.identity._id == publication.user._id" (click)="confirmar = true"
+          class="publicaciones_publicacion_opciones_panel_borrar">
           Borrar!
         </button>
         <button *ngIf="this.identity._id != publication.user._id"
-                class="publicaciones_publicacion_opciones_panel_denunciar">
+          class="publicaciones_publicacion_opciones_panel_denunciar">
           Denunciar Tweet
         </button>
       </div>
     </div>
-    <hr/>
   </div>
 
   <div *ngIf="page < pages" class="publicaciones_vermas">

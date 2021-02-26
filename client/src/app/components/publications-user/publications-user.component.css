@@ -28,6 +28,8 @@
   width: 10%;
   height: 100%;
   padding: 1%;
+  outline: none;
+  cursor: pointer;
 }
 
 .publicaciones_publicacion_imagen > img {

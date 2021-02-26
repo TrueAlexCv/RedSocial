@@ -26,6 +26,7 @@ import {MessagesComponent} from './components/messages/messages.component';
 import {SearchComponent} from './components/search/search.component';
 import {PublicationsUserComponent} from './components/publications-user/publications-user.component';
 import {LikesUserComponent} from './components/likes-user/likes-user.component';
+import {PublicationComponent} from './components/publication/publication.component';
 
 // Servicios:
 import {UserService} from './services/user.service';
@@ -59,7 +60,8 @@ import {WebSocketService} from './services/web-socket.service';
     SearchPipe,
     SearchComponent,
     PublicationsUserComponent,
-    LikesUserComponent
+    LikesUserComponent,
+    PublicationComponent
   ],
   imports: [
     BrowserModule,

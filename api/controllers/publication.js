@@ -73,7 +73,9 @@ function deletePublication(req, res) {
 function getPublication(req, res) {
     let publicationId = req.params.id;
 
-    Publication.findById(publicationId, (err, publication) => {
+    Publication.findOne({
+        _id: publicationId
+    }).populate('user').exec((err, publication) => {
         if (err)
             return res.status(500).send({
                 message: "[ERROR]: Petición de buscar la publicación"
@@ -153,7 +155,7 @@ function getTimeline(req, res) {
         follows_clean.push(userId);
 
         Publication.find({
-            user: {"$in": follows_clean}
+            user: { "$in": follows_clean }
         }).sort('-created_at').populate('user')
             .paginate(page, itemsPerPage, (err, publications, total) => {
                 if (err)
@@ -196,7 +198,7 @@ function uploadImage(req, res) {
             }).exec((err, publication) => {
                 if (publication) {
                     Publication.findByIdAndUpdate(publicationId,
-                        {file: file_name}, {new: true},
+                        { file: file_name }, { new: true },
                         (err, publicationUpdated) => {
                             if (err)
                                 return res.status(500).send({

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute, Params} from '@angular/router';
+import {Router} from '@angular/router';
 import {GLOBAL} from '../../services/global';
 import {UserService} from '../../services/user.service';
 import {User} from '../../models/user';
@@ -19,18 +19,21 @@ export class LoginComponent implements OnInit {
   public token: any;
 
   constructor(
-    private userService: UserService,
-    private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
     this.title = 'Iniciar Sesión';
     this.url = GLOBAL.url;
     this.status = '';
     this.user = new User('', '', '', '', '', '', '', '', 'ROLE_USER');
+    this.identity = this.userService.getIdentity();
   }
 
   ngOnInit(): void {
     console.log('login.component ha sido cargado correctamente');
+    if(this.identity != null) {
+      this.router.navigate(['timeline']);
+    }
   }
 
   onSubmit(form: any): void {

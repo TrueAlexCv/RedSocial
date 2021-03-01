@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
 import {User} from '../../models/user';
 import {UserService} from '../../services/user.service';
 
@@ -15,19 +15,23 @@ export class RegisterComponent implements OnInit {
   public status!: string;
   public user: User;
   public aceptado: boolean;
+  public identity!:any;
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private userService: UserService
   ) {
     this.title = 'Registrarse:';
     this.user = new User('', '', '', '', '', '', '', '', 'ROLE_USER');
     this.aceptado = false;
+    this.identity = this.userService.getIdentity();
   }
 
   ngOnInit(): void {
     console.log('register.component ha sido cargado correctamente');
+    if(this.identity != null) {
+      this.router.navigate(['timeline']);
+    }
   }
 
   onSubmit(form: any): void {

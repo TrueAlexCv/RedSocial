@@ -1,6 +1,13 @@
+<div class="atras">
+  <button onclick="javascript:history.back(-1)">
+    <img src="assets/icons/atras-icon.png" />
+  </button>
+  <hr />
+</div>
+
 <div class="register">
   <div class="register_cabecera">
-    <img src="assets/icons/default-icon.png"/>
+    <img src="assets/icons/default-icon.png" />
     <h3 class="register_cabecera_titulo">{{title}}</h3>
   </div>
   <div *ngIf="status == 'error'" class="register_span">
@@ -10,52 +17,47 @@
   <form #register="ngForm" (ngSubmit)="onSubmit(register)" class="register_formulario">
     <div class="register_formulario_nombre">
       <label class="register_formulario_nombre_titulo">Nombre:</label>
-      <input type='text' name='name' #name="ngModel" [(ngModel)]="user.name"
-             class="register_formulario_nombre_input" required maxlength=50/>
+      <input type='text' name='name' #name="ngModel" [(ngModel)]="user.name" class="register_formulario_nombre_input"
+        required maxlength=50 />
     </div>
     <span *ngIf='!name.valid && name.touched' class="register_formulario_error">
-            El nombre no es válido
-        </span>
+      El nombre no es válido
+    </span>
     <div class="register_formulario_nick">
       <label class="register_formulario_nick_titulo">Nick:</label>
-      <input type='text' name='nick' #nick="ngModel" [(ngModel)]="user.nick"
-             class="register_formulario_nick_input" required minlength=3 maxlength=15/>
+      <input type='text' name='nick' #nick="ngModel" [(ngModel)]="user.nick" class="register_formulario_nick_input"
+        required minlength=3 maxlength=15 />
     </div>
     <span *ngIf='!nick.valid && nick.touched' class="register_formulario_error">
-            El nick no es válido
-        </span>
+      El nick no es válido
+    </span>
     <div class="register_formulario_email">
       <label class="register_formulario_email_titulo">Email:</label>
-      <input type='email' name='email' #email="ngModel"
-             [(ngModel)]="user.email"
-             class="register_formulario_email_input"
-             required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+      <input type='email' name='email' #email="ngModel" [(ngModel)]="user.email" class="register_formulario_email_input"
+        required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
     </div>
     <span *ngIf='!email.valid && email.touched' class="register_formulario_error">
-            El email no es válido
-        </span>
+      El email no es válido
+    </span>
     <div class="register_formulario_password">
       <label class="register_formulario_password_titulo">Contraseña:</label>
-      <input type='password' name='password' #password="ngModel"
-             [(ngModel)]="user.password" required minlength=2
-             class="register_formulario_password_input"/>
+      <input type='password' name='password' #password="ngModel" [(ngModel)]="user.password" required minlength=2
+        class="register_formulario_password_input" />
     </div>
     <span *ngIf='!password.valid && password.touched' class="register_formulario_error">
-            La contraseña no es válida
-        </span>
+      La contraseña no es válida
+    </span>
     <div class="register_formulario_terminos">
       <input type='checkbox' name="terms" #terms="ngModel" [(ngModel)]="aceptado"
-             class="register_formulario_terminos_input" required/>
-      <a href='http://localhost:4200/assets/terminos_y_condiciones.html'
-         class="register_formulario_terminos_titulo">
+        class="register_formulario_terminos_input" required />
+      <a href='http://localhost:4200/assets/terminos_y_condiciones.html' class="register_formulario_terminos_titulo">
         Términos y condiciones
       </a>
       <span *ngIf="!aceptado && password.valid && email.valid && name.valid && nick.valid"
-            class="register_formulario_terminos_error">
+        class="register_formulario_terminos_error">
         Debes aceptar los términos y condiciones
       </span>
     </div>
-    <input type='submit' value='Registrarse'
-           class="register_formulario_submit" [disabled]='!register.form.valid'/>
+    <input type='submit' value='Registrarse' class="register_formulario_submit" [disabled]='!register.form.valid' />
   </form>
 </div>

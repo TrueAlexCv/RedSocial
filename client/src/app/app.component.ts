@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 import {
   Router,
-  ActivatedRoute,
   NavigationStart,
   NavigationEnd,
   Event,
@@ -38,7 +37,6 @@ export class AppComponent implements OnInit, DoCheck {
   }];
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
     protected publicationService: PublicationService,
@@ -77,6 +75,12 @@ export class AppComponent implements OnInit, DoCheck {
     }
   }
 
+  goHome(): void {
+    this.router.navigate(['']);
+  }
+
+  /* makePublication: */
+
   @ViewChild('ref', {read: ViewContainerRef}) ref: any;
 
   chargeComponent(): void {
@@ -105,6 +109,8 @@ export class AppComponent implements OnInit, DoCheck {
       this.router.navigate(['/users', 2]);
     }
   }
+
+  /* Loading: */
 
   checkRouterEvent(routerEvent: Event): void {
     if (routerEvent instanceof NavigationStart) {

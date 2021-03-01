@@ -1,5 +1,75 @@
 .home {
-  background: #eee;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  height: 80%;
+}
+
+/* Home - Info: */
+
+.home_info {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  min-height: 400px;
+  height: 100%;
+  background: rgb(247, 247, 247);
+  box-shadow: 0 0 0 0.5px #222222, 0 0 0 1px #000;
+}
+
+.home_info_caja {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  height: 80%;
+  padding: 5%;
+}
+
+.home_info_caja_titulo {
+  font-size: 2rem;
+}
+
+.home_info_caja_texto {
+  font-size: 1rem;
+}
+
+/* Home - Join: */
+
+.home_join {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.home_join > button {
+  width: 200px;
+  height: 50px;
+  margin-bottom: 5px;
+  border-radius: 50px;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid black;
+  background: rgba(250, 56, 56, 0.9);
+}
+
+.home_join > button:hover {
+  background: rgba(250, 56, 56);
+  color: black;
+}
+
+.register {
+  background: rgba(255, 255, 255) !important;
+}
+
+.register:hover {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: black !important;
 }

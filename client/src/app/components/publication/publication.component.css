@@ -5,9 +5,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
-  margin-bottom: 1%;
+  height: 100%;
   scroll-behavior: smooth;
 }
 
@@ -243,23 +242,65 @@
 
 /* Usuarios: */
 
-.users {
-  position: relative;
+.__users {
+  position: absolute;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
   width: 100%;
-  margin-bottom: 1%;
+  top: 0;
 }
+
+.users {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 70%;
+  background: whitesmoke;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 5;
+}
+
+/* Usuarios - Cerrar: */
+
+.fondo_users {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: #c9d2ff;
+  z-index: 4;
+  opacity: 0.5;
+  top: 0;
+}
+
+.users_close {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 10%;
+  border-bottom: 1px solid gray;
+}
+
+.users_close > img {
+  height: 70%;
+  margin-left: 3%;
+  cursor: pointer;
+}
+
+/* Usuarios - usuario: */
 
 .users_user {
   position: relative;
   display: flex;
   flex-direction: row;
   vertical-align: top;
-  width: 50%;
-  border: 1px solid black;
+  width: 100%;
+  border-bottom: 1px solid gray;
 }
 
 /* Usuario - Imagen: */

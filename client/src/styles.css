@@ -10,12 +10,14 @@ body {
 }
 
 app-root {
-  width: -webkit-fill-available;
-  height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
+  width: -webkit-fill-available;
+  height: 100vh;
 }
+
+/* Initial: */
 
 home {
   position: relative;
@@ -23,7 +25,7 @@ home {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 70px);
 }
 
 register {
@@ -33,7 +35,7 @@ register {
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 70px);
 }
 
 login {
@@ -43,8 +45,86 @@ login {
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 70px);
 }
+
+/* Header: */
+
+timeline {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+users {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+search {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+messages {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+profile {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+/* Others: */
+
+edit-profile {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+edit-user {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+following {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+followed {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+publication {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+publications-user {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+likes-user {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+/* Special: */
 
 makePublication {
   position: absolute;
@@ -53,50 +133,6 @@ makePublication {
   justify-content: center;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-edit-user {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-edit-profile {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-search {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-messages {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-publication {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: 100%;
 }

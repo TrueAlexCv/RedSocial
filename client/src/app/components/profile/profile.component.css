@@ -1,3 +1,5 @@
+/* Especial: */
+
 .safe {
   background: greenyellow !important;
 }
@@ -5,6 +7,8 @@
 .danger {
   background: red !important;
 }
+
+/* Perfil: */
 
 .perfil {
   position: relative;
@@ -43,6 +47,7 @@
 }
 
 /* Perfil - Datos: */
+
 .perfil_datos {
   position: relative;
   display: flex;
@@ -88,7 +93,7 @@
 }
 
 .perfil_datos_textos_biografia {
-
+  font-size: 1rem;
 }
 
 .perfil__datos_opciones {

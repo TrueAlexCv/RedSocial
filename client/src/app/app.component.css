@@ -1,11 +1,18 @@
-.menu {
+.relleno {
   position: relative;
+  width: 100%;
+  height: 70px;
+}
+
+.menu {
+  position: fixed;
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 70px;
   border: 1px solid black;
   background: #ff4141;
+  z-index: 4;
 }
 
 /* No identity: */
@@ -55,11 +62,6 @@
 
 /* Menu - Cabecera: */
 
-.menu_cabecera > img {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
 .menu_cabecera {
   position: relative;
   display: flex;
@@ -67,6 +69,16 @@
   align-items: center;
   justify-content: center;
   width: 30%;
+}
+
+.menu_cabecera > img {
+  margin-left: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.menu_cabecera > h2 {
+  cursor: pointer;
 }
 
 /* Menu - Perfil: */

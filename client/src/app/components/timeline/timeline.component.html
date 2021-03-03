@@ -1,9 +1,9 @@
 <div class="publicaciones">
-  <div class="cabecera">
-    <h1>{{title}}</h1>
-  </div>
-  <div *ngIf="publications" class="publicaciones_refrescar">
-    <button (click)="refresh()">Refrescar</button>
+  <div class="publicaciones_cabecera">
+    <h1 class="publicaciones_cabecera_titulo">{{title}}</h1>
+    <div *ngIf="publications" class="publicaciones_cabecera_refrescar">
+      <img (click)="refresh()" src="assets/icons/refresh-icon.png" />
+    </div>
   </div>
 
   <div *ngFor="let publication of publications" class="publicaciones_publicacion">
@@ -40,17 +40,18 @@
     </div>
 
     <div class="publicaciones_publicacion_opciones">
-      <button class="publicaciones_publicacion_opciones_boton" (click)="desplegarPanel(publication._id)">
-      </button>
+      <div class="publicaciones_publicacion_opciones_boton">
+        <img (click)="desplegarPanel(publication._id)" src="assets/icons/opciones-icon.png" />
+      </div>
       <div *ngIf="this.publicationCursor == publication._id" class="publicaciones_publicacion_opciones_panel"
         (click)="desplegarPanel(publication._id)">
         <button *ngIf="this.identity._id == publication.user._id" (click)="confirmar = true"
-          class="publicaciones_publicacion_opciones_panel_borrar">
-          Borrar!
+          class="publicaciones_publicacion_opciones_panel_opcion">
+          Borrar publicación
         </button>
         <button *ngIf="this.identity._id != publication.user._id"
-          class="publicaciones_publicacion_opciones_panel_denunciar">
-          Denunciar Tweet
+          class="publicaciones_publicacion_opciones_panel_opcion">
+          Denunciar publicación
         </button>
       </div>
       <div class="publicaciones_publicacion_relleno" [routerLink]="['/publication',publication._id]">
@@ -58,8 +59,22 @@
     </div>
   </div>
 
-  <div *ngIf="page < pages" class="publicaciones_vermas">
-    <button (click)="viewMore()">Ver más publicaciones</button>
+  <div *ngIf="page < pages else noMore" class="publicaciones_vermas">
+    <button (click)="viewMore()">Ver más</button>
+  </div>
+  <ng-template #noMore>
+    <div class="publicaciones_nomas" *ngIf="pages">
+      <h1 class="publicaciones_nomas_titulo">Has llegado al final de las publicaciones</h1>
+      <p class=publicaciones_nomas_texto>
+        Puedes seguir a nuevos usuarios en <span [routerLink]="['/users',1]">esta sección</span>
+        o buscar por su nick en <span [routerLink]="['/search']">esta otra</span></p>
+    </div>
+  </ng-template>
+  <div *ngIf="!pages" class="publicaciones_nopubs">
+    <h1 class="publicaciones_nopubs_texto">
+      Conecta con los <span [routerLink]="['/users',1]">usuarios</span>
+      de la red para poder interactuar
+    </h1>
   </div>
 </div>
 

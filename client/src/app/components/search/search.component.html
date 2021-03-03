@@ -1,60 +1,59 @@
-<div class="search">
-  <div class="search_cabecera">
-    <img src="assets/icons/search-icon.png"/>
-    <h1 class="search_cabecera_titulo">{{title}}</h1>
-  </div>
-
-  <form #search="ngForm" (ngSubmit)="searchUser(1)" class="search_form">
-    <input type="text" name="palabra" #palabra="ngModel" [(ngModel)]="span"
-           class="search_form_input" required/>
-    <input type="submit" [disabled]="!search.form.valid" class="search_form_submit"/>
-  </form>
-
-  <div *ngIf="!mostrar">
-    Sugerencias: alex, admin, prueba...
-  </div>
-  <div *ngIf="mostrar">
-    Se han encontrado un total de {{total}} usuarios
-  </div>
-</div>
-
-<div *ngIf="mostrar" class="users">
-  <h1>Usuarios encontrados:</h1>
-  <div *ngFor="let user of users" class="users_user">
-    <div class="users_user_imagen">
-      <img *ngIf="user.image" src="{{url+'/getImage/'+user.image}}"/>
-      <img *ngIf="!user.image" src="assets/default/banner_default.jpg"/>
+<div class="caja">
+  <div class="search">
+    <div class="search_cabecera">
+      <img src="assets/icons/search-icon.png" />
+      <h1 class="search_cabecera_titulo">{{title}}</h1>
     </div>
 
-    <div class="users_user_datos">
-      <div class="users_user_datos_nombres">
-        <a [routerLink]="['/profile',user._id]">{{user.name}} | @{{user.nick}}</a>
-      </div>
-      <div class="users_user_datos_texto">
-        <p>{{user.biography}}</p>
-      </div>
-    </div>
+    <form #search="ngForm" (ngSubmit)="searchUser(1)" class="search_form">
+      <input type="text" name="palabra" #palabra="ngModel" [(ngModel)]="span" class="search_form_input" required />
+      <input type="submit" [disabled]="!search.form.valid" class="search_form_submit" />
+    </form>
 
-    <div *ngIf="identity._id != user._id" class="users_user_opciones">
-      <div class="users_user_opciones_boton">
-        <button *ngIf="myFollows.indexOf(user._id) < 0 ;else following"
-                (click)="followUser(user._id)"
-                class="safe">
-          Seguir
-        </button>
-        <ng-template #following>
-          <button (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave(user._id)"
-                  (click)="unfollowUser(user._id)" [class.danger]="followCursor==user._id">
-            <span *ngIf="followCursor != user._id ;else unfollow">Siguiendo</span>
-            <ng-template #unfollow>Dejar de seguir</ng-template>
+    <div *ngIf="!mostrar">
+      Sugerencias: alex, admin, prueba...
+    </div>
+    <div *ngIf="mostrar">
+      Se han encontrado un total de {{total}} usuarios
+    </div>
+  </div>
+
+  <div *ngIf="mostrar" class="users">
+    <h1>Usuarios encontrados:</h1>
+    <div *ngFor="let user of users" class="users_user">
+      <div class="users_user_imagen">
+        <img *ngIf="user.image" src="{{url+'/getImage/'+user.image}}" />
+        <img *ngIf="!user.image" src="assets/default/banner_default.jpg" />
+      </div>
+
+      <div class="users_user_datos">
+        <div class="users_user_datos_nombres">
+          <a [routerLink]="['/profile',user._id]">{{user.name}} | @{{user.nick}}</a>
+        </div>
+        <div class="users_user_datos_texto">
+          <p>{{user.biography}}</p>
+        </div>
+      </div>
+
+      <div *ngIf="identity._id != user._id" class="users_user_opciones">
+        <div class="users_user_opciones_boton">
+          <button *ngIf="myFollows.indexOf(user._id) < 0 ;else following" (click)="followUser(user._id)" class="safe">
+            Seguir
           </button>
-        </ng-template>
+          <ng-template #following>
+            <button (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave(user._id)"
+              (click)="unfollowUser(user._id)" [class.danger]="followCursor==user._id">
+              <span *ngIf="followCursor != user._id ;else unfollow">Siguiendo</span>
+              <ng-template #unfollow>Dejar de seguir</ng-template>
+            </button>
+          </ng-template>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="users_paginas">
-    <button *ngIf="page > 1" (click)="prevPage()">Anterior</button>
-    <button *ngIf="page < pages" (click)="nextPage()">Siguiente</button>
+    <div class="users_paginas">
+      <button *ngIf="page > 1" (click)="prevPage()">Anterior</button>
+      <button *ngIf="page < pages" (click)="nextPage()">Siguiente</button>
+    </div>
   </div>
 </div>

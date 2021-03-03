@@ -1,20 +1,14 @@
-<div class="cabecera">
-  <h1>{{title}}</h1>
-</div>
-
 <div *ngIf="user" class="perfil">
   <div class="perfil_imagenes">
     <img *ngIf="user.banner else bannerDefault" src="{{url + '/getBanner/' + user.banner}}"
-         class="perfil_imagenes_banner"/>
+      class="perfil_imagenes_banner" />
     <ng-template #bannerDefault>
-      <img src="assets/default/banner_default.jpg"
-           class="perfil_imagenes_banner"/>
+      <img src="assets/default/banner_default.jpg" class="perfil_imagenes_banner" />
     </ng-template>
     <img *ngIf="user.image else imageDefault" src="{{url + '/getImage/' + user.image}}"
-         class="perfil_imagenes_imagen"/>
+      class="perfil_imagenes_imagen" />
     <ng-template #imageDefault>
-      <img src="assets/default/imagedefault.png"
-           class="perfil_imagenes_imagen"/>
+      <img src="assets/default/imagedefault.png" class="perfil_imagenes_imagen" />
     </ng-template>
   </div>
 
@@ -36,14 +30,12 @@
       </button>
 
       <ng-template #seguimiento>
-        <button *ngIf="follows.indexOf(user._id) < 0 ;else following"
-                (click)="followUser(user._id)"
-                class="safe">
+        <button *ngIf="follows.indexOf(user._id) < 0 ;else following" (click)="followUser(user._id)" class="safe">
           Seguir
         </button>
         <ng-template #following>
-          <button (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave()"
-                  (click)="unfollowUser(user._id)" [class.danger]="followCursor==user._id">
+          <button (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave()" (click)="unfollowUser(user._id)"
+            [class.danger]="followCursor==user._id">
             <span *ngIf="followCursor != user._id ;else unfollow">Siguiendo</span>
             <ng-template #unfollow>Dejar de seguir</ng-template>
           </button>
@@ -70,4 +62,3 @@
 
 <publications-user *ngIf="!showLikes"></publications-user>
 <likes-user *ngIf="showLikes"></likes-user>
-

@@ -10,6 +10,17 @@
   background: red !important;
 }
 
+/* Caja: */
+
+.caja {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
 /* Search: */
 
 .search {
@@ -63,7 +74,6 @@
   justify-content: center;
   width: 60%;
   height: 100%;
-  margin-bottom: 1%;
 }
 
 .users_user {

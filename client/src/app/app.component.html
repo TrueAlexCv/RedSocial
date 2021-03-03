@@ -1,3 +1,4 @@
+<div class="relleno"></div>
 <div class="menu">
 
   <div *ngIf="!identity" (click)="goHome()" class="menu_noidentity">
@@ -18,8 +19,8 @@
   </div>
 
   <div *ngIf="identity" class="menu_cabecera">
-    <img src="assets/icons/default-icon.png"/>
-    <h2>Twitter Rojo</h2>
+    <img (click)="goHome()" src="assets/icons/default-icon.png"/>
+    <h2 (click)="goHome()">Twitter Rojo</h2>
   </div>
 
   <div *ngIf="identity" class="menu_perfil">

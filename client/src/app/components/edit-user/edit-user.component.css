@@ -1,3 +1,16 @@
+/* Caja: */
+
+.caja {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Editar: */
+
 .editar {
   position: relative;
   display: flex;
@@ -87,7 +100,7 @@
 
 .editar_form_email {
   position: relative;
-  dispay: flex;
+  display: flex;
   flex-direction: row;
   width: 90%;
   height: 15%;
@@ -117,7 +130,7 @@
 
 .editar_form_actualpassword {
   position: relative;
-  dispay: flex;
+  display: flex;
   flex-direction: row;
   width: 90%;
   height: 15%;
@@ -134,7 +147,7 @@
 
 .editar_form_newpassword {
   position: relative;
-  dispay: flex;
+  display: flex;
   flex-direction: row;
   width: 90%;
   height: 15%;

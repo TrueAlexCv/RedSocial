@@ -15,16 +15,12 @@
 <div class="chat">
 
   <div *ngIf="follows" class="chat_users">
-    <div *ngFor="let follow of follows" class="chat_users_user"
-         [class.selected]="selected == follow.user._id">
-      <div (click)="getMessages(follow.user._id)"
-           class="chat_users_user_caja">
-        <img *ngIf="follow.user.image else defaultImage"
-             [routerLink]="['/profile',follow.user._id]"
-             src="{{url+'getImage/'+follow.user.image}}"/>
+    <div *ngFor="let follow of follows" class="chat_users_user" [class.selected]="selected == follow.user._id">
+      <div (click)="getMessages(follow.user._id)" class="chat_users_user_caja">
+        <img *ngIf="follow.user.image else defaultImage" [routerLink]="['/profile',follow.user._id]"
+          src="{{url+'getImage/'+follow.user.image}}" />
         <ng-template #defaultImage>
-          <img [routerLink]="['/profile',follow.user._id]"
-               src="assets/default/imagedefault.png"/>
+          <img [routerLink]="['/profile',follow.user._id]" src="assets/default/imagedefault.png" />
         </ng-template>
         <p class="chat_users_user_caja_nombre">
           {{follow.user.name}} | @{{follow.user.nick}}
@@ -35,19 +31,15 @@
 
   <div class="chat_caja">
     <div *ngIf="messages else noMensajes" class="chat_caja_mensajes" id="scroll">
-      <div *ngFor="let message of messages let i = index" [attr.data-index]="i"
-           class="chat_caja_mensajes_mensaje"
-           [class.not_viewed]="(message.viewed == 'false') && (message.receiver._id == identity._id)"
-           [class.mirror]="message.receiver._id == this.identity._id">
+      <div *ngFor="let message of messages let i = index" [attr.data-index]="i" class="chat_caja_mensajes_mensaje"
+        [class.not_viewed]="(message.viewed == 'false') && (message.receiver._id == identity._id)"
+        [class.mirror]="message.receiver._id == this.identity._id">
 
-        <div *ngIf="message.receiver._id == this.identity._id else right"
-             class="chat_caja_mensajes_mensaje_left">
-          <img *ngIf="message.emitter.image else imageMsgDefault"
-               [routerLink]="['/profile',message.emitter._id]"
-               src="{{url+'getImage/'+message.emitter.image}}"/>
+        <div *ngIf="message.receiver._id == this.identity._id else right" class="chat_caja_mensajes_mensaje_left">
+          <img *ngIf="message.emitter.image else imageMsgDefault" [routerLink]="['/profile',message.emitter._id]"
+            src="{{url+'getImage/'+message.emitter.image}}" />
           <ng-template #imageMsgDefault>
-            <img [routerLink]="['/profile',message.emitter._id]"
-                 src="assets/default/imagedefault.png"/>
+            <img [routerLink]="['/profile',message.emitter._id]" src="assets/default/imagedefault.png" />
           </ng-template>
           <p class="chat_caja_mensajes_mensaje_left_caja copiar">
             {{message.text}}
@@ -61,15 +53,13 @@
             </p>
             <div class="chat_caja_mensajes_mensaje_right_opciones">
               <button class="chat_caja_mensajes_mensaje_right_opciones_boton"
-                      (click)="desplegarPanel(message._id, message)"></button>
+                (click)="desplegarPanel(message._id, message)"></button>
               <div *ngIf="messageCursor == message._id" (click)="desplegarPanel(message._id, message)"
-                   class="chat_caja_mensajes_mensaje_right_opciones_lista">
-                <button (click)="confirmar = true"
-                        class="chat_caja_mensajes_mensaje_right_opciones_lista_eliminar">
+                class="chat_caja_mensajes_mensaje_right_opciones_lista">
+                <button (click)="confirmar = true" class="chat_caja_mensajes_mensaje_right_opciones_lista_eliminar">
                   Eliminar mensaje
                 </button>
-                <button (click)="copiarMensaje(i)"
-                        class="chat_caja_mensajes_mensaje_right_opciones_lista_copiar">
+                <button (click)="copiarMensaje(i)" class="chat_caja_mensajes_mensaje_right_opciones_lista_copiar">
                   Copiar mensaje
                 </button>
               </div>
@@ -80,8 +70,7 @@
     </div>
 
     <div *ngIf="messages" class="chat_caja_enviar">
-      <textarea placeholder="Enviar un mensaje..." [(ngModel)]="input"
-                class="chat_caja_enviar_input"></textarea>
+      <textarea placeholder="Enviar un mensaje..." [(ngModel)]="input" class="chat_caja_enviar_input"></textarea>
       <button (click)="addMessage(receiver)" class="chat_caja_enviar_boton">Enviar</button>
     </div>
 

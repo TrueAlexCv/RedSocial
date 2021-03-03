@@ -1,44 +1,44 @@
-<div class="editar">
-  <div class="editar_cabecera">
-    <img src="assets/icons/user-icon.png"/>
-    <h1>{{title}}</h1>
-  </div>
-  <div *ngIf="status=='error'">
-    <span>
-    Error al actualizar el perfil
-    </span>
-  </div>
-  <form #profile="ngForm" (ngSubmit)="updateProfile(profile)" class="editar_form">
-    <div class="editar_form_name">
-      <label>Nombre:</label>
-      <input type="text" name="name" #name="ngModel" [(ngModel)]="identity.name" required
-             maxlength=50/>
-      <span *ngIf="!name.valid && name.touched" class="editar_form-error">
-        El nombre es incorrecto
+<div class="caja">
+  <div class="editar">
+    <div class="editar_cabecera">
+      <img src="assets/icons/user-icon.png" />
+      <h1>{{title}}</h1>
+    </div>
+    <div *ngIf="status=='error'">
+      <span>
+        Error al actualizar el perfil
       </span>
     </div>
+    <form #profile="ngForm" (ngSubmit)="updateProfile(profile)" class="editar_form">
+      <div class="editar_form_name">
+        <label>Nombre:</label>
+        <input type="text" name="name" #name="ngModel" [(ngModel)]="identity.name" required maxlength=50 />
+        <span *ngIf="!name.valid && name.touched" class="editar_form-error">
+          El nombre es incorrecto
+        </span>
+      </div>
 
-    <div class="editar_form_biography">
-      <label>Biografía:</label>
-      <input type="text" name="biography" #biography="ngModel" [(ngModel)]="identity.biography"
-             maxlength=150/>
-      <span *ngIf="!biography.valid && biography.touched" class="editar_form-error">
-        La biografia es incorrecta
-      </span>
-    </div>
+      <div class="editar_form_biography">
+        <label>Biografía:</label>
+        <input type="text" name="biography" #biography="ngModel" [(ngModel)]="identity.biography" maxlength=150 />
+        <span *ngIf="!biography.valid && biography.touched" class="editar_form-error">
+          La biografia es incorrecta
+        </span>
+      </div>
 
-    <div class="editar_form_image">
-      <label>Imagen de perfil:</label>
-      <input type="file" (change)="changeImage($event)"/>
-    </div>
+      <div class="editar_form_image">
+        <label>Imagen de perfil:</label>
+        <input type="file" (change)="changeImage($event)" />
+      </div>
 
-    <div class="editar_form_banner">
-      <label>Banner de perfil:</label>
-      <input type="file" (change)="changeBanner($event)"/>
-    </div>
+      <div class="editar_form_banner">
+        <label>Banner de perfil:</label>
+        <input type="file" (change)="changeBanner($event)" />
+      </div>
 
-    <div class="editar_form_submit">
-      <input type="submit" placeholder="Actualizar perfil" [disabled]="!profile.form.valid"/>
-    </div>
-  </form>
+      <div class="editar_form_submit">
+        <input type="submit" placeholder="Actualizar perfil" [disabled]="!profile.form.valid" />
+      </div>
+    </form>
+  </div>
 </div>

@@ -11,7 +11,7 @@
       <img [routerLink]="['/profile',publication.user._id]" *ngIf="publication.user.image"
         src="{{url+'/getImage/'+publication.user.image}}" />
       <img [routerLink]="['/profile',publication.user._id]" *ngIf="!publication.user.image"
-        src="assets/default/banner_default.jpg" />
+        src="assets/default/image_default.png" />
     </div>
 
     <div class="publicaciones_publicacion_datos" [routerLink]="['/publication',publication._id]">

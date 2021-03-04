@@ -1,14 +1,22 @@
 <div class="users">
-  <h1>{{title}}</h1>
+  <div class="users_cabecera">
+    <div class="users_cabecera_titulo">
+      <h1>{{title}}</h1>
+      <img src="assets/icons/users-icon.png" />
+    </div>
+    <div *ngIf="user" class="users_cabecera_user">
+      <a [routerLink]="['/profile', user._id]">{{user.name}} | @ {{user.nick}}</a>
+    </div>
+  </div>
   <div *ngFor="let follow of follows" class="users_user">
-    <div class="users_user_imagen">
+    <div class="users_user_imagen" [routerLink]="['/profile',follow.user._id]">
       <img *ngIf="follow.user.image" src="{{url+'/getImage/'+follow.user.image}}"/>
-      <img *ngIf="!follow.user.image" src="assets/default/banner_default.jpg"/>
+      <img *ngIf="!follow.user.image" src="assets/default/image_default.png"/>
     </div>
 
-    <div class="users_user_datos">
+    <div class="users_user_datos" [routerLink]="['/profile',follow.user._id]">
       <div class="users_user_datos_nombres">
-        <a [routerLink]="['/profile',follow.user._id]">{{follow.user.name}} | @{{follow.user.nick}}</a>
+        <a>{{follow.user.name}} | @{{follow.user.nick}}</a>
       </div>
       <div class="users_user_datos_texto">
         <p>{{follow.user.biography}}</p>

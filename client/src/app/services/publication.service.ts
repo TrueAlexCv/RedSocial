@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {GLOBAL} from './global';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { GLOBAL } from './global';
 
 @Injectable()
 
@@ -20,7 +20,7 @@ export class PublicationService {
       .set('Authorization', token);
 
     return this.http.post(this.url + 'publication', params,
-      {headers});
+      { headers });
   }
 
   deletePublication(token: any, id: any): Observable<any> {
@@ -28,7 +28,7 @@ export class PublicationService {
       .set('Authorization', token);
 
     return this.http.delete(this.url + 'publication/' + id,
-      {headers});
+      { headers });
   }
 
   getPublication(token: any, id: any): Observable<any> {
@@ -36,7 +36,7 @@ export class PublicationService {
       .set('Authorization', token);
 
     return this.http.get(this.url + 'publication/' + id,
-      {headers});
+      { headers });
   }
 
   getPublicationsUser(token: any, userId: any = null, page = 1)
@@ -46,10 +46,10 @@ export class PublicationService {
 
     if (userId != null) {
       return this.http.get(this.url + 'publications/' + userId + '/' +
-        page, {headers});
+        page, { headers });
     } else {
       return this.http.get(this.url + 'publications/' + page,
-        {headers});
+        { headers });
     }
   }
 
@@ -57,7 +57,7 @@ export class PublicationService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', token);
 
-    return this.http.get(this.url + 'timeline/' + page, {headers});
+    return this.http.get(this.url + 'timeline/' + page, { headers });
   }
 
   getImage(image: any): Observable<any> {

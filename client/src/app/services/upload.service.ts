@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 
 export class UploadService {
 
   makeFileRequest(url: string, params: Array<string>, files: Array<File>,
-                  token: string, name: string) {
+    token: string, name: string) {
     return new Promise(function (resolve, reject) {
       const formData: any = new FormData();
       const xhr = new XMLHttpRequest();

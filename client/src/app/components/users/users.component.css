@@ -1,3 +1,5 @@
+/* Special: */
+
 .safe {
   background: greenyellow !important;
 }
@@ -22,13 +24,43 @@
   margin-bottom: 1%;
 }
 
+/* Usuarios - Cabecera: */
+
+.users_cabecera {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  height: 50px;
+  padding: 6px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  background: white;
+}
+
+.users_cabecera_titulo {
+  position: relative;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+/* Usuarios - Usuario: */
+
 .users_user {
   position: relative;
   display: flex;
   flex-direction: row;
   vertical-align: top;
   width: 50%;
-  border: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.users_user:hover {
+  background: #f3f3f3;
+  transition: 0.2s;
 }
 
 /* Usuario - Imagen: */
@@ -41,9 +73,11 @@
   width: 10%;
   height: 100%;
   padding: 1%;
+  cursor: pointer;
+  outline: none;
 }
 
-.users_user_imagen > img {
+.users_user_imagen>img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -60,6 +94,8 @@
   width: 70%;
   height: 100%;
   padding: 1%;
+  cursor: pointer;
+  outline: none;
 }
 
 .users_user_datos_nombres {
@@ -69,18 +105,14 @@
   vertical-align: top;
 }
 
-.users_user_datos_nombres > a {
+.users_user_datos_nombres>a {
   text-decoration: none;
   color: black;
   font-size: 1.2rem;
 }
 
-.users_user_datos_nombres > a:hover {
+.users_user_datos_nombres>a:hover {
   color: #0a4481;
-}
-
-.users_user_datos_texto {
-
 }
 
 /* Usuario - Opciones: */
@@ -90,6 +122,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   width: 20%;
 }
 
@@ -99,15 +132,21 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 50%;
 }
 
-.users_user_opciones_boton > button {
+.users_user_opciones_boton>button {
   border-radius: 50px;
   outline: none;
   padding: 6%;
   background: #8989dd;
   border: 1px solid black;
   cursor: pointer;
+}
+
+.users_user_opciones_relleno {
+  height: 25%;
+  width: 100%;
 }
 
 /* Usuario - Páginas: */
@@ -122,7 +161,7 @@
   margin: 1%;
 }
 
-.users_paginas > button {
+.users_paginas>button {
   cursor: pointer;
   padding: 1%;
   background: #b5b5b5;
@@ -130,6 +169,6 @@
   outline: none;
 }
 
-.users_paginas > button:hover {
+.users_paginas>button:hover {
   background: #e7e7ee;
 }

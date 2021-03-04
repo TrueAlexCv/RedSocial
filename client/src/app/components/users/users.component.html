@@ -1,14 +1,17 @@
 <div class="users">
-  <h1>{{title}}</h1>
+  <div class="users_cabecera">
+    <h1 class="users_cabecera_titulo">{{title}}</h1>
+    <img src="assets/icons/users-icon.png"/>
+  </div>
   <div *ngFor="let user of users" class="users_user">
-    <div class="users_user_imagen">
-      <img *ngIf="user.image" src="{{url+'/getImage/'+user.image}}"/>
-      <img *ngIf="!user.image" src="assets/default/banner_default.jpg"/>
+    <div class="users_user_imagen" [routerLink]="['/profile',user._id]">
+      <img *ngIf="user.image" src="{{url+'/getImage/'+user.image}}" />
+      <img *ngIf="!user.image" src="assets/default/image_default.png" />
     </div>
 
-    <div class="users_user_datos">
+    <div class="users_user_datos" [routerLink]="['/profile',user._id]">
       <div class="users_user_datos_nombres">
-        <a [routerLink]="['/profile',user._id]">{{user.name}} | @{{user.nick}}</a>
+        <a>{{user.name}} | @{{user.nick}}</a>
       </div>
       <div class="users_user_datos_texto">
         <p>{{user.biography}}</p>
@@ -17,14 +20,12 @@
 
     <div *ngIf="identity._id != user._id" class="users_user_opciones">
       <div class="users_user_opciones_boton">
-        <button *ngIf="follows.indexOf(user._id) < 0 ;else following"
-                (click)="followUser(user._id)"
-                class="safe">
+        <button *ngIf="follows.indexOf(user._id) < 0 ;else following" (click)="followUser(user._id)" class="safe">
           Seguir
         </button>
         <ng-template #following>
-          <button (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave()"
-                  (click)="unfollowUser(user._id)" [class.danger]="followCursor==user._id">
+          <button (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave()" (click)="unfollowUser(user._id)"
+            [class.danger]="followCursor==user._id">
             <span *ngIf="followCursor != user._id ;else unfollow">Siguiendo</span>
             <ng-template #unfollow>Dejar de seguir</ng-template>
           </button>

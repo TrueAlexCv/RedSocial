@@ -1,10 +1,14 @@
-.relleno {
+/* Header: */
+
+.header {
   position: relative;
   width: 100%;
   height: 70px;
 }
 
-.menu {
+/* Header - No Identity: */
+
+.header_noidentity {
   position: fixed;
   display: flex;
   flex-direction: row;
@@ -15,25 +19,33 @@
   z-index: 4;
 }
 
-/* No identity: */
-
-.menu_noidentity {
+.header_noidentity_cabecera {
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 100%;
   cursor: pointer;
 }
 
-.menu_noidentity > img {
+.header_noidentity_cabecera>img {
   margin-left: 5px;
   margin-right: 5px;
 }
 
-/* Identity: */
+/* Header - Identity: */
 
-.menu_opciones {
+.header_identity {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 70px;
+  border: 1px solid black;
+  background: #ff4141;
+  z-index: 4;
+}
+
+.header_identity_left {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -43,7 +55,7 @@
   margin-left: 5%;
 }
 
-.menu_opciones-botones {
+.header_identity_left-botones {
   outline: none;
   background: transparent;
   cursor: pointer;
@@ -55,14 +67,12 @@
   width: 56px;
 }
 
-.menu_opciones-botones:hover {
+.header_identity_left-botones:hover {
   background: #ff9191;
   transition-duration: 0.2s;
 }
 
-/* Menu - Cabecera: */
-
-.menu_cabecera {
+.header_identity_cabecera {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -71,19 +81,17 @@
   width: 30%;
 }
 
-.menu_cabecera > img {
+.header_identity_cabecera>img {
   margin-left: 5px;
   margin-right: 5px;
   cursor: pointer;
 }
 
-.menu_cabecera > h2 {
+.header_identity_cabecera>h2 {
   cursor: pointer;
 }
 
-/* Menu - Perfil: */
-
-.menu_perfil {
+.header_identity_right {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -93,7 +101,7 @@
   margin-right: 5%;
 }
 
-.menu_perfil-botones {
+.header_identity_right-botones {
   outline: none;
   background: transparent;
   cursor: pointer;
@@ -105,18 +113,18 @@
   width: 56px;
 }
 
-.menu_perfil-botones:hover {
+.header_identity_right-botones:hover {
   background: #ff9191;
   transition-duration: 0.2s;
 }
 
-.menu_perfil_cuenta {
+.header_identity_right_perfil {
   position: relative;
   display: flex;
   flex-direction: column;
 }
 
-.menu_perfil_cuenta_ajustes {
+.header_identity_right_perfil-opciones {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -126,7 +134,7 @@
   z-index: 5;
 }
 
-.menu_perfil_cuenta_ajustes:before {
+.header_identity_right_perfil-opciones:before {
   content: '';
   border: 15px solid #00b8b4;
   border-left-color: transparent;
@@ -137,7 +145,7 @@
   left: calc(50% - 15px);
 }
 
-.menu_perfil_cuenta_ajustes > button {
+.header_identity_right_perfil-opciones>button {
   cursor: pointer;
   background: #d9d9d9;
   color: black;
@@ -145,7 +153,7 @@
   border: 1px solid #858585;
 }
 
-.menu_perfil_cuenta_ajustes > button:hover {
+.header_identity_right_perfil-opciones>button:hover {
   cursor: pointer;
   background: #c1bfbf;
   color: black;
@@ -220,6 +228,7 @@
 }
 
 /* Loading: */
+
 .loading {
   position: absolute;
   height: 100%;
@@ -229,6 +238,7 @@
 }
 
 /* Fondo: */
+
 .fondo {
   position: absolute;
   height: 100%;

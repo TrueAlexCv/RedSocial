@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {GLOBAL} from './global';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { GLOBAL } from './global';
 
 @Injectable()
 
@@ -19,7 +19,7 @@ export class FollowService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', token);
 
-    return this.http.post(this.url + 'follow', params, {headers: headers});
+    return this.http.post(this.url + 'follow', params, { headers: headers });
   }
 
   unfollowUser(token: any, id: any): Observable<any> {
@@ -27,7 +27,7 @@ export class FollowService {
       .set('Authorization', token);
 
     return this.http.delete(this.url + 'unfollow/' + id,
-      {headers: headers});
+      { headers: headers });
   }
 
   getFollowingUsers(token: any, userId: any = null, page: any = 1): Observable<any> {
@@ -36,10 +36,10 @@ export class FollowService {
 
     if (userId != null) {
       return this.http.get(this.url + 'following/' +
-        userId + '/' + page, {headers: headers});
+        userId + '/' + page, { headers: headers });
     } else {
       return this.http.get(this.url + 'following/' + page,
-        {headers: headers});
+        { headers: headers });
     }
   }
 
@@ -49,10 +49,10 @@ export class FollowService {
 
     if (userId != null) {
       return this.http.get(this.url + 'followed/' +
-        userId + '/' + page, {headers: headers});
+        userId + '/' + page, { headers: headers });
     } else {
       return this.http.get(this.url + 'followed/' + page,
-        {headers: headers});
+        { headers: headers });
     }
   }
 
@@ -60,6 +60,6 @@ export class FollowService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', token);
 
-    return this.http.get(this.url + 'only-following', {headers: headers});
+    return this.http.get(this.url + 'only-following', { headers: headers });
   }
 }

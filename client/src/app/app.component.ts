@@ -3,29 +3,32 @@ import {
   ViewChild, ViewContainerRef, ComponentFactoryResolver
 } from '@angular/core';
 import {
-  Router,
-  NavigationStart,
-  NavigationEnd,
-  Event,
-  NavigationCancel, NavigationError,
+  Router, NavigationStart, NavigationEnd,
+  Event, NavigationCancel, NavigationError
 } from '@angular/router';
-import {UserService} from './services/user.service';
-import {GLOBAL} from './services/global';
-import {MakePublicationComponent} from './components/makePublication/makePublication.component';
-import {PublicationService} from './services/publication.service';
-import {UploadService} from './services/upload.service';
+import { GLOBAL } from './services/global';
+import { UserService } from './services/user.service';
+import { PublicationService } from './services/publication.service';
+import { UploadService } from './services/upload.service';
+import { MakePublicationComponent } from './components/makePublication/makePublication.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [UserService, MakePublicationComponent, PublicationService, UploadService]
+  providers: [UserService, PublicationService, UploadService, MakePublicationComponent]
 })
 
 export class AppComponent implements OnInit, DoCheck {
+  /* Basic: */
   public title: string;
-  public identity: any;
   public url: string;
+  public status!: string;
+
+  /* Identity: */
+  public identity: any;
+
+  /* Special: */
   public cursor: any = 0;
   public do = false;
   public open = false;
@@ -38,10 +41,10 @@ export class AppComponent implements OnInit, DoCheck {
 
   constructor(
     private router: Router,
-    private userService: UserService,
-    protected publicationService: PublicationService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef,
+    private userService: UserService,
+    protected publicationService: PublicationService,
     protected makePublication: MakePublicationComponent
   ) {
     this.title = 'Página principal';
@@ -67,7 +70,7 @@ export class AppComponent implements OnInit, DoCheck {
     this.router.navigate(['/']);
   }
 
-  abrirAjustes(id: any): void {
+  openSettings(id: any): void {
     if (this.cursor === 0) {
       this.cursor = id;
     } else {
@@ -81,7 +84,7 @@ export class AppComponent implements OnInit, DoCheck {
 
   /* makePublication: */
 
-  @ViewChild('ref', {read: ViewContainerRef}) ref: any;
+  @ViewChild('ref', { read: ViewContainerRef }) ref: any;
 
   chargeComponent(): void {
     if (!this.open) {
@@ -106,7 +109,7 @@ export class AppComponent implements OnInit, DoCheck {
     this.ref.changeDetectorRef.detectChanges();
     if (this.do) {
       this.do = false;
-      this.router.navigate(['/users', 2]);
+      this.router.navigate(['/timeline']);
     }
   }
 

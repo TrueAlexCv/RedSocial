@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {Follow} from '../../models/follow';
-import {FollowService} from '../../services/follow.service';
-import {UserService} from '../../services/user.service';
-import {GLOBAL} from '../../services/global';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Follow } from '../../models/follow';
+import { FollowService } from '../../services/follow.service';
+import { UserService } from '../../services/user.service';
+import { GLOBAL } from '../../services/global';
 
 @Component({
   selector: 'following',
@@ -18,6 +18,7 @@ export class FollowingComponent implements OnInit {
   public status!: string;
   public identity: any;
   public token: any;
+  public user!: any;
   public userId!: any;
   public total!: number;
   public page: number;
@@ -34,7 +35,7 @@ export class FollowingComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.title = 'Following';
+    this.title = 'Siguiendo';
     this.url = GLOBAL.url;
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
@@ -62,6 +63,7 @@ export class FollowingComponent implements OnInit {
         }
       }
       this.getFollowingUsers(this.userId, this.page);
+      this.getUser(this.userId);
     });
   }
 
@@ -75,6 +77,22 @@ export class FollowingComponent implements OnInit {
           if (page > this.pages) {
             this.router.navigate(['/profile', id]);
           }
+        } else {
+          this.status = 'error';
+        }
+      },
+      error => {
+        console.log(error as any);
+        this.status = 'error';
+      });
+  }
+
+  getUser(id: any): void {
+    this.userService.getUser(id).subscribe(
+      response => {
+        if(response.user) {
+          this.user = response.user;
+          this.status = 'success';
         } else {
           this.status = 'error';
         }

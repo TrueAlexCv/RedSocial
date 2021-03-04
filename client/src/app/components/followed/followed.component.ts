@@ -19,6 +19,7 @@ export class FollowedComponent implements OnInit {
   public identity: any;
   public token: any;
   public userId!: any;
+  public user!: any;
   public total!: number;
   public page: number;
   public pages!: number;
@@ -34,7 +35,7 @@ export class FollowedComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.title = 'Followed';
+    this.title = 'Seguidores';
     this.url = GLOBAL.url;
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
@@ -63,6 +64,7 @@ export class FollowedComponent implements OnInit {
         }
       }
       this.getFollowedUsers(this.userId, this.page);
+      this.getUser(this.userId);
     });
   }
 
@@ -77,6 +79,22 @@ export class FollowedComponent implements OnInit {
           if (page > this.pages) {
             this.router.navigate(['/profile', id]);
           }
+        } else {
+          this.status = 'error';
+        }
+      },
+      error => {
+        console.log(error as any);
+        this.status = 'error';
+      });
+  }
+
+  getUser(id: any): void {
+    this.userService.getUser(id).subscribe(
+      response => {
+        if(response.user) {
+          this.user = response.user;
+          this.status = 'success';
         } else {
           this.status = 'error';
         }

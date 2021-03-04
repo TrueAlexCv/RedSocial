@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {GLOBAL} from './global';
-import {User} from '../models/user';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { GLOBAL } from './global';
+import { User } from '../models/user';
 
 @Injectable()
 
@@ -21,18 +21,18 @@ export class UserService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     return this.http.post(this.url + 'register', params,
-      {headers});
+      { headers });
   }
 
   loginUser(user: User, gettoken = false): Observable<any> {
     if (gettoken) {
-      user = Object.assign(user, {gettoken});
+      user = Object.assign(user, { gettoken });
     }
 
     const params = JSON.stringify(user);
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    return this.http.post(this.url + 'login', params, {headers});
+    return this.http.post(this.url + 'login', params, { headers });
   }
 
   getIdentity(): any {
@@ -75,7 +75,7 @@ export class UserService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', this.getToken());
 
-    return this.http.get(this.url + 'user/' + id, {headers});
+    return this.http.get(this.url + 'user/' + id, { headers });
   }
 
   getUsers(page = null): Observable<any> {
@@ -84,9 +84,9 @@ export class UserService {
 
     if (page != null) {
       return this.http.get(this.url + 'users/' + page,
-        {headers});
+        { headers });
     } else {
-      return this.http.get(this.url + 'users/', {headers});
+      return this.http.get(this.url + 'users/', { headers });
     }
   }
 
@@ -96,9 +96,9 @@ export class UserService {
 
     if (userId != null) {
       return this.http.get(this.url + 'counters/' + userId,
-        {headers});
+        { headers });
     } else {
-      return this.http.get(this.url + 'counters/', {headers});
+      return this.http.get(this.url + 'counters/', { headers });
     }
   }
 
@@ -108,7 +108,7 @@ export class UserService {
       .set('Authorization', this.getToken());
 
     return this.http.put(this.url + 'update-user/' + user._id, params,
-      {headers});
+      { headers });
   }
 
   updateProfile(user: User): Observable<any> {
@@ -117,7 +117,7 @@ export class UserService {
       .set('Authorization', this.getToken());
 
     return this.http.post(this.url + 'update-profile/' + user._id, params,
-      {headers});
+      { headers });
   }
 
   updatePassword(passwords: any): Observable<any> {
@@ -125,7 +125,7 @@ export class UserService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', this.getToken());
 
-    return this.http.post(this.url + 'update-password', params, {headers});
+    return this.http.post(this.url + 'update-password', params, { headers });
   }
 
   searchUsers(page = null, search: any): Observable<any> {
@@ -133,7 +133,7 @@ export class UserService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', this.getToken());
 
-    return this.http.post(this.url + 'search-users/' + page, params, {headers});
+    return this.http.post(this.url + 'search-users/' + page, params, { headers });
   }
 
 }

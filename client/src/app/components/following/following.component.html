@@ -1,14 +1,22 @@
 <div class="users">
-  <h1>{{title}}</h1>
+  <div class="users_cabecera">
+    <div class="users_cabecera_titulo">
+      <h1>{{title}}</h1>
+      <img src="assets/icons/users-icon.png" />
+    </div>
+    <div *ngIf="user" class="users_cabecera_user">
+      <a [routerLink]="['/profile', user._id]">{{user.name}} | @ {{user.nick}}</a>
+    </div>
+  </div>
   <div *ngFor="let follow of follows" class="users_user">
-    <div class="users_user_imagen">
-      <img *ngIf="follow.followed.image" src="{{url+'/getImage/'+follow.followed.image}}"/>
-      <img *ngIf="!follow.followed.image" src="assets/default/banner_default.jpg"/>
+    <div class="users_user_imagen" [routerLink]="['/profile',follow.followed._id]">
+      <img *ngIf="follow.followed.image" src="{{url+'/getImage/'+follow.followed.image}}" />
+      <img *ngIf="!follow.followed.image" src="assets/default/image_default.png" />
     </div>
 
-    <div class="users_user_datos">
+    <div class="users_user_datos" [routerLink]="['/profile',follow.followed._id]">
       <div class="users_user_datos_nombres">
-        <a [routerLink]="['/profile',follow.followed._id]">{{follow.followed.name}} | @{{follow.followed.nick}}</a>
+        <a>{{follow.followed.name}} | <span>{{follow.followed.nick}}</span></a>
       </div>
       <div class="users_user_datos_texto">
         <p>{{follow.followed.biography}}</p>
@@ -18,13 +26,12 @@
     <div *ngIf="identity._id != follow.followed._id" class="users_user_opciones">
       <div class="users_user_opciones_boton">
         <button *ngIf="myFollows.indexOf(follow.followed._id) < 0 ;else following"
-                (click)="followUser(follow.followed._id)"
-                class="safe">
+          (click)="followUser(follow.followed._id)" class="safe">
           Seguir
         </button>
         <ng-template #following>
           <button (mouseenter)="mouseEnter(follow.followed._id)" (mouseleave)="mouseLeave(follow.followed._id)"
-                  (click)="unfollowUser(follow.followed._id)" [class.danger]="followCursor==follow.followed._id">
+            (click)="unfollowUser(follow.followed._id)" [class.danger]="followCursor==follow.followed._id">
             <span *ngIf="followCursor != follow.followed._id ;else unfollow">Siguiendo</span>
             <ng-template #unfollow>Dejar de seguir</ng-template>
           </button>

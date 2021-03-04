@@ -1,51 +1,53 @@
-<div class="relleno"></div>
-<div class="menu">
+<div class="header">
 
-  <div *ngIf="!identity" (click)="goHome()" class="menu_noidentity">
-    <img src="assets/icons/default-icon.png"/>
-    <h2>Twitter Rojo</h2>
+  <div *ngIf="!identity" (click)="goHome()" class="header_noidentity">
+    <div class="header_noidentity_cabecera">
+      <img src="assets/icons/default-icon.png" />
+      <h2>Twitter Rojo</h2>
+    </div>
   </div>
 
-  <div *ngIf="identity" class="menu_opciones">
-    <button class="menu_opciones-botones" [routerLink]="['/timeline']">
-      <img src="assets/icons/home-icon.png"/>
-    </button>
-    <button class="menu_opciones-botones" [routerLink]="['/users',1]">
-      <img src="assets/icons/users-icon.png"/>
-    </button>
-    <button class="menu_opciones-botones">
-      <img src="assets/icons/tendencias-icon.png"/>
-    </button>
-  </div>
-
-  <div *ngIf="identity" class="menu_cabecera">
-    <img (click)="goHome()" src="assets/icons/default-icon.png"/>
-    <h2 (click)="goHome()">Twitter Rojo</h2>
-  </div>
-
-  <div *ngIf="identity" class="menu_perfil">
-
-    <button class="menu_perfil-botones" [routerLink]="['/search']">
-      <img src="assets/icons/search-icon.png"/>
-    </button>
-    <button class="menu_perfil-botones" [routerLink]="['/messages']">
-      <img src="assets/icons/mensajes-icon.png"/>
-    </button>
-
-    <div class="menu_perfil_cuenta">
-      <button class="menu_perfil-botones" (click)="abrirAjustes(identity._id)">
-        <img src="assets/icons/user-icon.png"/>
+  <div *ngIf="identity" class="header_identity">
+    <div class="header_identity_left">
+      <button class="header_identity_left-botones" [routerLink]="['/timeline']">
+        <img src="assets/icons/home-icon.png" />
       </button>
-      <div *ngIf="cursor==identity._id" class="menu_perfil_cuenta_ajustes">
-        <button [routerLink]="['/profile', identity._id]" (click)="abrirAjustes(identity._id)">
-          Perfil
+      <button class="header_identity_left-botones" [routerLink]="['/users',1]">
+        <img src="assets/icons/users-icon.png" />
+      </button>
+      <button class="header_identity_left-botones">
+        <img src="assets/icons/tendencias-icon.png" />
+      </button>
+    </div>
+
+    <div class="header_identity_cabecera">
+      <img (click)="goHome()" src="assets/icons/default-icon.png" />
+      <h2 (click)="goHome()">Twitter Rojo</h2>
+    </div>
+
+    <div class="header_identity_right">
+      <button class="header_identity_right-botones" [routerLink]="['/search']">
+        <img src="assets/icons/search-icon.png" />
+      </button>
+      <button class="header_identity_right-botones" [routerLink]="['/messages']">
+        <img src="assets/icons/mensajes-icon.png" />
+      </button>
+
+      <div class="header_identity_right_perfil">
+        <button class="header_identity_right-botones" (click)="openSettings(identity._id)">
+          <img src="assets/icons/user-icon.png" />
         </button>
-        <button [routerLink]="['/edit-user']" (click)="abrirAjustes(identity._id)">
-          Editar Usuario
-        </button>
-        <button (click)="logout()">
-          Logout
-        </button>
+        <div *ngIf="cursor==identity._id" class="header_identity_right_perfil-opciones">
+          <button [routerLink]="['/profile', identity._id]" (click)="openSettings(identity._id)">
+            Perfil
+          </button>
+          <button [routerLink]="['/edit-user']" (click)="openSettings(identity._id)">
+            Editar Usuario
+          </button>
+          <button (click)="logout()">
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -55,15 +57,14 @@
 
 <div class="makePublication">
   <button class="makePublication_boton" *ngIf="!open && identity" (click)="chargeComponent()">
-    <img src="assets/icons/default-icon.png"/>
+    <img src="assets/icons/default-icon.png" />
   </button>
 </div>
 
 <div *ngIf="open" class="closePublication">
   <div class="closePublication_barra">
-    <button class="closePublication_barra_boton"
-            (click)="ngOnDestroy()">
-      <img src="assets/icons/close-icon.png"/>
+    <button class="closePublication_barra_boton" (click)="ngOnDestroy()">
+      <img src="assets/icons/close-icon.png" />
     </button>
   </div>
   <div class="closePublication_barra_2">

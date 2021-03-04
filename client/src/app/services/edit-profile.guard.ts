@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {CanDeactivate} from '@angular/router';
-import {EditProfileComponent} from '../components/edit-profile/edit-profile.component';
+import { Injectable } from '@angular/core';
+import { CanDeactivate } from '@angular/router';
+import { EditProfileComponent } from '../components/edit-profile/edit-profile.component';
 
 @Injectable({
   providedIn: 'root'

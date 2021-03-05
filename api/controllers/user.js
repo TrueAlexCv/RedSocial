@@ -29,8 +29,8 @@ function registerUser(req, res) {
 
         User.find({
             $or: [
-                {email: user.email.toLowerCase()},
-                {nick: user.nick.toLowerCase()}
+                { email: user.email.toLowerCase() },
+                { nick: user.nick.toLowerCase() }
             ]
         }).exec((err, users) => {
             if (err)
@@ -48,7 +48,7 @@ function registerUser(req, res) {
                             message: "[ERROR]: Al encriptar la contraseña"
                         });
                     user.password = hash;
-                    if(hash) {
+                    if (hash) {
                         user.save((err, userStored) => {
                             if (err)
                                 return res.status(500).send({
@@ -80,7 +80,7 @@ function loginUser(req, res) {
     let email = params.email;
     let password = params.password;
 
-    User.findOne({email: email}, (err, user) => {
+    User.findOne({ email: email }, (err, user) => {
         if (err)
             return res.status(500).send({
                 message: "[ERROR]: Petición de inicio de sesión de usuario"
@@ -94,7 +94,7 @@ function loginUser(req, res) {
                         });
                     } else {
                         user.password = undefined;
-                        return res.status(200).send({user});
+                        return res.status(200).send({ user });
                     }
                 } else {
                     return res.status(404).send({
@@ -177,18 +177,15 @@ function getUsers(req, res) {
                 return res.status(404).send({
                     message: "[ERROR]: No hay usuarios"
                 });
-            followUsers(user_identity).then((value) => {
-                return res.status(200).send({
-                    users,
-                    users_following: value.following,
-                    users_followed: value.followed,
-                    total,
-                    pages: Math.ceil(total / itemsPerPage)
-                });
+            return res.status(200).send({
+                users,
+                total,
+                pages: Math.ceil(total / itemsPerPage)
             });
         });
 }
 
+/* Unused: */
 async function followUsers(user_identity) {
     let following = await Follow.find({
         'user': user_identity
@@ -286,8 +283,8 @@ function updateUser(req, res) {
 
     User.find({
         $or: [
-            {email: update.email.toString().toLowerCase()},
-            {nick: update.nick.toString().toLowerCase()}
+            { email: update.email.toString().toLowerCase() },
+            { nick: update.nick.toString().toLowerCase() }
         ]
     }).exec((err, users) => {
         let user_isset = false;
@@ -299,7 +296,7 @@ function updateUser(req, res) {
             return res.status(404).send({
                 message: "[ERROR]: El usuario ya existe"
             });
-        User.findByIdAndUpdate(userId, update, {new: true}, (err, userUpdated) => {
+        User.findByIdAndUpdate(userId, update, { new: true }, (err, userUpdated) => {
             if (err)
                 return res.status(500).send({
                     message: "[ERROR]: Petición actualizar usuario"
@@ -326,7 +323,7 @@ function updateProfile(req, res) {
         });
     }
 
-    User.findByIdAndUpdate(userId, update, {new: true}, (err, userUpdated) => {
+    User.findByIdAndUpdate(userId, update, { new: true }, (err, userUpdated) => {
         if (err)
             return res.status(500).send({
                 message: "[ERROR]: Petición para editar el perfil de usuario"
@@ -371,7 +368,7 @@ function updatePassword(req, res) {
                         });
                     }
                     req.body.password = hash;
-                    User.findByIdAndUpdate(userId, params, {new: true}, (err, userUpdated) => {
+                    User.findByIdAndUpdate(userId, params, { new: true }, (err, userUpdated) => {
                         if (err)
                             return res.status(500).send({
                                 message: "[ERROR]: Petición de actualizar el usuario"
@@ -415,7 +412,7 @@ function uploadImage(req, res) {
         var file_ext = ext_split[1];
 
         if (file_ext === 'png' || file_ext === 'jpg' || file_ext === 'jpeg') {
-            User.findByIdAndUpdate(userId, {image: file_name}, {new: true},
+            User.findByIdAndUpdate(userId, { image: file_name }, { new: true },
                 (err, userUpdated) => {
                     if (err)
                         return res.status(500).send({
@@ -467,7 +464,7 @@ function uploadBanner(req, res) {
         var file_ext = ext_split[1];
 
         if (file_ext === 'png' || file_ext === 'jpg' || file_ext === 'jpeg') {
-            User.findByIdAndUpdate(userId, {banner: file_name}, {new: true},
+            User.findByIdAndUpdate(userId, { banner: file_name }, { new: true },
                 (err, userUpdated) => {
                     if (err)
                         return res.status(500).send({
@@ -531,7 +528,7 @@ function searchUsers(req, res) {
     let word = req.body.word;
     let page = 1;
     const itemsPerPage = 5;
-    if(req.params.page) {
+    if (req.params.page) {
         page = req.params.page;
     }
     const r = new RegExp(`\w*${word}\w*`, "i");
@@ -550,7 +547,7 @@ function searchUsers(req, res) {
             return res.status(200).send({
                 users,
                 total,
-                pages: Math.ceil(total/itemsPerPage)
+                pages: Math.ceil(total / itemsPerPage)
             });
         });
 }

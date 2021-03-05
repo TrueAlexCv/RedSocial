@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {UserService} from '../../services/user.service';
-import {PublicationService} from '../../services/publication.service';
-import {GLOBAL} from '../../services/global';
-import {LikeService} from '../../services/like.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { PublicationService } from '../../services/publication.service';
+import { GLOBAL } from '../../services/global';
+import { LikeService } from '../../services/like.service';
 
 @Component({
   selector: 'timeline',
@@ -127,6 +127,15 @@ export class TimelineComponent implements OnInit {
     this.getTimeline(this.page, false);
   }
 
+  desplegarPanel(id: any): void {
+    if (this.publicationCursor === 0) {
+      this.publicationCursor = id;
+    } else {
+      this.publicationCursor = 0;
+    }
+    this.store = id;
+  }
+
   deletePublication(id: any): void {
     this.confirmar = false;
     this.publicationService.deletePublication(this.token, id).subscribe(
@@ -136,15 +145,6 @@ export class TimelineComponent implements OnInit {
       error => {
         console.log(error as any);
       });
-  }
-
-  desplegarPanel(id: any): void {
-    if (this.publicationCursor === 0) {
-      this.publicationCursor = id;
-    } else {
-      this.publicationCursor = 0;
-    }
-    this.store = id;
   }
 
   /* Likes: */

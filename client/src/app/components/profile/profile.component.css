@@ -8,6 +8,21 @@
   background: red !important;
 }
 
+.selected {
+  background: #f3f3f3 !important;
+}
+
+.editar {
+  color: red !important;
+  border: 1px solid red !important;
+  background: white !important;
+  font-weight: 600;
+}
+
+.editar:hover {
+  background: #f3f3f3 !important;
+}
+
 /* Perfil: */
 
 .perfil {
@@ -55,7 +70,6 @@
   min-height: 100px;
   width: 50%;
   border: 1px solid black;
-  background: rgba(0, 186, 217, 0.11);
 }
 
 .perfil_datos_textos {
@@ -79,7 +93,7 @@
 
 .perfil_datos_textos_nombres_nick {
   padding-top: 4%;
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: cornflowerblue;
   padding-right: 3%;
 }
@@ -100,6 +114,7 @@
   position: relative;
   display: flex;
   width: 50%;
+  padding-top: 2%;
 }
 
 .perfil__datos_opciones > button {
@@ -111,6 +126,7 @@
   cursor: pointer;
   padding-left: 5%;
   padding-right: 5%;
+  border: 1px solid black;
 }
 
 /* Perfil - Stats: */
@@ -121,48 +137,77 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  min-height: 50px;
+  height: 60px;
   width: 50%;
   border: 1px solid black;
-  background: rgba(0, 186, 217, 0.11);
 }
 
 .perfil_stats_siguiendo {
-  text-decoration: none;
-  font-size: 1.5rem;
-  color: black;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 25%;
   height: 100%;
   border-right: 1px solid black;
+}
+
+.perfil_stats_siguiendo > a {
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: black;
   text-align: center;
 }
 
 .perfil_stats_seguidores {
-  text-decoration: none;
-  font-size: 1.5rem;
-  color: black;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 25%;
   height: 100%;
   border-right: 1px solid black;
+}
+
+.perfil_stats_seguidores > a {
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: black;
   text-align: center;
 }
 
 .perfil_stats_publicaciones {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  height: 100%;
+  cursor: pointer;
+  border-right: 1px solid black;
+}
+
+.perfil_stats_publicaciones > a {
   text-decoration: none;
   font-size: 1.2rem;
   color: black;
-  width: 25%;
-  height: 100%;
-  border-right: 1px solid black;
   text-align: center;
 }
 
 .perfil_stats_likes {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.perfil_stats_likes > a {
   text-decoration: none;
   font-size: 1.5rem;
   color: black;
-  width: 25%;
-  height: 100%;
   text-align: center;
 }
 

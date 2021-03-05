@@ -1,4 +1,11 @@
 <div class="publicacion">
+
+  <div class="closePublication_barra">
+    <button class="closePublication_barra_boton" (click)="closeMakePublication()">
+      <img src="assets/icons/close-icon.png" />
+    </button>
+  </div>
+
   <div class="publicacion_cabecera">
     <img src="assets/icons/default-icon.png"/>
     <h1>{{title}}</h1>
@@ -9,7 +16,7 @@
       <div class="publicacion_form_datos_imagen">
         <img *ngIf="identity.image else default" src="{{this.url + '/getImage/' + identity.image}}"/>
         <ng-template #default>
-          <img src="assets/default/imagedefault.png"/>
+          <img src="assets/default/image_default.png"/>
         </ng-template>
       </div>
       <div class="publicacion_form_datos_contenido">

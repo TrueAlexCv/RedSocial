@@ -1,42 +1,51 @@
-<div class="caja">
-  <div class="search">
-    <div class="search_cabecera">
-      <img src="assets/icons/search-icon.png" />
-      <h1 class="search_cabecera_titulo">{{title}}</h1>
+<div class="search">
+  <div class="search_find">
+    <div class="search_find_cabecera">
+      <h1 class="search_find_cabecera_titulo">{{title}} de usuarios:</h1>
     </div>
 
-    <form #search="ngForm" (ngSubmit)="searchUser(1)" class="search_form">
-      <input type="text" name="palabra" #palabra="ngModel" [(ngModel)]="span" class="search_form_input" required />
-      <input type="submit" [disabled]="!search.form.valid" class="search_form_submit" />
+    <form #search="ngForm" (ngSubmit)="searchUser(1)" class="search_find_form">
+      <input type="text" name="palabra" #palabra="ngModel" [(ngModel)]="span" class="search_find_form_input" required />
+      <input type="submit" id="buscar" [disabled]="!search.form.valid" class="search_find_form_submit" />
+      <label for="buscar">
+        <img src="assets/icons/search-icon.png" />
+      </label>
     </form>
 
-    <div *ngIf="!mostrar">
-      Sugerencias: alex, admin, prueba...
-    </div>
-    <div *ngIf="mostrar">
-      Se han encontrado un total de {{total}} usuarios
+    <div class="search_find_info">
+      <p *ngIf="!mostrar else datos">
+        Sugerencias: alex, admin, prueba...
+      </p>
+      <ng-template #datos>
+        <p>
+          Se han encontrado un total de {{total}} usuarios
+        </p>
+      </ng-template>
     </div>
   </div>
 
-  <div *ngIf="mostrar" class="users">
-    <h1>Usuarios encontrados:</h1>
-    <div *ngFor="let user of users" class="users_user">
-      <div class="users_user_imagen">
+  <div *ngIf="mostrar" class="search_users">
+    <div class="search_users_cabecera">
+      <img src="assets/icons/users-icon.png" />
+      <h1 class="search_users_cabecera_titulo">Uusarios encontrados:</h1>
+    </div>
+    <div *ngFor="let user of users" class="search_users_user">
+      <div class="search_users_user_imagen" [routerLink]="['/profile',user._id]">
         <img *ngIf="user.image" src="{{url+'/getImage/'+user.image}}" />
-        <img *ngIf="!user.image" src="assets/default/banner_default.jpg" />
+        <img *ngIf="!user.image" src="assets/default/image_default.png" />
       </div>
 
-      <div class="users_user_datos">
-        <div class="users_user_datos_nombres">
-          <a [routerLink]="['/profile',user._id]">{{user.name}} | @{{user.nick}}</a>
+      <div class="search_users_user_datos" [routerLink]="['/profile',user._id]">
+        <div class="search_users_user_datos_nombres">
+          <a>{{user.name}} | @{{user.nick}}</a>
         </div>
-        <div class="users_user_datos_texto">
+        <div class="search_users_user_datos_texto">
           <p>{{user.biography}}</p>
         </div>
       </div>
 
-      <div *ngIf="identity._id != user._id" class="users_user_opciones">
-        <div class="users_user_opciones_boton">
+      <div *ngIf="identity._id != user._id" class="search_users_user_opciones">
+        <div class="search_users_user_opciones_boton">
           <button *ngIf="myFollows.indexOf(user._id) < 0 ;else following" (click)="followUser(user._id)" class="safe">
             Seguir
           </button>
@@ -51,7 +60,7 @@
       </div>
     </div>
 
-    <div class="users_paginas">
+    <div class="search_users_paginas">
       <button *ngIf="page > 1" (click)="prevPage()">Anterior</button>
       <button *ngIf="page < pages" (click)="nextPage()">Siguiente</button>
     </div>

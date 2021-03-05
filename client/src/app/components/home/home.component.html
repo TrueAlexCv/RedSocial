@@ -1,16 +1,14 @@
 <div class="home">
-
-  <div class="home_info">
-    <div class="home_info_caja">
-      <h2 class="home_info_caja_titulo">Twitter Rojo</h2>
-      <p class="home_info_caja_texto">Red Social estilo Twitter, de color rojo porque
-        el rojo mola.</p>
+    <div class="home_info">
+      <div class="home_info_caja">
+        <h2 class="home_info_caja_titulo">Twitter Rojo</h2>
+        <p class="home_info_caja_texto">Red Social estilo Twitter, de color rojo porque
+          el rojo mola.</p>
+      </div>
     </div>
-  </div>
 
-  <div *ngIf='!identity' class="home_join">
-    <button [routerLink]="['login']">Iniciar Sesión</button>
-    <button class="register" [routerLink]="['register']">Registrarse</button>
-  </div>
-
+    <div *ngIf='!identity' class="home_join">
+      <button [routerLink]="['login']">Iniciar Sesión</button>
+      <button class="home_join_register" [routerLink]="['register']">Registrarse</button>
+    </div>
 </div>

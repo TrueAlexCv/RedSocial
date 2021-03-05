@@ -20,7 +20,7 @@
         <img *ngIf="follow.user.image else defaultImage" [routerLink]="['/profile',follow.user._id]"
           src="{{url+'getImage/'+follow.user.image}}" />
         <ng-template #defaultImage>
-          <img [routerLink]="['/profile',follow.user._id]" src="assets/default/imagedefault.png" />
+          <img [routerLink]="['/profile',follow.user._id]" src="assets/default/image_default.png" />
         </ng-template>
         <p class="chat_users_user_caja_nombre">
           {{follow.user.name}} | @{{follow.user.nick}}

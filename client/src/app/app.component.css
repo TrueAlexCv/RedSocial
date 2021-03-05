@@ -177,56 +177,6 @@
   cursor: pointer;
 }
 
-.closePublication {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: 8;
-}
-
-.closePublication_barra {
-  position: relative;
-  left: 25%;
-  top: 21%;
-  width: 50%;
-  height: 8%;
-  border: 2px solid black;
-  background: #eee;
-}
-
-.closePublication_barra_boton {
-  height: 100%;
-  outline: none;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding-left: 1%;
-}
-
-.closePublication_barra_2 {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  left: 25%;
-  top: 63%;
-  width: 50%;
-  height: 8%;
-  background: #eee;
-  border-bottom: 2px solid black;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
-}
-
-.closePublication_barra_2_boton {
-  height: 100%;
-  outline: none;
-  background: greenyellow;
-  cursor: pointer;
-  padding-left: 1%;
-  border: 1px solid black;
-}
-
 /* Loading: */
 
 .loading {

@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {GLOBAL} from '../../services/global';
-import {UserService} from '../../services/user.service';
-import {PublicationService} from '../../services/publication.service';
-import {FollowService} from '../../services/follow.service';
-import {LikeService} from '../../services/like.service';
-import {Follow} from '../../models/follow';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { GLOBAL } from '../../services/global';
+import { UserService } from '../../services/user.service';
+import { PublicationService } from '../../services/publication.service';
+import { FollowService } from '../../services/follow.service';
+import { LikeService } from '../../services/like.service';
+import { Follow } from '../../models/follow';
 
 @Component({
   selector: 'profile',
@@ -31,9 +31,9 @@ export class ProfileComponent implements OnInit {
 
   /* Seguimiento: */
   public follows!: any;
-  public followCursor!: any;
 
   /* Special: */
+  public followCursor!: any;
   public showLikes = false;
 
   constructor(

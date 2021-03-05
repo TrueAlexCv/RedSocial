@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {GLOBAL} from '../../services/global';
 import {UserService} from '../../services/user.service';
 import {PublicationService} from '../../services/publication.service';
@@ -38,7 +38,6 @@ export class PublicationsUserComponent implements OnInit {
   public storePublicationId!: any;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private userService: UserService,
     private publicationService: PublicationService,
@@ -51,7 +50,7 @@ export class PublicationsUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('likes-user.component ha sido cargado correctamente');
+    console.log('publications-user.component ha sido cargado correctamente');
     this.loadUser();
     this.getOnlyLikes();
   }

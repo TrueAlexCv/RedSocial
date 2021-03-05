@@ -25,7 +25,7 @@
     </div>
 
     <div *ngIf="this.follows" class="perfil__datos_opciones">
-      <button *ngIf="identity._id == user._id else seguimiento" [routerLink]="['/edit-profile']">
+      <button *ngIf="identity._id == user._id else seguimiento" [routerLink]="['/edit-profile']" class="editar">
         Editar perfil
       </button>
 
@@ -45,18 +45,26 @@
   </div>
 
   <div *ngIf="stats" class="perfil_stats">
-    <a class="perfil_stats_siguiendo" [routerLink]="['/following',user._id,1]">
-      Siguiendo: {{stats.following}}
-    </a>
-    <a class="perfil_stats_seguidores" [routerLink]="['/followed',user._id,1]">
-      Seguidores: {{stats.followed}}
-    </a>
-    <a (click)="showLikes = false" class="perfil_stats_publicaciones">
-      Publications: {{stats.publications}}
-    </a>
-    <a (click)="showLikes = true" class="perfil_stats_likes">
-      Likes: {{stats.likes}}
-    </a>
+    <div class="perfil_stats_siguiendo">
+      <a [routerLink]="['/following',user._id,1]">
+        Siguiendo: {{stats.following}}
+      </a>
+    </div>
+    <div class="perfil_stats_seguidores">
+      <a [routerLink]="['/followed',user._id,1]">
+        Seguidores: {{stats.followed}}
+      </a>
+    </div>
+    <div class="perfil_stats_publicaciones" [class.selected]="!showLikes">
+      <a (click)="showLikes = false">
+        Publications: {{stats.publications}}
+      </a>
+    </div>
+    <div class="perfil_stats_likes" [class.selected]="showLikes">
+      <a (click)="showLikes = true">
+        Likes: {{stats.likes}}
+      </a>
+    </div>
   </div>
 </div>
 

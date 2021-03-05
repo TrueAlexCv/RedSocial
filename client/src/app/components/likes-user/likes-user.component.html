@@ -1,14 +1,12 @@
 <div class="publicaciones">
 
-  <div *ngIf="publications" class="publicaciones_refrescar">
-    <button (click)="refresh()">Refrescar</button>
-  </div>
-
   <div *ngFor="let like of publications" class="publicaciones_publicacion">
 
-    <div class="publicaciones_publicacion_imagen" [routerLink]="['/profile',like.publication.user._id]">
-      <img *ngIf="like.publication.user.image" src="{{url+'/getImage/'+like.publication.user.image}}" />
-      <img *ngIf="!like.publication.user.image" src="assets/default/banner_default.jpg" />
+    <div class="publicaciones_publicacion_imagen">
+      <img [routerLink]="['/profile',like.publication.user._id]" *ngIf="like.publication.user.image"
+        src="{{url+'/getImage/'+like.publication.user.image}}" />
+      <img [routerLink]="['/profile',like.publication.user._id]" *ngIf="!like.publication.user.image"
+        src="assets/default/image_default.png" />
     </div>
 
     <div class="publicaciones_publicacion_datos" [routerLink]="['/publication',like.publication._id]">
@@ -37,24 +35,27 @@
     </div>
 
     <div class="publicaciones_publicacion_opciones">
-      <button class="publicaciones_publicacion_opciones_boton" (click)="desplegarOpciones(like.publication._id)">
-      </button>
+      <div class="publicaciones_publicacion_opciones_boton">
+        <img (click)="desplegarOpciones(like.publication._id)" src="assets/icons/opciones-icon.png" />
+      </div>
       <div *ngIf="this.publicationCursor == like.publication._id" class="publicaciones_publicacion_opciones_panel"
         (click)="desplegarOpciones(like.publication._id)">
         <button *ngIf="this.identity._id == like.publication.user._id" (click)="confirm = true"
-          class="publicaciones_publicacion_opciones_panel_borrar">
-          Borrar!
+          class="publicaciones_publicacion_opciones_panel_opcion">
+          Borrar publicación
         </button>
         <button *ngIf="this.identity._id != like.publication.user._id"
-          class="publicaciones_publicacion_opciones_panel_denunciar">
-          Denunciar Tweet
+          class="publicaciones_publicacion_opciones_panel_opcion">
+          Denunciar publicación
         </button>
+      </div>
+      <div class="publicaciones_publicacion_relleno" [routerLink]="['/publication',like.publication._id]">
       </div>
     </div>
   </div>
 
   <div *ngIf="page < pages" class="publicaciones_vermas">
-    <button (click)="viewMore()">Ver más publicaciones</button>
+    <button (click)="viewMore()">Ver más</button>
   </div>
 
 </div>

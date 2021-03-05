@@ -22,6 +22,8 @@ export class MakePublicationComponent implements OnInit {
   public publication: Publication;
   public files!: Array<File>;
 
+  @Output() make = new EventEmitter<boolean>();
+
   constructor(
     private userService: UserService,
     private publicationService: PublicationService,
@@ -43,6 +45,7 @@ export class MakePublicationComponent implements OnInit {
     this.publicationService.makePublication(this.token, this.publication).subscribe(
       response => {
         if (response.publication) {
+          this.make.emit(true);
           if (this.files && this.files.length) {
             this.uploadService.makeFileRequest(this.url + 'publication-image/' +
               response.publication._id, [], this.files, this.token, 'image');
@@ -58,6 +61,10 @@ export class MakePublicationComponent implements OnInit {
         console.log(error as any);
         this.status = 'error';
       });
+  }
+
+  closeMakePublication(): void {
+    this.make.emit(true);
   }
 
   uploadFiles(file: any): void {

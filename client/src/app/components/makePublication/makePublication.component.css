@@ -1,11 +1,36 @@
 .publicacion {
   position: fixed;
   z-index: 8;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  border: 2px solid black;
   width: 50%;
-  height: 42%;
+  height: 50%;
   background: #eee;
+}
+
+/* Publicación - Close: */
+
+.closePublication {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 8;
+}
+
+.closePublication_barra {
+  position: relative;
+  width: 100%;
+  height: 15%;
+  border-bottom: 1px solid black;
+  background: #eee;
+}
+
+.closePublication_barra_boton {
+  outline: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding-left: 1%;
+  padding-top: 1%;
 }
 
 /* Publicación - Cabecera: */
@@ -33,7 +58,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 85%;
+  height: 70%;
 }
 
 /* Publicación - Datos: */
@@ -101,4 +126,5 @@
   width: 40%;
   border-radius: 50px;
   background: greenyellow;
+  cursor: pointer;
 }

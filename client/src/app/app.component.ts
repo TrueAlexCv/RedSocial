@@ -1,7 +1,4 @@
-import {
-  Component, OnInit, DoCheck,
-  ViewChild, ViewContainerRef, ComponentFactoryResolver
-} from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import {
   Router, NavigationStart, NavigationEnd,
   Event, NavigationCancel, NavigationError
@@ -9,14 +6,14 @@ import {
 import { GLOBAL } from './services/global';
 import { UserService } from './services/user.service';
 import { PublicationService } from './services/publication.service';
-import { UploadService } from './services/upload.service';
 import { MakePublicationComponent } from './components/makePublication/makePublication.component';
+import { UploadService } from './services/upload.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [UserService, PublicationService, UploadService, MakePublicationComponent]
+  providers: [UserService, PublicationService, MakePublicationComponent, UploadService]
 })
 
 export class AppComponent implements OnInit, DoCheck {
@@ -30,19 +27,11 @@ export class AppComponent implements OnInit, DoCheck {
 
   /* Special: */
   public cursor: any = 0;
-  public do = false;
   public open = false;
   public loading!: boolean;
 
-  tabs = [{
-    title: 'makePublication',
-    component: MakePublicationComponent
-  }];
-
   constructor(
     private router: Router,
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private viewContainerRef: ViewContainerRef,
     private userService: UserService,
     protected publicationService: PublicationService,
     protected makePublication: MakePublicationComponent
@@ -84,33 +73,8 @@ export class AppComponent implements OnInit, DoCheck {
 
   /* makePublication: */
 
-  @ViewChild('ref', { read: ViewContainerRef }) ref: any;
-
-  chargeComponent(): void {
-    if (!this.open) {
-      const factory = this.componentFactoryResolver.resolveComponentFactory(
-        this.tabs[0].component
-      );
-      this.ref = this.viewContainerRef.createComponent(factory);
-      this.ref.changeDetectorRef.detectChanges();
-      this.open = true;
-    }
-  }
-
-  makeAndClose(): void {
-    this.ref.instance.makePublication(this.ref.instance.make);
-    this.do = true;
-    this.ngOnDestroy();
-  }
-
-  ngOnDestroy(): void {
+  makeAndClose(make: boolean): void {
     this.open = false;
-    this.ref.destroy();
-    this.ref.changeDetectorRef.detectChanges();
-    if (this.do) {
-      this.do = false;
-      this.router.navigate(['/timeline']);
-    }
   }
 
   /* Loading: */

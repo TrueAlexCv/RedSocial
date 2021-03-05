@@ -1,9 +1,10 @@
 .home {
   position: relative;
   display: flex;
-  flex-direction: row;
-  width: 80%;
-  height: 80%;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 /* Home - Info: */
@@ -13,8 +14,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 40%;
+  height: 80%;
   background: rgb(247, 247, 247);
   box-shadow: 0 0 0 0.5px #222222, 0 0 0 1px #000;
 }
@@ -33,7 +34,7 @@
   font-size: 2rem;
 }
 
-.home_info_caja_texto {
+.home_caja_info_caja_texto {
   font-size: 1rem;
 }
 
@@ -45,8 +46,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  width: 40%;
+  height: 80%;
 }
 
 .home_join > button {
@@ -65,11 +66,11 @@
   color: black;
 }
 
-.register {
+.home_join_register {
   background: rgba(255, 255, 255) !important;
 }
 
-.register:hover {
+.home_join_register:hover {
   background: rgba(255, 255, 255, 0.9) !important;
   color: black !important;
 }

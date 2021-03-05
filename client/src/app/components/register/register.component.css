@@ -1,6 +1,44 @@
 .register {
   position: relative;
   display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+/* Atras: */
+
+.register_atras {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.register_atras > button {
+  display: flex;
+  justify-content: center;
+  width: 75px;
+  background: transparent;
+  border-radius: 50px;
+  border: 1px solid black;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin: 3px;
+  outline: none;
+}
+
+.register_atras > button:hover {
+  background: #eee;
+  cursor: pointer;
+}
+
+/* Register - Box: */
+
+.register_box {
+  position: relative;
+  display: flex;
   flex-direction: column;
   width: 60%;
   height: 80%;
@@ -11,7 +49,7 @@
 
 /* Cabecera: */
 
-.register_cabecera {
+.register_box_cabecera {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -21,36 +59,53 @@
   margin-top: 10px;
 }
 
-.register_cabecera_titulo {
+.register_box_cabecera_titulo {
   font-size: 2rem;
   margin-left: 5px;
 }
 
+/* Error: */
+
+.register_box_error {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register_box_error_mensaje {
+  background: red;
+  color: white;
+  border-radius: 50px;
+  border: 2px solid black;
+  padding: 1%;
+}
+
 /* Formulario: */
 
-.register_formulario {
+.register_box_formulario {
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.register_formulario_nombre {
+.register_box_formulario_nombre {
   position: relative;
   display: flex;
-  flex-display: row;
+  flex-direction: row;
   align-items: center;
   height: 12%;
   margin-top: 5%;
 }
 
-.register_formulario_nombre_titulo {
+.register_box_formulario_nombre_titulo {
   font-size: 1.5rem;
   width: 15%;
   margin-left: 5%;
 }
 
-.register_formulario_nombre_input {
+.register_box_formulario_nombre_input {
   width: 50%;
   height: 60%;
   border: solid black;
@@ -59,21 +114,21 @@
   outline: none;
 }
 
-.register_formulario_nick {
+.register_box_formulario_nick {
   position: relative;
   display: flex;
-  flex-display: column;
+  flex-direction: row;
   align-items: center;
   height: 12%;
 }
 
-.register_formulario_nick_titulo {
+.register_box_formulario_nick_titulo {
   font-size: 1.5rem;
   width: 15%;
   margin-left: 5%;
 }
 
-.register_formulario_nick_input {
+.register_box_formulario_nick_input {
   width: 50%;
   height: 60%;
   border: solid black;
@@ -82,7 +137,7 @@
   outline: none;
 }
 
-.register_formulario_email {
+.register_box_formulario_email {
   position: relative;
   display: flex;
   flex-display: column;
@@ -90,13 +145,13 @@
   height: 12%;
 }
 
-.register_formulario_email_titulo {
+.register_box_formulario_email_titulo {
   font-size: 1.5rem;
   width: 15%;
   margin-left: 5%;
 }
 
-.register_formulario_email_input {
+.register_box_formulario_email_input {
   width: 50%;
   height: 60%;
   border: solid black;
@@ -105,7 +160,7 @@
   outline: none;
 }
 
-.register_formulario_password {
+.register_box_formulario_password {
   position: relative;
   display: flex;
   flex-display: column;
@@ -113,13 +168,13 @@
   height: 12%;
 }
 
-.register_formulario_password_titulo {
+.register_box_formulario_password_titulo {
   font-size: 1.3rem;
   width: 15%;
   margin-left: 5%;
 }
 
-.register_formulario_password_input {
+.register_box_formulario_password_input {
   width: 50%;
   height: 60%;
   border: solid black;
@@ -128,7 +183,7 @@
   outline: none;
 }
 
-.register_formulario_error {
+.register_box_formulario_error {
   height: 5%;
   width: 65%;
   font-size: 1rem;
@@ -142,7 +197,7 @@
 
 /* Terminos y condiciones: */
 
-.register_formulario_terminos {
+.register_box_formulario_terminos {
   position: relative;
   display: flex;
   flex-display: column;
@@ -150,24 +205,24 @@
   height: 12%;
 }
 
-.register_formulario_terminos_titulo {
+.register_box_formulario_terminos_titulo {
   font-size: 1.3rem;
   text-decoration: none;
   color: black;
 }
 
-.register_formulario_terminos_titulo:hover {
+.register_box_formulario_terminos_titulo:hover {
   color: #0a4481;
 }
 
-.register_formulario_terminos_input {
+.register_box_formulario_terminos_input {
   height: 50%;
   margin-left: 5%;
   margin-right: 2%;
   transform: scale(1.5);
 }
 
-.register_formulario_terminos_error {
+.register_box_formulario_terminos_error {
   font-size: 1rem;
   margin-left: 5%;
   border: 1px solid black;
@@ -180,7 +235,7 @@
 
 /* Submit: */
 
-.register_formulario_submit:disabled {
+.register_box_formulario_submit:disabled {
   position: relative;
   height: 12%;
   margin-bottom: 5%;
@@ -193,13 +248,13 @@
   outline: none;
 }
 
-.register_formulario_submit:hover:disabled {
+.register_box_formulario_submit:hover:disabled {
   background: #c3c3c3;
   color: white;
   border: 1px solid gray;
 }
 
-.register_formulario_submit {
+.register_box_formulario_submit {
   position: relative;
   height: 12%;
   margin-bottom: 5%;
@@ -213,32 +268,8 @@
   cursor: pointer;
 }
 
-.register_formulario_submit:hover {
+.register_box_formulario_submit:hover {
   background: red;
   color: white;
   border: 2px solid black;
-}
-
-/* Atras: */
-
-.atras {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.atras > button {
-  border-radius: 50px;
-  background: transparent;
-  border: 1px solid black;
-  outline: none;
-  padding-right: 10px;
-  width: 5%;
-  margin: 3px;
-}
-
-.atras > button:hover {
-  background: #eee;
-  cursor: pointer;
 }

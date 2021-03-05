@@ -1,3 +1,5 @@
+/* Publicaciones: */
+
 .publicaciones {
   position: relative;
   display: flex;
@@ -5,8 +7,10 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-bottom: 1%;
+  scroll-behavior: smooth;
 }
+
+/* Publicaciones - Publicación: */
 
 .publicaciones_publicacion {
   position: relative;
@@ -14,11 +18,17 @@
   flex-direction: row;
   vertical-align: top;
   width: 50%;
-  border: 1px solid black;
-  background: rgba(0,186,217,0.11);
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  cursor: pointer;
+  outline: none;
 }
 
-/* Publicacion - Imagen: */
+.publicaciones_publicacion:hover {
+  background: #f3f3f3;
+  transition: 0.2s;
+}
 
 .publicaciones_publicacion_imagen {
   position: relative;
@@ -29,17 +39,15 @@
   height: 100%;
   padding: 1%;
   outline: none;
-  cursor: pointer;
 }
 
-.publicaciones_publicacion_imagen > img {
+.publicaciones_publicacion_imagen>img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   border: 1px solid black;
+  outline: none;
 }
-
-/* Publicacion - Datos: */
 
 .publicaciones_publicacion_datos {
   position: relative;
@@ -49,6 +57,7 @@
   width: 80%;
   height: 100%;
   padding: 1%;
+  outline: none;
 }
 
 .publicaciones_publicacion_datos_nombres {
@@ -58,13 +67,14 @@
   vertical-align: top;
 }
 
-.publicaciones_publicacion_datos_nombres > a {
+.publicaciones_publicacion_datos_nombres>a {
   text-decoration: none;
   color: black;
   font-size: 1.2rem;
+  z-index: 2;
 }
 
-.publicaciones_publicacion_datos_nombres > a:hover {
+.publicaciones_publicacion_datos_nombres>a:hover {
   color: #0a4481;
 }
 
@@ -73,7 +83,6 @@
   padding-left: 2%;
   font-style: italic;
 }
-
 
 .publicaciones_publicacion_datos_likes {
   position: relative;
@@ -86,28 +95,39 @@
 
 .publicaciones_publicacion_datos_likes_like {
   list-style: none;
-  cursor: pointer;
 }
 
-.publicaciones_publicacion_datos_likes_like > img {
+.publicaciones_publicacion_datos_likes_like>img {
   width: 20px;
   height: 20px;
 }
-
-/* Publicacion - Opciones: */
 
 .publicaciones_publicacion_opciones {
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   vertical-align: top;
   width: 10%;
 }
 
 .publicaciones_publicacion_opciones_boton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  padding: 5px;
+}
+
+.publicaciones_publicacion_opciones_boton:hover {
+  background: rgb(255, 100, 100, 0.2);
+}
+
+.publicaciones_publicacion_opciones_boton>img {
   width: 20px;
   height: 20px;
-  border-radius: 50px;
   outline: none;
   cursor: pointer;
 }
@@ -118,25 +138,97 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  top: 20px;
-  border: 1px solid black;
+  top: 25px;
+  z-index: 3;
+  padding: 2px;
 }
 
-.publicaciones_publicacion_opciones_panel_borrar {
-  width: 100%;
-  height: 50px;
+.publicaciones_publicacion_opciones_panel_opcion {
+  width: 80px;
+  height: 40px;
   outline: none;
-  background: #8989dd;
+  background: #fdfdfd;
   font-size: 1rem;
+  border: none;
   cursor: pointer;
 }
 
-.publicaciones_publicacion_opciones_panel_denunciar {
+.publicaciones_publicacion_opciones_panel_opcion:hover {
+  background: #dfdfe7;
+}
+
+.publicaciones_publicacion_relleno {
   width: 100%;
+  height: 100%;
   outline: none;
-  background: #8989dd;
-  font-size: 1rem;
+}
+
+/* Publicaciones - Ver más: */
+
+.publicaciones_vermas {
+  position: relative;
+  padding: 5px;
+}
+
+.publicaciones_vermas>button {
   cursor: pointer;
+  border: none;
+  padding: 10px;
+  background: rgb(255, 100, 100, 0.2);
+}
+
+.publicaciones_vermas>button:hover {
+  background: rgb(243, 69, 69);
+}
+
+/* Publicaciones - No más: */
+
+.publicaciones_nomas {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.publicaciones_nomas_titulo {
+  font-size: 1.5rem;
+}
+
+.publicaciones_nomas_texto {
+  font-size: 1rem;
+}
+
+.publicaciones_nomas_texto>span {
+  color: rgb(208, 208, 255);
+  cursor: pointer;
+  outline: none;
+}
+
+.publicaciones_nomas_texto>span:hover {
+  color: rgb(176, 176, 252);
+  text-decoration: underline;
+}
+
+/* Publicaciones - No Pubs: */
+
+.publicaciones_nopubs {
+  position: relative;
+  padding: 5px;
+}
+
+.publicaciones_nopubs_texto {
+  font-size: 1rem;
+}
+
+.publicaciones_nopubs_texto>span {
+  color: rgb(208, 208, 255);
+  cursor: pointer;
+  outline: none;
+}
+
+.publicaciones_nopubs_texto>span:hover {
+  color: rgb(176, 176, 252);
+  text-decoration: underline;
 }
 
 /* Confirmar: */
@@ -148,7 +240,7 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  z-index: 8;
+  z-index: 7;
   top: 0;
 }
 
@@ -185,6 +277,7 @@
   height: 50%;
   padding: 2%;
 }
+
 .confirmar_ventana_botones {
   position: relative;
   display: flex;

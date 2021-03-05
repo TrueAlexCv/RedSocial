@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../services/user.service';
-import {GLOBAL} from '../../services/global';
-import {Follow} from '../../models/follow';
-import {FollowService} from '../../services/follow.service';
+import { Component, OnInit } from '@angular/core';
+import { GLOBAL } from '../../services/global';
+import { UserService } from '../../services/user.service';
+import { FollowService } from '../../services/follow.service';
+import { Follow } from '../../models/follow';
 
 @Component({
   selector: 'search',
@@ -12,19 +12,26 @@ import {FollowService} from '../../services/follow.service';
 })
 
 export class SearchComponent implements OnInit {
+  /* Basic: */
   public title: string;
-  public status!: string;
   public url: string;
+  public status!: string;
+
+  /* Identity: */
   public identity: any;
   public token: any;
-  public users!: any;
+
+  /* Users: */
   public span!: any;
+  public users!: any;
   public total!: number;
   public page!: number;
   public pages!: number;
-  public mostrar = false;
-  public prev!: number;
   public next!: number;
+  public prev!: number;
+
+  /* Special: */
+  public mostrar = false;
   public myFollows!: any;
   public followCursor!: any;
 
@@ -49,8 +56,8 @@ export class SearchComponent implements OnInit {
     const params = {
       word: this.span
     };
-    this.userService.searchUsers(page, params).subscribe(
-      response => {
+    this.userService.searchUsers(page, params).subscribe({
+      next: (response) => {
         if (response.users) {
           this.users = response.users;
           this.total = response.total;
@@ -58,10 +65,12 @@ export class SearchComponent implements OnInit {
           this.status = 'success';
         }
       },
-      error => {
+      error: (error) => {
         console.log(error as any);
         this.status = 'error';
-      });
+      }
+    }
+    );
     this.mostrar = true;
   }
 

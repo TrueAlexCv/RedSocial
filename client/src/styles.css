@@ -21,29 +21,18 @@ app-root {
 
 home {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: calc(100vh - 70px);
 }
 
 register {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
   width: 100%;
   height: calc(100vh - 70px);
 }
 
 login {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
   width: 100%;
   height: calc(100vh - 70px);
 }

@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute, Params} from '@angular/router';
-import {UserService} from '../../services/user.service';
-import {GLOBAL} from '../../services/global';
-import {Follow} from '../../models/follow';
-import {FollowService} from '../../services/follow.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { GLOBAL } from '../../services/global';
+import { UserService } from '../../services/user.service';
+import { FollowService } from '../../services/follow.service';
+import { Follow } from '../../models/follow';
 
 @Component({
   selector: 'users',
@@ -13,25 +13,32 @@ import {FollowService} from '../../services/follow.service';
 })
 
 export class UsersComponent implements OnInit {
+  /* Basic: */
   public title: string;
   public url: string;
   public status!: string;
+
+  /* Identity: */
   public identity: any;
   public token: any;
+
+  /* Users: */
   public users!: any;
   public page: number;
   public pages!: number;
-  public total!: number;
   public next!: number;
   public prev!: number;
+
+  /* Seguimiento: */
   public follows!: any;
+
+  /* Special: */
   public followCursor!: any;
 
   constructor(
+    private route: ActivatedRoute,
     private userService: UserService,
     private followService: FollowService,
-    private router: Router,
-    private route: ActivatedRoute
   ) {
     this.title = 'Usuarios';
     this.url = GLOBAL.url;
@@ -43,20 +50,19 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     console.log('users.component ha sido cargado correctamente');
     this.actualPage();
+    this.getOnlyFollowing();
   }
 
   actualPage(): void {
     this.route.params.subscribe(params => {
       let page = +params.page;
       this.page = page;
-
       if (!page) {
         page = 1;
         this.next = 2;
       } else {
         this.next = page + 1;
         this.prev = page - 1;
-
         if (this.prev <= 0) {
           this.prev = 1;
         }
@@ -70,9 +76,24 @@ export class UsersComponent implements OnInit {
       response => {
         if (response.users) {
           this.users = response.users;
-          this.total = response.total;
           this.pages = response.pages;
-          this.follows = response.users_following;
+        } else {
+          this.status = 'error';
+        }
+      },
+      error => {
+        console.log(error as any);
+        this.status = 'error';
+      });
+  }
+
+  /* Seguimiento de usuarios: */
+
+  getOnlyFollowing(): void {
+    this.followService.getOnlyFollowing(this.token).subscribe(
+      response => {
+        if (response.following) {
+          this.follows = response.following;
         } else {
           this.status = 'error';
         }
